@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Molecular Modeling Software: OpenMM | fastpayges</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Molecular Modeling Software: OpenMM" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Fastpages-based website" />
+<meta property="og:description" content="Fastpages-based website" />
+<link rel="canonical" href="https://ahy3nz.github.io/fastpayges/molecular%20modeling/scientific%20computing/grad%20school/2019/10/29/openmm1.html" />
+<meta property="og:url" content="https://ahy3nz.github.io/fastpayges/molecular%20modeling/scientific%20computing/grad%20school/2019/10/29/openmm1.html" />
+<meta property="og:site_name" content="fastpayges" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2019-10-29T00:00:00-05:00" />
+<script type="application/ld+json">
+{"url":"https://ahy3nz.github.io/fastpayges/molecular%20modeling/scientific%20computing/grad%20school/2019/10/29/openmm1.html","@type":"BlogPosting","headline":"Molecular Modeling Software: OpenMM","dateModified":"2019-10-29T00:00:00-05:00","datePublished":"2019-10-29T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://ahy3nz.github.io/fastpayges/molecular%20modeling/scientific%20computing/grad%20school/2019/10/29/openmm1.html"},"description":"Fastpages-based website","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/fastpayges/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://ahy3nz.github.io/fastpayges/feed.xml" title="fastpayges" /><link rel="shortcut icon" type="image/x-icon" href="/fastpayges/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.css" integrity="sha512-h7nl+xz8wgDlNM4NqKEM4F1NkIRS17M9+uJwIGwuo8vGqIl4BhuCKdxjWEINm+xyrUjNCnK5dCrhM0sj+wTIXw==" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.js" integrity="sha512-/CMIhXiDA3m2c9kzRyd97MTb3MC6OVnx4TElQ7fkkoRghwDf6gi41gaT1PwF270W6+J60uTmwgeRpNpJdRV6sg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/contrib/auto-render.min.js" integrity="sha512-Do7uJAaHZm5OLrIv/yN4w0iG1dbu01kzdMNnFfu/mAqgUk6Nniv2JYHcwH+cNwjqgLcqcuBBk+JRvprLVI8azg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha512-0doc9hKxR3PYwso42RD1p5ySZpzzuDiOwMrdCEh2WdJZCjcmFKc/wEnL+z8fBQrnHoiNWbo+3fiGkOYXBdQp4A==" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/fastpayges/">fastpayges</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/fastpayges/about/">About Me</a><a class="page-link" href="/fastpayges/search/">Search</a><a class="page-link" href="/fastpayges/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Molecular Modeling Software: OpenMM</h1><p class="post-meta post-meta-title"><time class="dt-published" datetime="2019-10-29T00:00:00-05:00" itemprop="datePublished">
+        Oct 29, 2019
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      10 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/fastpayges/categories/#molecular modeling">molecular modeling</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/fastpayges/categories/#scientific computing">scientific computing</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/fastpayges/categories/#grad school">grad school</a>
+        
+      
+      </p>
+    
+
+    
+      
+        <div class="pb-5 d-flex flex-wrap flex-justify-end">
+          <div class="px-2">
+
+    <a href="https://github.com/ahy3nz/fastpayges/tree/master/_notebooks/2019-10-29-openmm1.ipynb" role="button" target="_blank">
+<img class="notebook-badge-image" src="/fastpayges/assets/badges/github.svg" alt="View On GitHub">
+    </a>
+</div>
+
+          
+          
+        </div>
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/2019-10-29-openmm1.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><a href="http://openmm.org/">OpenMM</a> is 
+"A high performance toolkit for molecular simulation. Use it as a library, or as an application. We include extensive language bindings for Python, C, C++, and even Fortran. The code is open source and actively maintained on Github, licensed under MIT and LGPL. Part of the Omnia suite of tools for predictive biomolecular simulation." Here's their <a href="https://github.com/openmm/openmm">GitHub repo</a>, and <a href="https://anaconda.org/omnia/openmm">Conda link</a>, though I think they might be relocating their channel to conda-forge.</p>
+<p>Here's my opinion, OpenMM is a very powerful, flexible engine that has integration with a variety of other MD engines, supports a variety of molecular models, excellent GPU support, active open-source development, and is the underlying molecular dynamics engine for OpenForceField efforts, but very easy to port to other MD engines via ParmEd. There's also support for enhanced sampling and integration with deep learning libraries. If there was a 21st century, best-software-practices, open-source software for molecular modelling and simulation, OpenMM (or HOOMD) would likely be it.</p>
+<p>In reality, I'm not sure how many graduate students/academic labs opt to use OpenMM if the lab has historically used another MD engine. Also, this is a somewhat unfounded observation, but I'm curious if/how much the computer-aided drug design industry has adopted the use of OpenMM. More editorializing, but my graduate work never brought me into tight overlap with the OpenMM world/community, but it certainly seems like a vibrant community that is pushing the development and popularity of molecular modelling and simulation</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="The-OpenMM-Public-API">The OpenMM Public API<a class="anchor-link" href="#The-OpenMM-Public-API"> </a></h2><p>I'm mainly summarizing and regurgitating the <a href="http://docs.openmm.org/latest/userguide/library.html#the-openmm-public-api">OpenMM documentation</a>. These are some important terms to know within the OpenMM API:</p>
+<ul>
+<li><strong>System</strong> - this object stores information about numbers of particles, particle masses, box information, constraints, and virtual site information. Note the lack of positions, bonding information, integrators, simulation run parameters. The <strong>System</strong> object also contains your <strong>Forces</strong>.</li>
+<li><strong>Force</strong> - <strong>Force</strong> objects describe how your particles interact with each other. This is where your force field gets implemented - outlining the molecular model forces in play, the treatment of long range interactions, and even your barostat. This is, broadly, what a <strong>Force</strong> object is, but there is much more in the details of specific <strong>Force</strong> objects, like an <code>openmm.HarmonicBondForce</code>.<ul>
+<li>Upon implementation, it's interesting to note that the "Container" is the <strong>Force</strong> object, and it contains the parameters and particles the obey this force. Sort of turning this concept upside-down, Parmed's atoms and bonds are the objects that contain the interaction parameters of that force.
+from a <strong>Context</strong> </li>
+</ul>
+</li>
+<li><strong>Integrator</strong> - This is the integration algorithm by which you progress your particle's positions and simulation over time.</li>
+<li><strong>Context</strong> - this object stores information about your particle coordinates, velocities, and specially-defined/parametrized <strong>Forces</strong>. When you run an actual simulation or produce a trajectory, you will have to start from a <strong>Context</strong>. <strong>Contexts</strong> contain information about integrators, which helps distinguish information about your molecular model of your <strong>System</strong> (forces, masses) from the things that will be used to run your simulation.</li>
+<li><strong>State</strong> - this is like a single frame/snapshot/checkpoint within your simulation. It's everything that was being calculated at that particular timestep. If you want peer into your simulation, you will be looking at its <strong>State</strong>. If you want to report some information, you will be parsing information from the <strong>State</strong>.</li>
+</ul>
+<p>There are numerous tutorials on running OpenMM simulations, but I want to focus on building the OpenMM objects and everything before you need to think about <strong>Integrators</strong> or <strong>States</strong>, as this is key for builting interoperability between molecular modelling software.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">simtk.unit</span> <span class="k">as</span> <span class="nn">unit</span>
+<span class="kn">import</span> <span class="nn">simtk.openmm</span> <span class="k">as</span> <span class="nn">openmm</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>In this bare-bones model, we will just create an <code>OpenMM.System</code> object, and the only forces interacting in the system will be the <code>OpenMM.NonbondedForce</code>. After we add the <code>force</code> to the <code>system</code>, we are returned the index of the <code>force</code> - if you wanted to find it within our <code>system</code> via <code>system.getForces()</code>, which is a list of <code>force</code> objects. <a href="http://docs.openmm.org/latest/userguide/library.html#running-a-simulation-using-the-openmm-public-api">Credit to the OpenMM documentation</a></p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">system</span> <span class="o">=</span> <span class="n">openmm</span><span class="o">.</span><span class="n">System</span><span class="p">()</span> <span class="c1"># Create the openmm System</span>
+
+<span class="n">nonbonded_force</span> <span class="o">=</span> <span class="n">openmm</span><span class="o">.</span><span class="n">NonbondedForce</span><span class="p">()</span> <span class="c1"># Create the Force object, specifically, a NonbondedForce object</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">system</span><span class="o">.</span><span class="n">addForce</span><span class="p">(</span><span class="n">nonbonded_force</span><span class="p">))</span> <span class="c1"># Returns the index of the force we just added</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">system</span><span class="o">.</span><span class="n">getForces</span><span class="p">())</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>0
+[&lt;simtk.openmm.openmm.NonbondedForce; proxy of &lt;Swig Object of type &#39;OpenMM::NonbondedForce *&#39; at 0x107166510&gt; &gt;]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>As a brief foray into python-C++ interfaces, these two objects have slightly different (python) addresses, but we will see that they refer to the same C++ object</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">system</span><span class="o">.</span><span class="n">getForce</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">nonbonded_force</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>&lt;simtk.openmm.openmm.NonbondedForce; proxy of &lt;Swig Object of type &#39;OpenMM::NonbondedForce *&#39; at 0x1071664e0&gt; &gt;
+&lt;simtk.openmm.openmm.NonbondedForce; proxy of &lt;Swig Object of type &#39;OpenMM::NonbondedForce *&#39; at 0x103e46fc0&gt; &gt;
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Next, we will start creating our particles and nonbonded interaction parameters.
+This code is contrived for sake of example, but you can imagine there are more sophisticated and relevant ways to add positions, masses, or nonbonded parameters</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">itertools</span> <span class="k">as</span> <span class="nn">it</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="n">positions</span> <span class="o">=</span> <span class="p">[]</span> <span class="c1"># Create a running list of positions</span>
+<span class="k">for</span> <span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span> <span class="ow">in</span> <span class="n">it</span><span class="o">.</span><span class="n">product</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="n">repeat</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span> <span class="c1"># Looping through a 3-dimensional grid, 27 coordinates</span>
+    <span class="c1"># Add to our running list of positions</span>
+    <span class="c1"># Note that these are just ints, we will have to turn them into simtk.Quantity later</span>
+    <span class="n">positions</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">])</span> 
+    
+    <span class="c1"># Add the particle&#39;s mass to the System object</span>
+    <span class="n">system</span><span class="o">.</span><span class="n">addParticle</span><span class="p">(</span><span class="mf">39.95</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">amu</span><span class="p">)</span>
+    
+    <span class="c1"># Add nonbonded parameters to our NonbondedForce object - charge, LJ sigma, LJ epsilon</span>
+    <span class="n">nonbonded_force</span><span class="o">.</span><span class="n">addParticle</span><span class="p">(</span><span class="mi">0</span><span class="o">*</span><span class="n">unit</span><span class="o">.</span><span class="n">elementary_charge</span><span class="p">,</span> 
+                                <span class="mf">0.3350</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">nanometer</span><span class="p">,</span>
+                               <span class="mf">0.996</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">kilojoule_per_mole</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We can compare the two <code>force</code> objects from earlier - the <code>NonbondedForce</code> we created from code and the <code>NonbondedForce</code> that is returned when we access our <code>system</code>. Both refer to the same underlying <code>OpenMM.NonbondedForce</code> object and will reflect the same information. These are just two ways of accessing this object. The <code>system</code> also agrees with the number of particles we have added.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="p">(</span><span class="n">system</span><span class="o">.</span><span class="n">getForce</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">getNumParticles</span><span class="p">(),</span> <span class="n">nonbonded_force</span><span class="o">.</span><span class="n">getNumParticles</span><span class="p">(),</span> <span class="n">system</span><span class="o">.</span><span class="n">getNumParticles</span><span class="p">())</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>(27, 27, 27)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The next object to deal with is the <code>OpenMM.Context</code>, which specifies positions. First we need to convert our list of coordinates into a more-tractable <code>numpy.ndarray</code> of coordinates, and then turn that into a <code>simtk.Quantity</code> of our coordinates. Additionally, the <code>OpenMM.Context</code> constructor requires an integrator (at this point we are trying to build our simulation), and then we can specify the positions within that context</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">np_positions</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">positions</span><span class="p">)</span>
+<span class="n">unit_positions</span> <span class="o">=</span> <span class="n">np_positions</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">nanometer</span>
+<span class="nb">type</span><span class="p">(</span><span class="n">np_positions</span><span class="p">),</span> <span class="nb">type</span><span class="p">(</span><span class="n">unit_positions</span><span class="p">)</span>
+<span class="n">integrator</span> <span class="o">=</span> <span class="n">openmm</span><span class="o">.</span><span class="n">VerletIntegrator</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span> <span class="c1"># 1 ps timestep</span>
+<span class="n">context</span> <span class="o">=</span> <span class="n">openmm</span><span class="o">.</span><span class="n">Context</span><span class="p">(</span><span class="n">system</span><span class="p">,</span> <span class="n">integrator</span><span class="p">)</span> <span class="c1"># create context</span>
+<span class="n">context</span><span class="o">.</span><span class="n">setPositions</span><span class="p">(</span><span class="n">unit_positions</span><span class="p">)</span> <span class="c1"># specify positions within context</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We can parse some information about our <code>context</code>, and this is done by getting the <code>state</code> of our <code>context</code>.
+Note how the time is 0.0 ps (we haven't run our simulation at all).
+But we can also parse the potential energy of our context - this is the potential energy given the positions we initialized and forces we specified.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">context</span><span class="o">.</span><span class="n">getState</span><span class="p">()</span><span class="o">.</span><span class="n">getTime</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">context</span><span class="o">.</span><span class="n">getState</span><span class="p">(</span><span class="n">getEnergy</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">getPotentialEnergy</span><span class="p">())</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>0.0 ps
+-0.3682566285133362 kJ/mol
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>What happens to our <code>state</code> after we've run for some amount of time? We will run for 10 time steps (or 10 ps since our timestep is 1 ps). We can see the the <code>time</code> reported by our <code>state</code> has changed, and so has the <code>potentialEnergy</code></p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">integrator</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="c1"># Run for 10 timesteps</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">context</span><span class="o">.</span><span class="n">getState</span><span class="p">()</span><span class="o">.</span><span class="n">getTime</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">context</span><span class="o">.</span><span class="n">getState</span><span class="p">(</span><span class="n">getEnergy</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">getPotentialEnergy</span><span class="p">())</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>10.0 ps
+-0.5352763533592224 kJ/mol
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">system</span><span class="p">),</span> <span class="nb">type</span><span class="p">(</span><span class="n">context</span><span class="p">),</span> <span class="nb">type</span><span class="p">(</span><span class="n">integrator</span><span class="p">),</span> <span class="nb">type</span><span class="p">(</span><span class="n">nonbonded_force</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>(simtk.openmm.openmm.System,
+ simtk.openmm.openmm.Context,
+ simtk.openmm.openmm.VerletIntegrator,
+ simtk.openmm.openmm.NonbondedForce)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>This summarizes how <code>system</code>, <code>force</code>, <code>context</code>, <code>state</code>, and <code>integrator</code> objects interact with each other within the OpenMM API. Side note, observe where in the API these are stored - at the base level <code>openmm.XYZ</code>, this next section will move "up a level" to some objects and API that build off these base level API</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="More-practical-OpenMM-simulations">More practical OpenMM simulations<a class="anchor-link" href="#More-practical-OpenMM-simulations"> </a></h2><p>We just talked about some of the base-layer objects within OpenMM, but often people will "wrap" those base layer objects within an <code>OpenMM.Simulation</code> object, pass topological (bonding + box information) through a <code>openmm.Topology</code> object, attach <code>reporter</code> objects, and then run the simulation.</p>
+<p>The <code>Simulation</code> wraps the <code>topology</code>, <code>system</code>, <code>integrator</code>, and hardware platforms and implicitly creates the <code>Context</code>.</p>
+<p>The <code>Topology</code> contains information about the atoms, bonds, chains, and residues within your system, in addition to box information.</p>
+<p>Reporter objects are used to print/save various information about the trajectory.</p>
+<ul>
+<li><a href="http://docs.openmm.org/latest/api-python/generated/simtk.openmm.app.simulation.Simulation.html"><code>OpenMM.Simulation</code> documentation</a></li>
+<li><a href="http://docs.openmm.org/latest/api-python/generated/simtk.openmm.app.topology.Topology.html"><code>OpenMM.Topology</code> documentation</a></li>
+<li><a href="http://docs.openmm.org/latest/api-python/app.html#reporting-output">OpenMM reporters</a></li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Here's some contrived code to quickly make an ethane molecule, atomtype, and parametrize according to OPLSAA</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">mbuild</span> <span class="k">as</span> <span class="nn">mb</span>
+<span class="kn">import</span> <span class="nn">foyer</span>
+<span class="kn">import</span> <span class="nn">parmed</span> <span class="k">as</span> <span class="nn">pmd</span>
+<span class="kn">from</span> <span class="nn">mbuild.examples</span> <span class="kn">import</span> <span class="n">Ethane</span>
+<span class="n">cmpd</span> <span class="o">=</span> <span class="n">Ethane</span><span class="p">()</span> <span class="c1"># mbuild compound</span>
+<span class="n">ff</span> <span class="o">=</span> <span class="n">foyer</span><span class="o">.</span><span class="n">Forcefield</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;oplsaa&#39;</span><span class="p">)</span> <span class="c1"># foyer forcefield</span>
+<span class="n">structure</span> <span class="o">=</span> <span class="n">ff</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">cmpd</span><span class="p">)</span> <span class="c1"># apply forcefield to compound to get a pmd.Structure</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>/Users/ayang41/Programs/foyer/foyer/validator.py:132: ValidationWarning: You have empty smart definition(s)
+  warn(&#34;You have empty smart definition(s)&#34;, ValidationWarning)
+/Users/ayang41/Programs/foyer/foyer/forcefield.py:248: UserWarning: Parameters have not been assigned to all impropers. Total system impropers: 8, Parameterized impropers: 0. Note that if your system contains torsions of Ryckaert-Bellemans functional form, all of these torsions are processed as propers
+  warnings.warn(msg)
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Now we have a <code>parmed.Structure</code> that has atomtypes and force field parameters. 
+Conveniently, <code>parmed.Structure</code> can quickly create an <code>openmm.app.topology</code> object, and we can see some basic information like numbers of atoms and bonds.
+It's also worth observing that this is <code>openmm.app.topology</code>, within the "application layer", one level above the base layer</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">structure</span><span class="o">.</span><span class="n">topology</span><span class="p">)</span> <span class="c1"># the parmed structure can create the openmm topology</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">structure</span><span class="o">.</span><span class="n">topology</span><span class="p">))</span>
+<span class="p">[</span><span class="n">a</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">structure</span><span class="o">.</span><span class="n">topology</span><span class="o">.</span><span class="n">atoms</span><span class="p">()]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>&lt;Topology; 1 chains, 1 residues, 8 atoms, 7 bonds&gt;
+&lt;class &#39;simtk.openmm.app.topology.Topology&#39;&gt;
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[&lt;Atom 0 (C) of chain 0 residue 0 (RES)&gt;,
+ &lt;Atom 1 (H) of chain 0 residue 0 (RES)&gt;,
+ &lt;Atom 2 (H) of chain 0 residue 0 (RES)&gt;,
+ &lt;Atom 3 (H) of chain 0 residue 0 (RES)&gt;,
+ &lt;Atom 4 (C) of chain 0 residue 0 (RES)&gt;,
+ &lt;Atom 5 (H) of chain 0 residue 0 (RES)&gt;,
+ &lt;Atom 6 (H) of chain 0 residue 0 (RES)&gt;,
+ &lt;Atom 7 (H) of chain 0 residue 0 (RES)&gt;]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We can now build out some other relevant features of running a simulation</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">system</span> <span class="o">=</span> <span class="n">structure</span><span class="o">.</span><span class="n">createSystem</span><span class="p">()</span> <span class="c1"># the parmed structure can create the openmm system</span>
+<span class="n">integrator</span> <span class="o">=</span> <span class="n">openmm</span><span class="o">.</span><span class="n">VerletIntegrator</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span> <span class="c1"># create another openmm integrator</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Putting it all together, we make our <code>Simluation</code> object. Once again, note how this is within the <code>app</code> layer</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">simulation</span> <span class="o">=</span> <span class="n">openmm</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">Simulation</span><span class="p">(</span><span class="n">structure</span><span class="o">.</span><span class="n">topology</span><span class="p">,</span> <span class="n">system</span><span class="p">,</span> <span class="n">integrator</span><span class="p">)</span>
+<span class="nb">type</span><span class="p">(</span><span class="n">simulation</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>simtk.openmm.app.simulation.Simulation</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>After creating the <code>Simulation</code> object, we have access to the <code>Context</code> related to the <code>System</code> and <code>Integrator</code></p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">simulation</span><span class="o">.</span><span class="n">context</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&lt;simtk.openmm.openmm.Context; proxy of &lt;Swig Object of type &#39;OpenMM::Context *&#39; at 0x1153785d0&gt; &gt;</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Once again, we need to specify the positions. Fortunately, the <code>parmed.Structure</code> already uses <code>simtk.Quantity</code> for its positions.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">simulation</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">setPositions</span><span class="p">(</span><span class="n">structure</span><span class="o">.</span><span class="n">positions</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Before running the simulation, we can get some <code>State</code> information related to this <code>Context</code></p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">simulation</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">getState</span><span class="p">()</span><span class="o">.</span><span class="n">getTime</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>Quantity(value=0.0, unit=picosecond)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We can now run this simulation and observe that the <code>State</code> changes</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">simulation</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">simulation</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">getState</span><span class="p">()</span><span class="o">.</span><span class="n">getTime</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>Quantity(value=10.0, unit=picosecond)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="The-application-layer-to-interact-with-OpenMM">The application layer to interact with OpenMM<a class="anchor-link" href="#The-application-layer-to-interact-with-OpenMM"> </a></h2><p><a href="http://docs.openmm.org/latest/api-python/app.html#">The OpenMM application layer</a> is largely everything you would need to build and run a simulation with OpenMM, with some compatibility with files from other MD engines. The application layer was built on top of the base library that housed the core OpenMM classes.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Summary">Summary<a class="anchor-link" href="#Summary"> </a></h2><p>OpenMM is a flexible library and API for molecular modelling. It has well-designed classes wrapped in convenience API for users, while supporting hardware/GPU acceleration with minimial user effort. This may just be me, but I found learning the "vocabulary" and distinction between the base classes was a little hard to understand, but this kind of issue addresses itself over time if one plays around with the API. I am interested to investigate how well one can use OpenMM to build a variety of molecular models and how OpenMM can interface with interconversion libraries such as ParmEd to facilitate engine-flexibility. The devil is always in the details, so building your molecular model in OpenMM or ParmEd is always going to require due diligence to ensure correct output.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Using-this-notebook">Using this notebook<a class="anchor-link" href="#Using-this-notebook"> </a></h2><p>All notebooks within this webiste/repo can be found <a href="https://github.com/ahy3nz/ahy3nz.github.io/tree/master/files/notebooks">here</a></p>
+
+</div>
+</div>
+</div>
+</div>
+
+
+
+  </div><a class="u-url" href="/fastpayges/molecular%20modeling/scientific%20computing/grad%20school/2019/10/29/openmm1.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/fastpayges/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/fastpayges/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/fastpayges/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>Fastpages-based website</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/ahy3nz" title="ahy3nz"><svg class="svg-icon grey"><use xlink:href="/fastpayges/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://twitter.com/ayaang41" title="ayaang41"><svg class="svg-icon grey"><use xlink:href="/fastpayges/assets/minima-social-icons.svg#twitter"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

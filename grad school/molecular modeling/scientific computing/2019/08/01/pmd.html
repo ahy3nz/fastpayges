@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Molecular Modeling Software: ParmEd | fastpayges</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Molecular Modeling Software: ParmEd" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Fastpages-based website" />
+<meta property="og:description" content="Fastpages-based website" />
+<link rel="canonical" href="https://ahy3nz.github.io/fastpayges/grad%20school/molecular%20modeling/scientific%20computing/2019/08/01/pmd.html" />
+<meta property="og:url" content="https://ahy3nz.github.io/fastpayges/grad%20school/molecular%20modeling/scientific%20computing/2019/08/01/pmd.html" />
+<meta property="og:site_name" content="fastpayges" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2019-08-01T00:00:00-05:00" />
+<script type="application/ld+json">
+{"url":"https://ahy3nz.github.io/fastpayges/grad%20school/molecular%20modeling/scientific%20computing/2019/08/01/pmd.html","@type":"BlogPosting","headline":"Molecular Modeling Software: ParmEd","dateModified":"2019-08-01T00:00:00-05:00","datePublished":"2019-08-01T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://ahy3nz.github.io/fastpayges/grad%20school/molecular%20modeling/scientific%20computing/2019/08/01/pmd.html"},"description":"Fastpages-based website","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/fastpayges/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://ahy3nz.github.io/fastpayges/feed.xml" title="fastpayges" /><link rel="shortcut icon" type="image/x-icon" href="/fastpayges/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.css" integrity="sha512-h7nl+xz8wgDlNM4NqKEM4F1NkIRS17M9+uJwIGwuo8vGqIl4BhuCKdxjWEINm+xyrUjNCnK5dCrhM0sj+wTIXw==" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.js" integrity="sha512-/CMIhXiDA3m2c9kzRyd97MTb3MC6OVnx4TElQ7fkkoRghwDf6gi41gaT1PwF270W6+J60uTmwgeRpNpJdRV6sg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/contrib/auto-render.min.js" integrity="sha512-Do7uJAaHZm5OLrIv/yN4w0iG1dbu01kzdMNnFfu/mAqgUk6Nniv2JYHcwH+cNwjqgLcqcuBBk+JRvprLVI8azg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha512-0doc9hKxR3PYwso42RD1p5ySZpzzuDiOwMrdCEh2WdJZCjcmFKc/wEnL+z8fBQrnHoiNWbo+3fiGkOYXBdQp4A==" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/fastpayges/">fastpayges</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/fastpayges/about/">About Me</a><a class="page-link" href="/fastpayges/search/">Search</a><a class="page-link" href="/fastpayges/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Molecular Modeling Software: ParmEd</h1><p class="post-meta post-meta-title"><time class="dt-published" datetime="2019-08-01T00:00:00-05:00" itemprop="datePublished">
+        Aug 1, 2019
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      15 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/fastpayges/categories/#grad school">grad school</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/fastpayges/categories/#molecular modeling">molecular modeling</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/fastpayges/categories/#scientific computing">scientific computing</a>
+        
+      
+      </p>
+    
+
+    
+      
+        <div class="pb-5 d-flex flex-wrap flex-justify-end">
+          <div class="px-2">
+
+    <a href="https://github.com/ahy3nz/fastpayges/tree/master/_notebooks/2019-08-01-pmd.ipynb" role="button" target="_blank">
+<img class="notebook-badge-image" src="/fastpayges/assets/badges/github.svg" alt="View On GitHub">
+    </a>
+</div>
+
+          
+          
+        </div>
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/2019-08-01-pmd.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>ParmEd is an <a href="https://github.com/ParmEd/ParmEd">open-source python package</a> for molecular modelling applications. 
+In the description: "Cross-program parameter and topology file editor and molecular mechanical simulator engine."</p>
+<p>The description doesn't quite do this package justice - ParmEd provides a <em>data structure that represents a molecular model</em>. Atomic names, coordinates, bonding neighbors, and <em>ALL the interaction parameters you would use to model a chemical system and its underlying physics</em> (at a molecular mechanics level, not quantum).</p>
+<p>For a molecular modeller, this extremely important if we want to consistently and reliably build a model for a chemical system. Building these models ends up being a lot of bookkeeping (okay we'll use this value for the A-B bond but this other value for the A-B non-bonded interaction), which becomes exponentially laborious as the sorts of chemical systems diversify from hundreds of copies of the same type of atom and parameters, to thousands of copies of a dozen different types and hundreds of different parameters, to beyond.</p>
+<p>For a scientific software developer, this is a great package in its <em>object-oriented design, extensive documentation, use of unit tests, open-source nature, and active user community</em>; active user communities are hard in academia when everyone does everything slightly differently - if you can find a common ground that everyone will use and know, then you might hit a "critical threshold" for userbase that the open-source community may yield some incredible contributions.</p>
+<p>For both groups, this is a great package because it <em>facilitates interoperability between simulation engines/applications</em>. The world of molecular modelling has developed many simulation packages designed for a particular purpose, focused more on depth than breadth of application. <em>The algorithms and simulation implementations may differ, but the fundamental molecular model is the same.</em></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="The-interconversion-and-interoperability-issue">The interconversion and interoperability issue<a class="anchor-link" href="#The-interconversion-and-interoperability-issue"> </a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Here's a gripe within the simulation community: <em>everyone has a different file format</em></p>
+<p>One simulation engine might write bond parameters as (bondtype, r0 in Angstrom, k in kcal/mol/A^2)</p>
+<p>1, 10, 200</p>
+<p>Another simulation engine might go with (atomtype1, atomtype2, k in kJ/mol/nm^2, r0 in nm)</p>
+<p>1, 2, 41840, 1</p>
+<p>For thousands of parameter lines similar to this, keeping track of units and proper syntax and overall formatting is a huge headache, and you'd think this sort of thing should be automated.</p>
+<p>Another example, to express a bond as a harmonic potential, there are 2 ways to write the function</p>
+<p>$V(r) = k * (r-r_0)^2$</p>
+<p>$V(r) = (1/2) * k * (r-r_0)^2$</p>
+<p>So your force constant, $k$, can be off by a factor 2 if you're not bookkeeping properly.</p>
+<p>In the grand scheme of interoperability, ParmEd processes these nuances between implementations upon translating to or from the <code>parmed.Structure</code> object</p>
+<p>Let's say there are N simulation engines. Converting between each engine could be as expensive as O($N^2$) convertes.
+You would have to read in engine A's file format and convert it to the proper format for engine B. And then you'd need one for A-C and B-C, etc.</p>
+<p>What if there were a middleman? Converting between each engine would be O($2N$). This middleman is <code>parmed.Structure</code>, this massive class that contains all these parameters and coordinates and everything you need in a molecular model. The conversion procedure would be A-<code>Structure</code>-B or C-<code>Structure</code>-B.</p>
+<p>If you can store your model information into the <code>parmed.Structure</code>, you just need to write a routine that
+parses through the <code>Structure</code> and spits the information out according to the engine. If you have the information
+stored in an engine's file format, you just need to write a routine that processes that information into <code>parmed.Structure</code></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Examining-pmd.Structure">Examining <code>pmd.Structure</code><a class="anchor-link" href="#Examining-pmd.Structure"> </a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>One popular use-case of <code>parmed</code> involves reading files to get a <code>pmd.Structure</code>. It's fairly simple
+to go from some <code>GROMACS</code> files to <code>pmd.Structure</code>. In this case, we'll be looking at ethane (C2H8)</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">parmed</span> <span class="k">as</span> <span class="nn">pmd</span>
+<span class="n">my_struc</span> <span class="o">=</span> <span class="n">pmd</span><span class="o">.</span><span class="n">load_file</span><span class="p">(</span><span class="s1">&#39;ethane_periodic.top&#39;</span><span class="p">,</span> <span class="n">xyz</span><span class="o">=</span><span class="s1">&#39;ethane_periodic.gro&#39;</span><span class="p">)</span>
+<span class="n">my_struc</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&lt;GromacsTopologyFile 8 atoms; 1 residues; 7 bonds; PBC (orthogonal); parametrized&gt;</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>In this one line, all the molecular model information about bond parameters, angle parameters, dihedral parameters,
+non-bonded parameters, etc. are all loaded in to <code>my_struc</code>.</p>
+<p>Now we can start digging through the various properties within <code>my_struc</code></p>
+<p><code>my_struc</code> is just a massive container for smaller containers that eventually hold numerical values. We can 
+examine the bonds within <code>my_struc</code></p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">my_struc</span><span class="o">.</span><span class="n">bonds</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>TrackedList([
+	&lt;Bond &lt;Atom C [0]; In RES 0&gt;--&lt;Atom H [3]; In RES 0&gt;; type=&lt;BondType; k=340.000, req=1.090&gt;&gt;
+	&lt;Bond &lt;Atom C [0]; In RES 0&gt;--&lt;Atom H [1]; In RES 0&gt;; type=&lt;BondType; k=340.000, req=1.090&gt;&gt;
+	&lt;Bond &lt;Atom C [0]; In RES 0&gt;--&lt;Atom C [4]; In RES 0&gt;; type=&lt;BondType; k=268.000, req=1.529&gt;&gt;
+	&lt;Bond &lt;Atom H [2]; In RES 0&gt;--&lt;Atom C [0]; In RES 0&gt;; type=&lt;BondType; k=340.000, req=1.090&gt;&gt;
+	&lt;Bond &lt;Atom C [4]; In RES 0&gt;--&lt;Atom H [5]; In RES 0&gt;; type=&lt;BondType; k=340.000, req=1.090&gt;&gt;
+	&lt;Bond &lt;Atom H [6]; In RES 0&gt;--&lt;Atom C [4]; In RES 0&gt;; type=&lt;BondType; k=340.000, req=1.090&gt;&gt;
+	&lt;Bond &lt;Atom H [7]; In RES 0&gt;--&lt;Atom C [4]; In RES 0&gt;; type=&lt;BondType; k=340.000, req=1.090&gt;&gt;
+])
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The string representations of these bonds is pretty helpful at a glance.
+We can see the two atoms participating in the bond, and the nature of their interactions (bondtypes)
+There are two different bondtypes, one for C-C and another for C-H.</p>
+<p>Next, we can select out an individual bond and sift through the various information inside it</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">my_struc</span><span class="o">.</span><span class="n">bonds</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">my_struc</span><span class="o">.</span><span class="n">bonds</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">type</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">my_struc</span><span class="o">.</span><span class="n">bonds</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">type</span><span class="o">.</span><span class="n">k</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>&lt;Bond &lt;Atom C [0]; In RES 0&gt;--&lt;Atom H [3]; In RES 0&gt;; type=&lt;BondType; k=340.000, req=1.090&gt;&gt;
+&lt;BondType; k=340.000, req=1.090&gt;
+339.99999999999994
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We can look at the atoms similarly - we'll get the coordinates of the first atom</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">my_struc</span><span class="o">.</span><span class="n">atoms</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">my_struc</span><span class="o">.</span><span class="n">atoms</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">xx</span><span class="p">,</span> <span class="n">my_struc</span><span class="o">.</span><span class="n">atoms</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">xy</span><span class="p">,</span> <span class="n">my_struc</span><span class="o">.</span><span class="n">atoms</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">xz</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>&lt;Atom C [0]; In RES 0&gt;
+0.0 -1.4000000000000001 -0.0
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Before going forward, I want to introduce the term <strong>atom type</strong>, which describes the identity of an atom.</p>
+<p>If you had a system of just argon atoms, they are all chemically identical. There might be a bunch of argon atoms, but there would only be one atom type</p>
+<p>In a more complicated example, let's say you had a box of propane <img src="/images/mm/propane_2d.png" alt="propane" /></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Looking at the carbons, there might be 3 carbons, but 2 different atom types. The "outside" carbons (each with 3 hydrogens) moieties, are chemically different from the "middle" carbon (with 2 hydrogens).</p>
+<p>When you look at bonds, the external C-H bond might be chemically different from the inside C-H bond (they probably aren't very chemically different, but let's assume they are). As a result, while they are both C-H bonds, they will have different bond types. This sort of delination appears for angles (3 atoms bonded linearly) and dihedrals (4 atoms bonded together either linearly) and improper dihedrals (3 atoms bonded to a central atom). You might have a lot of bonds, but many fewer bond types</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Let's look deeper at the atoms within <code>my_struc</code>, the atom type</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">my_struc</span><span class="o">.</span><span class="n">atoms</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">type</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>opls_135
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Not the most interesting or intuitive name, but it's still unique enough for differenting atom types</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Before we go further, I have to introduce another equation that models the <strong>non-bonded interactions</strong> in our system. For $N$ atoms, there are $N^2$ of these. And usually non-bonded interactions are broken into coulombic (think physics 2) interactions, but also your <strong>dispersion forces</strong> (which arise from temporary dipole interactions that may arise between two atoms). I will focus on the <strong>dispersion forces</strong> - most models for this force utilize the <strong>Lennard-Jones</strong> potential (though some people use Buckingham, Morse, Mie, etc).</p>
+<p>$V(r) = 4\epsilon[(\frac{\sigma}{r})^{12} - (\frac{\sigma}{r})^6]$</p>
+<p>$\sigma$ and $\epsilon$ are parameters of the model, $r$ is the interatomic distance between the two atoms in question</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>For the atom type <code>opls_135</code>, we can examine the associated sigma and epsilon parameters</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">my_struc</span><span class="o">.</span><span class="n">atoms</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">sigma</span><span class="p">,</span> <span class="n">my_struc</span><span class="o">.</span><span class="n">atoms</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">epsilon</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>35.0 0.066
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>For fun, we can visualize this potential over distance</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="n">r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.00001</span><span class="p">,</span> <span class="mi">120</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+<span class="n">v</span> <span class="o">=</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">my_struc</span><span class="o">.</span><span class="n">atoms</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">epsilon</span> <span class="o">*</span> <span class="p">((</span><span class="n">my_struc</span><span class="o">.</span><span class="n">atoms</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">sigma</span><span class="o">/</span><span class="n">r</span><span class="p">)</span><span class="o">**</span><span class="mi">12</span> <span class="o">-</span> <span class="p">(</span><span class="n">my_struc</span><span class="o">.</span><span class="n">atoms</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">sigma</span><span class="o">/</span><span class="n">r</span><span class="p">)</span><span class="o">**</span><span class="mi">6</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="o">-</span><span class="mf">0.1</span><span class="p">,</span><span class="mf">0.1</span><span class="p">])</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;V(r), kcal/mol&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;r, $\AA$&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>Text(0.5, 0, &#39;r, $\\AA$&#39;)</pre>
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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
+" />
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>That is an introduction to the <code>pmd.Structure</code> - it is a MASSIVE container for all things related to a molecular model. This works well for molecular models with a lot of things in common. Now we will tackle the components of a molecular model are different.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Dihedrals">Dihedrals<a class="anchor-link" href="#Dihedrals"> </a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>A dihedral refers to the interaction between 4 linearly connected atoms. This isn't exactly chemistry, but rather an approximation to chemistry and things like steric interactions (think Neumann projections back from organic chemistry).</p>
+<p>There a variety of ways to model this interaction. For example:</p>
+<ul>
+<li><p>Periodic torsions <img src="/images/mm/periodic_torsion.png" alt="periodic" /></p>
+</li>
+<li><p>Ryckaert-Bellemans (RB) torsions <img src="/images/mm/rb_torsion.png" alt="rbtorsion" /></p>
+</li>
+</ul>
+<p>They are both trigonometric series, but there's not much commonality between them - there's not a simple underlying set of parameters/function between the two that you can easily relate. You'd have to generate some energies for one function, and then numerically fit the other. Since there's no easy way for one function/set of parameters to express both of these functions, we have to handle them separately within <code>pmd.Structure</code></p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">periodic_torsions</span> <span class="o">=</span> <span class="n">pmd</span><span class="o">.</span><span class="n">load_file</span><span class="p">(</span><span class="s1">&#39;ethane_periodic.top&#39;</span><span class="p">,</span> <span class="n">xyz</span><span class="o">=</span><span class="s1">&#39;ethane_periodic.gro&#39;</span><span class="p">)</span>
+<span class="n">rb</span> <span class="o">=</span> <span class="n">pmd</span><span class="o">.</span><span class="n">load_file</span><span class="p">(</span><span class="s1">&#39;ethane_rbtorsion.top&#39;</span><span class="p">,</span> <span class="n">xyz</span><span class="o">=</span><span class="s1">&#39;ethane_rbtorsion.gro&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><code>periodic_torsions</code> is a molecular model for ethane using periodic torsions. <code>rb</code> is a molecular model for ethane using RB torsions.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>All the different interaction models/classes are found in <a href="https://github.com/ParmEd/ParmEd/blob/master/parmed/topologyobjects.py">parmed/topologyobjects.py</a></p>
+<p>But some dihedral bookkeeping in ParmEd: periodic torsions are stored in <code>structure.dihedrals</code> while RBtorsions are stored in <code>structure.rb_torsions</code>. Handling improper dihedrals is a bigger mess, but I want to emphasize how ParmEd handles these different functional forms: they are kept as separate objects and handled separately.</p>
+<p>The next two snippets will look at periodic torsions within <code>rb</code> and <code>periodic_torsions</code> (or lack thereof)</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">periodic_torsions</span><span class="o">.</span><span class="n">dihedrals</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>TrackedList([
+	&lt;Dihedral; &lt;Atom H [1]; In RES 0&gt;--&lt;Atom C [0]; In RES 0&gt;--&lt;Atom C [4]; In RES 0&gt;--&lt;Atom H [5]; In RES 0&gt;; type=&lt;DihedralType; phi_k=0.741, per=1, phase=179.909,  scee=2.000, scnb=1.000&gt;&gt;
+	&lt;Dihedral; &lt;Atom H [1]; In RES 0&gt;--&lt;Atom C [0]; In RES 0&gt;--&lt;Atom C [4]; In RES 0&gt;--&lt;Atom H [6]; In RES 0&gt;; type=&lt;DihedralType; phi_k=0.741, per=1, phase=179.909,  scee=2.000, scnb=1.000&gt;&gt;
+	&lt;Dihedral; &lt;Atom H [1]; In RES 0&gt;--&lt;Atom C [0]; In RES 0&gt;--&lt;Atom C [4]; In RES 0&gt;--&lt;Atom H [7]; In RES 0&gt;; type=&lt;DihedralType; phi_k=0.741, per=1, phase=179.909,  scee=2.000, scnb=1.000&gt;&gt;
+	&lt;Dihedral; &lt;Atom H [2]; In RES 0&gt;--&lt;Atom C [0]; In RES 0&gt;--&lt;Atom C [4]; In RES 0&gt;--&lt;Atom H [5]; In RES 0&gt;; type=&lt;DihedralType; phi_k=0.741, per=1, phase=179.909,  scee=2.000, scnb=1.000&gt;&gt;
+	&lt;Dihedral; &lt;Atom H [2]; In RES 0&gt;--&lt;Atom C [0]; In RES 0&gt;--&lt;Atom C [4]; In RES 0&gt;--&lt;Atom H [6]; In RES 0&gt;; type=&lt;DihedralType; phi_k=0.741, per=1, phase=179.909,  scee=2.000, scnb=1.000&gt;&gt;
+	&lt;Dihedral; &lt;Atom H [2]; In RES 0&gt;--&lt;Atom C [0]; In RES 0&gt;--&lt;Atom C [4]; In RES 0&gt;--&lt;Atom H [7]; In RES 0&gt;; type=&lt;DihedralType; phi_k=0.741, per=1, phase=179.909,  scee=2.000, scnb=1.000&gt;&gt;
+	&lt;Dihedral; &lt;Atom H [3]; In RES 0&gt;--&lt;Atom C [0]; In RES 0&gt;--&lt;Atom C [4]; In RES 0&gt;--&lt;Atom H [5]; In RES 0&gt;; type=&lt;DihedralType; phi_k=0.741, per=1, phase=179.909,  scee=2.000, scnb=1.000&gt;&gt;
+	&lt;Dihedral; &lt;Atom H [3]; In RES 0&gt;--&lt;Atom C [0]; In RES 0&gt;--&lt;Atom C [4]; In RES 0&gt;--&lt;Atom H [6]; In RES 0&gt;; type=&lt;DihedralType; phi_k=0.741, per=1, phase=179.909,  scee=2.000, scnb=1.000&gt;&gt;
+	&lt;Dihedral; &lt;Atom H [3]; In RES 0&gt;--&lt;Atom C [0]; In RES 0&gt;--&lt;Atom C [4]; In RES 0&gt;--&lt;Atom H [7]; In RES 0&gt;; type=&lt;DihedralType; phi_k=0.741, per=1, phase=179.909,  scee=2.000, scnb=1.000&gt;&gt;
+])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">rb</span><span class="o">.</span><span class="n">dihedrals</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>TrackedList([
+])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The next two snippets will look at RB torsions within <code>rb</code> and <code>periodic_torsions</code> (or lack thereof)</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">periodic_torsions</span><span class="o">.</span><span class="n">rb_torsions</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>TrackedList([
+])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">rb</span><span class="o">.</span><span class="n">rb_torsions</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>TrackedList([
+	&lt;Dihedral; &lt;Atom H [1]; In RES 0&gt;--&lt;Atom C [0]; In RES 0&gt;--&lt;Atom C [4]; In RES 0&gt;--&lt;Atom H [5]; In RES 0&gt;; type=&lt;RBTorsionType; c0=0.150; c1=0.450; c2=0.000; c3=-0.600; c4=0.000; c5=0.000; scee=2.0; scnb=1.0&gt;&gt;
+	&lt;Dihedral; &lt;Atom H [1]; In RES 0&gt;--&lt;Atom C [0]; In RES 0&gt;--&lt;Atom C [4]; In RES 0&gt;--&lt;Atom H [6]; In RES 0&gt;; type=&lt;RBTorsionType; c0=0.150; c1=0.450; c2=0.000; c3=-0.600; c4=0.000; c5=0.000; scee=2.0; scnb=1.0&gt;&gt;
+	&lt;Dihedral; &lt;Atom H [1]; In RES 0&gt;--&lt;Atom C [0]; In RES 0&gt;--&lt;Atom C [4]; In RES 0&gt;--&lt;Atom H [7]; In RES 0&gt;; type=&lt;RBTorsionType; c0=0.150; c1=0.450; c2=0.000; c3=-0.600; c4=0.000; c5=0.000; scee=2.0; scnb=1.0&gt;&gt;
+	&lt;Dihedral; &lt;Atom H [2]; In RES 0&gt;--&lt;Atom C [0]; In RES 0&gt;--&lt;Atom C [4]; In RES 0&gt;--&lt;Atom H [5]; In RES 0&gt;; type=&lt;RBTorsionType; c0=0.150; c1=0.450; c2=0.000; c3=-0.600; c4=0.000; c5=0.000; scee=2.0; scnb=1.0&gt;&gt;
+	&lt;Dihedral; &lt;Atom H [2]; In RES 0&gt;--&lt;Atom C [0]; In RES 0&gt;--&lt;Atom C [4]; In RES 0&gt;--&lt;Atom H [6]; In RES 0&gt;; type=&lt;RBTorsionType; c0=0.150; c1=0.450; c2=0.000; c3=-0.600; c4=0.000; c5=0.000; scee=2.0; scnb=1.0&gt;&gt;
+	&lt;Dihedral; &lt;Atom H [2]; In RES 0&gt;--&lt;Atom C [0]; In RES 0&gt;--&lt;Atom C [4]; In RES 0&gt;--&lt;Atom H [7]; In RES 0&gt;; type=&lt;RBTorsionType; c0=0.150; c1=0.450; c2=0.000; c3=-0.600; c4=0.000; c5=0.000; scee=2.0; scnb=1.0&gt;&gt;
+	&lt;Dihedral; &lt;Atom H [3]; In RES 0&gt;--&lt;Atom C [0]; In RES 0&gt;--&lt;Atom C [4]; In RES 0&gt;--&lt;Atom H [5]; In RES 0&gt;; type=&lt;RBTorsionType; c0=0.150; c1=0.450; c2=0.000; c3=-0.600; c4=0.000; c5=0.000; scee=2.0; scnb=1.0&gt;&gt;
+	&lt;Dihedral; &lt;Atom H [3]; In RES 0&gt;--&lt;Atom C [0]; In RES 0&gt;--&lt;Atom C [4]; In RES 0&gt;--&lt;Atom H [6]; In RES 0&gt;; type=&lt;RBTorsionType; c0=0.150; c1=0.450; c2=0.000; c3=-0.600; c4=0.000; c5=0.000; scee=2.0; scnb=1.0&gt;&gt;
+	&lt;Dihedral; &lt;Atom H [3]; In RES 0&gt;--&lt;Atom C [0]; In RES 0&gt;--&lt;Atom C [4]; In RES 0&gt;--&lt;Atom H [7]; In RES 0&gt;; type=&lt;RBTorsionType; c0=0.150; c1=0.450; c2=0.000; c3=-0.600; c4=0.000; c5=0.000; scee=2.0; scnb=1.0&gt;&gt;
+])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>In the <code>parmed.Structure</code> object, the different dihedral forms are held in different containers. Regardless, the parameters relevant to each dihedral object are still tracked</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="parmed.Structure-conversion"><code>parmed.Structure</code> conversion<a class="anchor-link" href="#parmed.Structure-conversion"> </a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Many like to use <code>parmed</code> as the middleman to convert from one engine's file format to another engine's file format. In this notebook, we've been using <code>GROMACS</code> files to model ethane, and now we'll mess around with converting to files suitable for other engines.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">my_struc</span> <span class="o">=</span> <span class="n">pmd</span><span class="o">.</span><span class="n">load_file</span><span class="p">(</span><span class="s1">&#39;ethane_periodic.top&#39;</span><span class="p">,</span> <span class="n">xyz</span><span class="o">=</span><span class="s1">&#39;ethane_periodic.gro&#39;</span><span class="p">)</span>
+<span class="n">my_struc</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">&#39;ethane_periodic.prmtop&#39;</span><span class="p">)</span>
+<span class="n">my_struc</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">&#39;ethane_periodic.crd&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Another molecular simulation engine, <code>AMBER</code>, specifies the molecular model in <code>prmtop</code> (parametrized topology) and <code>crd</code> (coordinate) files. I confess I haven't actually used <code>AMBER</code> (it's very popular), but <code>parmed</code> has made it incredibly easy for a <code>GROMACS</code>-user to switch over (and use functionality that <code>AMBER</code> might provide)</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>head ethane_periodic.prmtop
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>%VERSION  VERSION_STAMP = V0001.000  DATE = 08/01/19  17:37:44
+%FLAG TITLE
+%FORMAT(20a4)
+
+%FLAG POINTERS
+%FORMAT(10I8)
+       8       2       6       1      12       0       9       0       0       0
+      29       1       1       0       0       2       2       9       1       0
+       0       0       0       0       0       0       0       1       8       0
+       0
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>head ethane_periodic.crd
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>* GENERATED BY PARMED (HTTPS://GITHUB.COM/PARMED/PARMED)
+*
+         8  EXT
+         1         1  RES       C               0.0000000000       -1.4000000000       -0.0000000000  SYS       0               0.0000000000
+         2         1  RES       H              -1.0700000000       -1.4000000000       -0.0000000000  SYS       0               0.0000000000
+         3         1  RES       H               0.3600000000       -2.1700000000        0.6500000000  SYS       0               0.0000000000
+         4         1  RES       H               0.3600000000       -1.5800000000       -0.9900000000  SYS       0               0.0000000000
+         5         1  RES       C               0.0000000000        0.0000000000        0.0000000000  SYS       0               0.0000000000
+         6         1  RES       H               1.0700000000        0.0000000000        0.0000000000  SYS       0               0.0000000000
+         7         1  RES       H              -0.3600000000        0.7700000000        0.6500000000  SYS       0               0.0000000000
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>What we did with <code>GROMACS</code> files to <code>pmd.Structure</code> to <code>AMBER</code> files involed an IOstep to read <code>GROMACS</code> files into an in-memory representation, then an IO step to write <code>AMBER</code> files from the in-memory representation. These 2 simulation engines require these files to perform a simulation - what about a simulation engine that doesn't require this IO step, and we can purely handle this all in-memory?</p>
+<p><code>OpenMM</code> is another simulation engine rooted in CUDA and C++ with wrappers for python implementations. We can "interface" more tightly with the <code>OpenMM</code> codebase by doing all these molecular model conversions within python</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">my_omm_system</span> <span class="o">=</span> <span class="n">my_struc</span><span class="o">.</span><span class="n">createSystem</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">my_omm_system</span><span class="p">))</span>
+<span class="n">my_omm_system</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>&lt;class &#39;simtk.openmm.openmm.System&#39;&gt;
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&lt;simtk.openmm.openmm.System; proxy of &lt;Swig Object of type &#39;OpenMM::System *&#39; at 0x110c0ef00&gt; &gt;</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>In that one line, we've converted <code>pmd.Structure</code> into <code>openmm.System</code>, which gets us very close to performing a simulation within <code>OpenMM</code> without writing out an input file.</p>
+<p>In my opinion, this adds some elegance to performing molecular simulations in that they can be well-encompassed in a python script (and not a python script that just wraps a bunch of shell commands)</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Does-this-relate-to-other-fields-of-technology?">Does this relate to other fields of technology?<a class="anchor-link" href="#Does-this-relate-to-other-fields-of-technology?"> </a></h2><p>Are there other applications of STEM where objects/entities need to be able to convert, communicate, or inter-operate between one another? ParmEd is a nice intermediate that allows different simulation engines to communicate information.</p>
+<p>I recently set up a Google Home Mini in my apartment - how does the Google product know how to turn off all the different smart bulbs out there (Philips, Element, Sengled, Wyze, FluxSmart)? I'm sure there are engineers who have to work on this GoogleHome-bulb interoperability to make sure a command to Google Home will perform an action to another device.</p>
+<p>What about parallel computing? The MPI standard defines routines and protocols to which any MPI library must adhere (OpenMPI, MPICH, etc). This defines a common ground so that an external program can call the same MPI functions and expect the same operation, but under the hood it's a different MPI library performing the gather/recieve commands.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Summary">Summary<a class="anchor-link" href="#Summary"> </a></h1><p>ParmEd is a digital, in-memory data structure that represents a molecular model. It often serves an intermediary and great bookkeeper to facilitate translating molecular model (parameters, topology, coordinates) information from one simulation's file format (or data structure) to another simulation's file format (or data structure). It supports a variety of functional forms for the molecular modellers out there, and it is well-designed for the scientific software developers out there. Any molecular modeller knows how difficult and laborious this sort of package is, so the contributors to ParmEd deserve a big thank you.</p>
+
+</div>
+</div>
+</div>
+</div>
+
+
+
+  </div><a class="u-url" href="/fastpayges/grad%20school/molecular%20modeling/scientific%20computing/2019/08/01/pmd.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/fastpayges/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/fastpayges/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/fastpayges/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>Fastpages-based website</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/ahy3nz" title="ahy3nz"><svg class="svg-icon grey"><use xlink:href="/fastpayges/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://twitter.com/ayaang41" title="ayaang41"><svg class="svg-icon grey"><use xlink:href="/fastpayges/assets/minima-social-icons.svg#twitter"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Bayesian Methods and Molecular Modeling 1 | fastpayges</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Bayesian Methods and Molecular Modeling 1" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="(Last updated: 2019-07-31). This is an ongoing post as I work through a tutorial I found." />
+<meta property="og:description" content="(Last updated: 2019-07-31). This is an ongoing post as I work through a tutorial I found." />
+<link rel="canonical" href="https://ahy3nz.github.io/fastpayges/molecular%20modeling/scientific%20computing/2019/07/29/bayesian1.html" />
+<meta property="og:url" content="https://ahy3nz.github.io/fastpayges/molecular%20modeling/scientific%20computing/2019/07/29/bayesian1.html" />
+<meta property="og:site_name" content="fastpayges" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2019-07-29T00:00:00-05:00" />
+<script type="application/ld+json">
+{"url":"https://ahy3nz.github.io/fastpayges/molecular%20modeling/scientific%20computing/2019/07/29/bayesian1.html","@type":"BlogPosting","headline":"Bayesian Methods and Molecular Modeling 1","dateModified":"2019-07-29T00:00:00-05:00","datePublished":"2019-07-29T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://ahy3nz.github.io/fastpayges/molecular%20modeling/scientific%20computing/2019/07/29/bayesian1.html"},"description":"(Last updated: 2019-07-31). This is an ongoing post as I work through a tutorial I found.","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/fastpayges/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://ahy3nz.github.io/fastpayges/feed.xml" title="fastpayges" /><link rel="shortcut icon" type="image/x-icon" href="/fastpayges/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.css" integrity="sha512-h7nl+xz8wgDlNM4NqKEM4F1NkIRS17M9+uJwIGwuo8vGqIl4BhuCKdxjWEINm+xyrUjNCnK5dCrhM0sj+wTIXw==" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.js" integrity="sha512-/CMIhXiDA3m2c9kzRyd97MTb3MC6OVnx4TElQ7fkkoRghwDf6gi41gaT1PwF270W6+J60uTmwgeRpNpJdRV6sg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/contrib/auto-render.min.js" integrity="sha512-Do7uJAaHZm5OLrIv/yN4w0iG1dbu01kzdMNnFfu/mAqgUk6Nniv2JYHcwH+cNwjqgLcqcuBBk+JRvprLVI8azg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha512-0doc9hKxR3PYwso42RD1p5ySZpzzuDiOwMrdCEh2WdJZCjcmFKc/wEnL+z8fBQrnHoiNWbo+3fiGkOYXBdQp4A==" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/fastpayges/">fastpayges</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/fastpayges/about/">About Me</a><a class="page-link" href="/fastpayges/search/">Search</a><a class="page-link" href="/fastpayges/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Bayesian Methods and Molecular Modeling 1</h1><p class="post-meta post-meta-title"><time class="dt-published" datetime="2019-07-29T00:00:00-05:00" itemprop="datePublished">
+        Jul 29, 2019
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      23 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/fastpayges/categories/#molecular modeling">molecular modeling</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/fastpayges/categories/#scientific computing">scientific computing</a>
+        
+      
+      </p>
+    
+
+    </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>(Last updated: 2019-07-31). This is an ongoing post as I work through a tutorial I found.</p>
+
+<h1 id="introduction">Introduction</h1>
+<p>Within the world of molecular modeling, a very exciting group is doing some 
+interesting work. They are the 
+<a href="https://openforcefield.org/">OpenForceField consortium</a>.
+Looking through one of their 
+<a href="https://openforcefield.org/news/jan-2019-meeting-agenda/">workshops</a>,
+they draw some interesting analogies between 
+<em>developing force fields and bayesian inference</em>.
+As someone <em>transitioning from molecular modeling to data science</em>, this is 
+certainly an interesting intersection.</p>
+
+<h2 id="a-big-question">A big question</h2>
+<p><em>Given some thermodynamic/QM data, how can we best parametrize force fields?</em></p>
+
+<p>Let’s step back a bit and make it sound more statistics-y.</p>
+
+<p><em>Given some energetic data, how can we best model the energy of a system? 
+What is the best distribution/equation to model the energy (aka force field)? 
+And what are the best distributions to describe the parameters of the model?
+From these fitted/parametrized models, can we interpret anything from them?
+Can we sample/simulate anything from them?</em></p>
+
+<h1 id="learning-some-bayesian-methods">Learning some Bayesian methods</h1>
+<p>Here’s where I stumble through miscellaneous talks, lectures, publications,
+and tutorials to try to piece together bits of this field.
+I found a particularly interesting tutorial by <a href="https://github.com/fonnesbeck/mcmc_pydata_london_2019">Chris Fonnesbeck</a></p>
+
+<p><strong>Important</strong>: I am <em>really</em> hoping someone out there is reading this and 
+will correct me where I am wrong. I’ve learned solo-learning 
+can be trial-and-error, and having external input can be very invaluable
+for guiding education.</p>
+
+<h2 id="notebook-1-introduction-to-pymc3">Notebook 1: Introduction to PyMC3</h2>
+<p>Their example is studying radon levels (actually, log(radon)) in households, 
+developing a model, 
+and trying to identify how many households are greather than a threshold.</p>
+
+<ul>
+  <li>We are interested in the <strong>posterior distribution</strong> given the data</li>
+  <li>To develop a <strong>sampling distribution</strong> for the data, 
+they use a <em>normal distribution</em>, which requires parameters for $\mu$ and $\sigma$,
+and also is based on an <strong>observed distribution</strong> (the gathered data)</li>
+  <li>To develop a <strong>model or distribution for $\mu$</strong>, they first approximate/guess
+with a <em>normal distribution</em> (it’s okay if the log radon is negative)</li>
+  <li>To develop a <strong>model or distribution for $\sigma$</strong>, they first approximate/guess
+with a <em>uniform distribution</em> (standard deviations and variances shouldn’t 
+be negative)</li>
+</ul>
+
+<p>In actuality, first the models for $\mu$ and $\sigma$ came first,
+THEN the sampling distribution for the data was built off the $\mu$ and $\sigma$ 
+distributions in addition to the observed data</p>
+
+<p>The overarching model was fit using a <strong>Markov chain Monte Carlo</strong> (MCMC) method.</p>
+
+<p>After fitting the model we can observe some probabilities about a point estimate,
+$\mu$:</p>
+
+<ul>
+  <li>Probability that the mean level of radon is <em>above</em> a threshold</li>
+  <li>Probability that the mean level of radon is <em>below</em> a threshold</li>
+</ul>
+
+<h3 id="translation-to-molecular-modeling">Translation to molecular modeling</h3>
+<ul>
+  <li>
+    <p>Our <strong>posterior distribution</strong> is the force field (potential energy function)
+given some observable. Analogously, this was the posterior distribution of radon
+levels given the observed data.</p>
+  </li>
+  <li>In our molecular model, let’s say we just model the force field 
+as harmonic springs 
+<img src="/images/mm/harmonicspring.png" alt="Harmonic spring" />. Here, the two parameters
+are $k$ and $r_0$</li>
+  <li>In the radon model, we modeled with a normal distribution. There, the two 
+parameters were $\mu$ and $\sigma$</li>
+  <li>We used normal distributions for $\mu$ and $\sigma$. For $k$ and $r_0$, we know
+they should be non-negative (force constants and equilibrium lengths, 
+respectively, are physically and generally non-negative), but we could
+use some sort of distribution that won’t get us negatives</li>
+</ul>
+
+<p>At this point in both cases:</p>
+
+<ul>
+  <li>We have an equation that expresses either our energy 
+or the radon level (force field, posterior distribution).</li>
+  <li>We have also identified the associated parameters
+in these equations ($k$ &amp; $r_0$, $\mu$ &amp; $\sigma$).</li>
+  <li>For these parameters, we are estimating/approximating them via some 
+other equation or distribution (normal or uniform)</li>
+</ul>
+
+<p>The next step is to fit the model using some sort of sampling method. 
+Molecular modelers would call this parametrization.
+In layman’s terms, I think this means some sophisticated guess-and-check or
+numerical optimization method to get the parameters 
+that well-describe the observed data.</p>
+
+<p>Now we have our parameters, so we can sample from this model or distribution 
+(simulating, sampling), and see how well the simulated/sampled data
+recreates the generated data.</p>
+
+<p>We can interpret these models: make some statements about the 
+mean radon model or make some statements about the equilibrium bond length</p>
+
+<p>Lastly, sensitivity analysis means messing with the underlying assumptions -
+what if we didn’t use normal/uniform distributions to describe [$k$, $r_0$] or
+[$\mu$, $\sigma$]? I think you could go one step further and mess
+with the underlying model, what if the radon level wasn’t modeled as a 
+normal distribution? 
+What if the force field wasn’t modeled as harmonic spring bonds?</p>
+
+<p>I would hazard a guess and say not to try radically different models if they
+intuitively don’t really describe the data we are interested in modeling -
+modeling a force field (energy) as a purely random distribution would probably 
+be a physically-unrealistic model and would not describe your data well.</p>
+
+<h2 id="notebook-2-markov-chain-monte-carlo">Notebook 2: Markov chain Monte Carlo</h2>
+
+<p>(Update 7/31: Some of these early bits (from 7/30) are incorrect, and then I later
+correct myself - Jump to the 7/31 Update if you don’t care to see me be wrong).</p>
+
+<p>This was a lot more than notebook 1. On a completely different note, 
+there’s so many parallels to molecular modeling here, and I keep thinking
+of everything in terms of molecular modeling and I’m not sure if that’s
+hindering or facilitating my education. I’m going to unwind some thoughts here.</p>
+
+<p>Once again, Bayesian methods are used to estimate parameters of a model.
+If your model is a normal distribution, your parameters are $\mu$ and $\sigma$.
+If your model is a line, your parameters are slope and intercept
+If your model is a harmonic spring, your parameters are force constant 
+and equilibrium bond length.</p>
+
+<p>Bayes’ formula is used to estimate the probability of certain parameters given
+some observed data.</p>
+
+<p><img src="/images/bayes.png" alt="Bayes' theorem" /></p>
+
+<p>The denominator, $P(y)$ is called a <strong>normalization constant</strong> or 
+<strong>marginal likelihood</strong>. Okay, well how do you calculate that?</p>
+
+<p><img src="/images/bayes_int.png" alt="Bayes' thm with integral" /></p>
+
+<p>To compute the marginal likelihood (probability of one variable), 
+we have to compute this integral of the 
+joint probability distribution (probabilities of two variables)
+along the other variable.</p>
+
+<p>Here’s the first analogy to statistical mechanics:</p>
+
+<p><img src="/images/mm/canonical_energy_prob.png" alt="Canonical energy" /></p>
+
+<p>Where $\epsilon$ is the energy of state, $k_B$ is Boltzmann’s constant,
+$T$ is temperature, and $Q$ is our normalization constant
+(in fancy stat mech terms, this is the <strong>canonical partition function</strong>).
+Except this probably isn’t as noteworthy as it seems, since probabilities,
+in general, are just numbers of desired outcomes divided by all possible outcomes.</p>
+
+<p><del>## (Ignore this is wrong) Back to Bayesian, this marginal likelihood integral is analytically hard to 
+compute, so we have to use some numerical sampling methods. In molecular modeling,
+we are also trying to compute an integral over <em>phase space</em> (the 6N distribution 
+over positions and velocities, but really just 3N positions because the velocity
+component is <em>a priori</em> known based on temperature). In both methods, 
+we can employ <strong>Monte Carlo</strong> methods. In Bayesian, this is Markov chain Monte Carlo.</del></p>
+
+<h3 id="side-note-monte-carlo-integration">Side note: Monte Carlo integration</h3>
+<p>Let’s say you wanted to integrate $f(x)dx$. Assuming $f(x)$ is complicated
+and can’t be solved analytically, you use a numerical method like 
+Riemann sums, Simpson’s Rule, Trapezoidal Rule, etc. The summary of these
+numerical methods is you (uniformly) pick a bunch of $x$, compute $f(x)$, and 
+draw a bunch of rectangles whose height is $f(x)$ and length $x_{i+1} -x_i$ 
+(otherwise known as $dx$),
+then sum up all those areas.</p>
+
+<p>What if you didn’t pick $x$ uniformly?
+If you randomly picked $x$ (and adjusted the area summation to account
+for the non-uniform $dx$), you would be implementing a crude
+Monte Carlo integration.</p>
+
+<p>To sum up Monte Carlo, pick random inputs, evaluate the function at 
+those inputs, compute area, and sum.</p>
+
+<h3 id="back-to-the-notebook">Back to the notebook</h3>
+<p><strong>Markov chains</strong> essentially mean that the probability of visiting a 
+future state is dependent on what your current state, but
+not any other state in history. In the Monte Carlo scheme, 
+this means, while you are “randomly” generating 
+inputs, your next input is somewhat dependent on your current one.</p>
+
+<p>Some of the underlying theory says you can use Bayes’ theorem (again,
+but applied to the Markov chain, not how we’re obtaining model parameters), to
+demonstrate a concept known as <strong>detailed balance</strong> that means you have 
+balanced movement through phase space (this is a princple that holds for 
+broader statistics in addition to molecular modeling Monte Carlo methods).</p>
+
+<p>Okay, so if our next input depends on our current input, what is the critieria
+or algorithm we use to pick the next input in this integration scheme?</p>
+
+<p>One algorithm is <strong>Metropolis-Hastings</strong> where you accept or reject
+based on the ratio of probabilities of new-input to current-input. 
+This means comparing $P(\theta’)$ to $P(\theta)$, which I think
+means referencing our posterior distribution ($P\theta|y$).</p>
+
+<p>In molecular modeling, we relate ratios to exponentials of energies 
+so that our acceptance
+ratio simplifies to:
+<img src="/images/mm/metropolis_hastings_energy.png" alt="metropolis hastings energy" /></p>
+
+<h3 id="730-checkpoint-maybe-summarizing-things-so-far">(7/30) Checkpoint: maybe summarizing things so far</h3>
+
+<ul>
+  <li>We want to model some sort of observable, which requires parameters</li>
+  <li>We want to get the observable’s <strong>posterior distribution</strong>, 
+which tells the probability distribution of certain 
+parameters given the observable data</li>
+  <li>We have Bayes’ theorem that formalizes some relationships 
+<img src="/images/bayes.png" alt="Bayes" /></li>
+  <li>We have the <strong>likelihood</strong> $P(y|\theta)$, which is 
+an equation/distribution that depends on our parameters. From notebook1,
+this is a model/distribution we specify beforehand, with parameters we are 
+trying to find.</li>
+  <li>We have the <strong>prior</strong> $P(\theta)$, which
+is an equation/distribution of our parameters. From notebook1,
+this is a model/distribution we specify beforehand, with parameters we guessed.</li>
+  <li><del>(## ignore this is wrong )We have our <strong>marginal likelihood</strong> $P(y)$, which is re-written as 
+an integral of $P(y|\theta)P(\theta)d\theta$, which is an integral
+of our likelihood and prior we just outlined.</del></li>
+  <li><del>(## ignore this is wrong) To evaluate this integral, we use a <strong>Markov chain Monte Carlo</strong> method
+to pick different values of $\theta$, evaluate the product of likelihood and prior, 
+then compute the summation. This integration method requires lots of 
+iterations/sampling (this sampling is NOT sampling the observed data, but sampling
+different $\theta$ parameters).</del>
+    <ul>
+      <li><del>(## ignore)This integral is really difficult to comprehend in my opinion.</del></li>
+      <li><del>(## ignore)You are computing an integral to end up with a posterior distribution</del></li>
+      <li><del>(## ignore)But to compute the integral iteratively and numerically, you need to
+  continuously re-evaluate the posterior distribution to choose moves based on 
+  <strong>Metropolis-Hastings</strong>.</del></li>
+    </ul>
+  </li>
+  <li><del>(## ignore) How we efficiently calculate this integral is where the Bayesian inference
+methods get interesting from a computational perspective.</del></li>
+</ul>
+
+<p>I think writing some of this out maybe helped my own understanding. Again, if 
+someone out there is reading this and deems me incorrect, PLEASE contact me - 
+I’d love to learn this properly. For now, I’m going to take a break
+and return to this notebook 2 later - we’re going to be hitting 
+some crazy similarities to molecular simulation.</p>
+
+<h3 id="731-update-i-was-pretty-wrong-yesterday">(7/31) Update: I was pretty wrong yesterday</h3>
+<p>Let me at least re-iterate what I still think is correct:</p>
+
+<ul>
+  <li>We want to model some sort of observable, which requires parameters</li>
+  <li>We want to get the observable’s <strong>posterior distribution</strong>, 
+which tells the probability distribution of certain 
+parameters given the observable data</li>
+  <li>We have Bayes’ theorem that formalizes some relationships 
+<img src="/images/bayes.png" alt="Bayes" /></li>
+  <li>We have the <strong>likelihood</strong> $P(y|\theta)$, which is 
+an equation/distribution that depends on our parameters. From notebook1,
+this is a model/distribution we specify beforehand, with parameters we are 
+trying to find.</li>
+  <li>We have the <strong>prior</strong> $P(\theta)$, which
+is an equation/distribution of our parameters. From notebook1,
+this is a model/distribution we specify beforehand, with parameters we guessed.</li>
+  <li>We have our <strong>marginal likelihood</strong> $P(y)$, which is re-written as 
+an integral of $P(y|\theta)P(\theta)d\theta$, which is an integral
+of our likelihood and prior we just outlined.
+    <ul>
+      <li>It’s important to remember this is just a (normalizing) constant, as in,
+  this number <em>doesn’t change</em>.</li>
+    </ul>
+  </li>
+</ul>
+
+<p>What is the point of the <strong>Markov chain Monte Carlo</strong> then?</p>
+
+<p>We are trying to sample a bunch of different parameters $\theta$, and a 
+Monte Carlo approach works to sample parameters, with a Markov chain
+being an efficient way to sample randomly while keeping track of your 
+current state.</p>
+
+<p>I had to work backwards, reverse-engineer, dissect the code (whatever you 
+want to call it).</p>
+
+<h3 id="calc_posterior">calc_posterior</h3>
+
+<p><em>calc_posterior</em> is a method to calculate the joint posterior,
+given your data: measured output (recorded prices) + measured input (recorded ages)
+and your sampled parameters (slope, intercept, 
+stdev of the posterior distribution assuming it obeys a normal distribution).
+It’s worth mentioning that we are working in <strong>log</strong> terms, which means products 
+of values become summations of log(values).</p>
+
+<p>So let’s pull up Bayes’ theorem again, but focus on the <strong>numerator</strong>
+<img src="/images/bayes.png" alt="Bayes" />.
+We are only interested in the <strong>likelihood</strong> and the <strong>prior</strong>. 
+To calculate the log posterior, let’s first compute the prior $P(\theta)$. 
+Because we have 3 parameters, we have 3 prior distributions to look at.
+Remember, <em>a priori</em> we make some claims about the distributions of these parameters.
+We said the slope and intercept obey a normal distribution (in the example,
+the center was on 0 with standard deviation 10000). 
+Within this function, we have an estimate for the slope and intercept.
+Given the specified (normal) distributions, we can compute the probability
+of observing the slope, and we can compute the probability of
+observing the intercept. Multiplying probabilities is adding the log probabilities.
+The third parameter, t or $\tau$, pertains to a standard deviation (actually 
+I think it’s the variance but they allude to the same thing). 
+Given that $\tau$ has to be positive, we claimed its distribution obeyed
+a gamma distribution. So given the specified (gamma) distribution,
+we can compute the probability of observing this $\tau$, and add this to the 
+log posterior. At this point, we have accounted for all 3 priors.</p>
+
+<p>Next, we look at the <strong>likelihood</strong>, $P(y|\theta)$. 
+This component is different because now we have to look at our observed data,
+which is 39 data points of (age, price). 
+It’s wrapped in nice vectorized calculations, which means a single line of code
+acting on a variable actually acts on a bunch of values.
+In this scope where we are calculating the posterior, I reiterate: we
+have estimates for 3 parameters. We can use these parameters and our model
+to try to predict some output (price) given the actual input (age). 
+In this example, we are modeling the relationship between price and age
+with a linear model. We have a guess for the slope and a guess for the intercept.
+For all of our 39 ages, let’s use these 2 parameters and model (slope, intercept,
+linear equation) to predict 39 prices.
+In the code, this is <code class="language-plaintext highlighter-rouge">mu = a + b*x</code>, where x is our array of ages.
+Now we have 39 predicted prices and 39 actual prices.
+Let’s return to the likelihood $P(y|\theta)$, the probability of 
+the observed data given your parameters. The hidden middle step is
+the underlying model that converts parameters + input into output, which 
+is why we compute <code class="language-plaintext highlighter-rouge">mu</code>.
+Examine the next line of code <code class="language-plaintext highlighter-rouge">logp += sum(dnorm(y, mu, t**-0.5))</code>. 
+In particular <code class="language-plaintext highlighter-rouge">dnorm(y, mu, t**-0.5)</code>, in which we compute the probability
+of observing the actual, observed price under/given a normal distribution 
+centered around <code class="language-plaintext highlighter-rouge">mu</code> with standard deviation $\tau$ (this is where the 3rd parameter
+comes in!). And then we sum up all these log probabilities for all 39 data.</p>
+
+<p>Compare and contrast the code/function calls, i boiled them down for simplicity:</p>
+
+<ul>
+  <li>Priors : <code class="language-plaintext highlighter-rouge">logp = dnorm(a,0,10000)</code></li>
+  <li>Likelihood: <code class="language-plaintext highlighter-rouge">logp = dnorm(y, mu, t**-0.5)</code></li>
+</ul>
+
+<p>With the <em>prior</em>, we knew the underlying (normal or gamma) distribution and parameters
+of that distribution (center and stdev), and those were hard-coded/fixed/constant. 
+The only variable/thing that changes is our estimate for the parameter,
+and then we compute the probability of observing that parameter under a (fixed)
+distribution.</p>
+
+<p>With the <em>likelihood</em>, we have many more variables that will change throughout
+the sampling. Each iteration, we are coming up with a new distribution (based 
+on <code class="language-plaintext highlighter-rouge">mu</code> and <code class="language-plaintext highlighter-rouge">t</code>), and computing the probability of observing the price 
+(whicch is our observed data) under this new distribution.
+To come up with this new distribution, we still made a claim that it was a 
+normal distribution, but the center (<code class="language-plaintext highlighter-rouge">mu</code>) and variance (<code class="language-plaintext highlighter-rouge">t</code>) of the 
+normal distribution are subject to change. 
+<code class="language-plaintext highlighter-rouge">t</code> or $\tau$ is one of the 3 parameters we are continuously changing/sampling,
+so that one comes sort of “free” in this iterative process. <code class="language-plaintext highlighter-rouge">mu</code>, however,
+is our price, thing we are trying to predict. <code class="language-plaintext highlighter-rouge">mu</code> isn’t free, we have to
+compute <code class="language-plaintext highlighter-rouge">mu</code> based on our model and other parameters (slope and intercept).
+But at least <code class="language-plaintext highlighter-rouge">y</code> is free, it’s the observed data (price) that we measured.</p>
+
+<p>Let’s rephrase this another way</p>
+<ul>
+  <li>You want a  <strong>model</strong> to relate <em>input to output</em>. It is some sort of
+mathematical function/equation that adds/multiplies/exponentiates/logs your input
+to get an output. You have observed data for (input, output)</li>
+  <li>You need <strong>parameters</strong> for this model. These are not observed 
+and you have to come up with them. We make a claim about the <em>distribution
+of these parameters</em> (they seem normally distributed about 0
+with standard deviation 10000). In the parentheses, we have just specified
+3 pieces of information - the type of distribution, and the 2 parameters
+of that distribution. These distributions compose your <strong>prior</strong></li>
+  <li>Using Bayes’ theorem, we are trying to identify the parameters for 
+the observed data according to our model. This manifests 
+as the <strong>posterior distribution</strong>, the probability of a particular 
+value of a parameters given the observed data. This means we say 
+“hey here’s a range of possible parameters of the model, and here’s how
+likely each of those parameters seems, given the data we have gathered”.
+We aren’t making a <em>definitive claim on what the parameters are</em>, just
+providing some possible parameters and likelihoods.</li>
+  <li>We have just discussed the posterior distribution and prior, now 
+we have to address the <strong>likelihood</strong>. This is the probability of the 
+observed data given your parameters. We make a claim about the <em>distribution
+of the data</em> (it seems normally distributed). <em>Unlike the prior</em>, we 
+have only specified one piece of information, the type of distribution.
+    <ul>
+      <li>What’s important to note is that the properties of the distribution
+  (center and stdev) are computed over the course of the MCMC simulation.</li>
+      <li>The nature of this likelihood distribution changes over MCMC, whereas
+  the nature of the prior distribution does not change.
+  <em>Over the MCMC, we get new parameters.</em></li>
+      <li>In the case of one observed datapoint: 
+  For the new parameters, we re-predict the price from the age. 
+  The predicted price forms one property of our normal distribution (center),
+  and this predicted price arises from our underlying model (the linear function)!
+  But the other property of our normal distribution (stdev), is another
+  parameter we are continually updating (like the slope and intercept).</li>
+      <li>Within this new, updated distribution 
+  (which depends on our model and parameters), 
+  we look at the probability of observing the datapoint. 
+  Do this for all datapoints.</li>
+    </ul>
+  </li>
+  <li>I find the likelihood component complicated (I mean, I got it wrong the 
+first time around, and probably got it wrong in this explanation), so I put a lot
+of words there.</li>
+</ul>
+
+<h3 id="what-is-the-role-of-mcmc-what-is-the-role-of-the-marginal-likelihood">What is the role of MCMC? What is the role of the marginal likelihood?</h3>
+<p>The whole point of MCMC is to try a bunch of different $\theta$ and get
+the probability of that $\theta$ given our data - sample different
+$\theta$ to build our <strong>posterior distribution</strong>.</p>
+
+<p>One element of MCMC is the use of an acceptance criteria to accept or reject
+proposed, new parameters (Metropolis-Hastings). This notebook2 
+used some different notation, but I think the code explains more.
+<code class="language-plaintext highlighter-rouge">alpha = proposed_log_prob - current_log_prob</code>, we are looking 
+at the <em>log-difference of the posterior distributions</em> 
+(which is the non-log-quotient of the posterior distributions).</p>
+
+<p>Here’s some math proof, where $\theta$ is the current $\theta$, 
+and $\theta’$ is the proposed $\theta$ that we accept/reject.</p>
+
+<p><img src="/images/bayes.png" alt="bayes" /></p>
+
+<p><img src="/images/bayes_prime.png" alt="bayesprime" /></p>
+
+<p><img src="/images/bayes_proof.png" alt="bayesproof" /></p>
+
+<p>The marginal likelihood $P(y)$, being a constant, cancels out in the division!</p>
+
+<p>To summarize the MCMC loop and sub-routines:</p>
+<ul>
+  <li>Propose a model to relate price and age (linear model)</li>
+  <li>For the model, propose distributions (and properties) 
+for the parameters we are trying to find (prior)</li>
+  <li>For the model, propose a distribution (and properties) 
+for the resultant output/data (likelihood).
+    <ul>
+      <li>Note that THIS distribution will be centered on the predicted output, with
+  variance as a parameter we are trying to find.</li>
+    </ul>
+  </li>
+  <li>Propose an initial guess for the parameters (slope and intercept of model,
+variance of the likelihood)</li>
+  <li>Now we begin the MCMC loops</li>
+  <li>Propose new $\theta$ values (slope, intercept, variance) according to
+the prior distributions we had already specified</li>
+  <li>With the new $\theta$, compute the new posterior
+    <ul>
+      <li>Find the probability of observing these $\theta$ according
+  to their prior distributions</li>
+      <li>With the model and new $\theta$, predict some data (prices) given our 
+  measured input (ages)</li>
+      <li>With our likelihood distribution centered around each predicted value
+  (and variance being one component of the new $\theta$), find the probability
+  of observing the actual, observed value.</li>
+      <li>Sum up the logs (of the priors, of the likelihood of each actual observed value)
+  , this is your new posterior</li>
+    </ul>
+  </li>
+  <li>Calculate the acceptance ratio: compare the new posterior and the old posterior. 
+Marginal likelihood $P(y)$ is cancelled out, so we can ignore it.</li>
+  <li>Compare the acceptance ratio to a value from a random, uniform distribution.
+    <ul>
+      <li>If the acceptance ratio is greater than the random number, accept the 
+  proposed parameters and move onto next iteration with proposed parameters</li>
+      <li>If not, reject the proposed parameters and move onto the next iteration
+  with the same/old parameters</li>
+    </ul>
+  </li>
+  <li>Do this a bunch of times: you are trying different $\theta$ and checking
+how well it fits/models the data</li>
+  <li>At the end of the day, you will have just a huge collection of attempted $\theta$.</li>
+  <li>If well-sampled, the commonly-visited-$\theta$ are the $\theta$ most likely
+to explain your observed data (histogram $\theta$ for a good visualization).</li>
+</ul>
+
+<p>I think that summarizes my learning of Bayesian methods up until now. 
+This next section, still in notebook2, deals with the sampling method (how 
+we choose $\theta$. In this 7/31 section, I didn’t really mention
+molecular modeling, but now I probably will.</p>
+
+<h3 id="hamiltonian-monte-carlo">Hamiltonian Monte Carlo</h3>
+<p>Some $\theta$ are more typical and likely (we want to sample these),
+where as other $\theta$ are less likely (less important to sample these).
+In molecular simulation, some configurations (sets of coordinates) are more 
+likely than others. We are generally interested in the more probable configurations.</p>
+
+<p>To include <em>Hamiltonian properties</em>, we are characterizing $\theta$ using potential 
+and kinetic energies - the former depends on “position” and the latter depends on 
+“velocity”. Our $\theta$ can be considered a particle who can be characterized
+using its position and velocity - potential and kinetic energy. Some say
+velocity, others say momentum, but they are very tightly related via
+mass, except mass isn’t super important for these HMC methods.</p>
+
+<p>In a canonical distribution, <em>probabilities are proportional to 
+the exponential of their energy (Hamiltonian)</em>, the Hamiltonian
+is expressed a sum of potential and kinetic energies</p>
+
+<p><img src="/images/hamiltonian_stats.png" alt="ham" /></p>
+
+<p>Where $s$ is our position, $\phi$ is our velocity. Physicists and 
+molecular modelers will probably cringe that we aren’t using $r$ and $v$ or 
+$r$ and $p$. Remember that kinetic energy is $1/2 * mv ** 2$, but mass is 1 
+in these Bayesian methods.</p>
+
+<p>And the associated probabilities of each state (a state is a collection positions
+and velocities):</p>
+
+<p><img src="/images/canonical_prob_stats.png" alt="canonical_probability_stats" /></p>
+
+<p>Now this very well matches canonical distribution as applied to statistical
+mechanics:</p>
+
+<p><img src="/images/mm/canonical_energy_prob.png" alt="energy_prob" /></p>
+
+<p>Physics says we can relate position, energy, and the Hamiltonian
+via some differential equations (with respect to time), and we 
+apply them to Hamiltonian dynamics for this Bayesian sampling.</p>
+
+<p><img src="/images/hamiltonian_diffeq.png" alt="hamiltonian_diffeq" /></p>
+
+<p>The top line, the derivative of position WRT time is the velocity (fundamental),
+which is also the derivative of the Hamiltonian WRT velocity (analytically
+differentiate the Hamiltonian yourself, observing that potential energy
+is a constant WRT velocity).</p>
+
+<p>The bottom line, the derivative of velocity WRT time is acceleration (fundamental),
+which is also the negative derivative of the Hamiltonian (energy) WRT position -
+in molecular modeling the derivativative of energy WRT position is our force.</p>
+
+<p>At this point, we have some coupled, partial differential equations.
+All molecular modelers are familiar with this - we just need to numerically
+integrate these PDEs over time to get a trajectory of positions and velocities!
+There are a whole slew of integrators in Hamiltonian Dynamics as there are in 
+Molecular Dynamics, and the same considerations for these integrators both hold.
+The notebook2 uses leap-frog integration, 
+which is actually a popular integration method in MD.
+I’ll just note that coding up some of these integrators is a pain because
+you are taking a mixture of full, half, etc. steps and evaluating 
+velocities/forces at different steps, until you actually take a full
+step to move to the next iteration/timestep.</p>
+
+<p>In this Bayesian sampling, now that we have a Hamiltonian, the MCMC loop changes 
+a bit - do some Hamiltonian Dynamics steps to get a new state (set of 
+positions and velocities), then choose whether or not you want
+to accept these steps to get to a new state, via the same Metropolis-Hastings
+algorithm. While the velocity is artificial in the sampling,
+the position is analogous to your $\theta$</p>
+
+<p>In molecular simulation, people call this MCMD, where you do a bunch of 
+MD steps to get a new state, and then you use MC methods to choose to accept
+this new state or not.</p>
+
+<p>Now here’s where the molecular modelers might finally have a leg-up,
+and that’s in <strong>enhanced sampling</strong> (some call this non-Boltzman sampling
+because you are no longer sampling according to the Boltzmann distribution).
+Basically you introduce extra forces/energy and <strong>bias</strong> your trajectory/system/
+positions away from already-visited states.</p>
+
+<p>Bayesian-ists have a variety of enhancing sampling, but it seems they also
+echo similarly to molecular simulation enhanced sampling.</p>
+
+<p>The thing with these methods, you are artificially changing the frequency/histogram
+with which you visit states, so you need a way to re-weight the
+biased/artificial histogram to <em>recover the true histogram/distribution</em> 
+(I’m speaking from molecular modeling experience, 
+but I’m guessing Bayesian stats requires something similar)</p>
+
+<p>This concludes my study of Notebook2. Call me out if I got anything wrong, please.</p>
+
+  </div><a class="u-url" href="/fastpayges/molecular%20modeling/scientific%20computing/2019/07/29/bayesian1.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/fastpayges/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/fastpayges/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/fastpayges/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>Fastpages-based website</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/ahy3nz" title="ahy3nz"><svg class="svg-icon grey"><use xlink:href="/fastpayges/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://twitter.com/ayaang41" title="ayaang41"><svg class="svg-icon grey"><use xlink:href="/fastpayges/assets/minima-social-icons.svg#twitter"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Conducting a simulation | fastpayges</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Conducting a simulation" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Fastpages-based website" />
+<meta property="og:description" content="Fastpages-based website" />
+<link rel="canonical" href="https://ahy3nz.github.io/fastpayges/grad%20school/molecular%20modeling/scientific%20computing/2019/07/25/mm2.html" />
+<meta property="og:url" content="https://ahy3nz.github.io/fastpayges/grad%20school/molecular%20modeling/scientific%20computing/2019/07/25/mm2.html" />
+<meta property="og:site_name" content="fastpayges" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2019-07-25T00:00:00-05:00" />
+<script type="application/ld+json">
+{"url":"https://ahy3nz.github.io/fastpayges/grad%20school/molecular%20modeling/scientific%20computing/2019/07/25/mm2.html","@type":"BlogPosting","headline":"Conducting a simulation","dateModified":"2019-07-25T00:00:00-05:00","datePublished":"2019-07-25T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://ahy3nz.github.io/fastpayges/grad%20school/molecular%20modeling/scientific%20computing/2019/07/25/mm2.html"},"description":"Fastpages-based website","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/fastpayges/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://ahy3nz.github.io/fastpayges/feed.xml" title="fastpayges" /><link rel="shortcut icon" type="image/x-icon" href="/fastpayges/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.css" integrity="sha512-h7nl+xz8wgDlNM4NqKEM4F1NkIRS17M9+uJwIGwuo8vGqIl4BhuCKdxjWEINm+xyrUjNCnK5dCrhM0sj+wTIXw==" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.js" integrity="sha512-/CMIhXiDA3m2c9kzRyd97MTb3MC6OVnx4TElQ7fkkoRghwDf6gi41gaT1PwF270W6+J60uTmwgeRpNpJdRV6sg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/contrib/auto-render.min.js" integrity="sha512-Do7uJAaHZm5OLrIv/yN4w0iG1dbu01kzdMNnFfu/mAqgUk6Nniv2JYHcwH+cNwjqgLcqcuBBk+JRvprLVI8azg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha512-0doc9hKxR3PYwso42RD1p5ySZpzzuDiOwMrdCEh2WdJZCjcmFKc/wEnL+z8fBQrnHoiNWbo+3fiGkOYXBdQp4A==" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/fastpayges/">fastpayges</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/fastpayges/about/">About Me</a><a class="page-link" href="/fastpayges/search/">Search</a><a class="page-link" href="/fastpayges/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Conducting a simulation</h1><p class="post-meta post-meta-title"><time class="dt-published" datetime="2019-07-25T00:00:00-05:00" itemprop="datePublished">
+        Jul 25, 2019
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      11 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/fastpayges/categories/#grad school">grad school</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/fastpayges/categories/#molecular modeling">molecular modeling</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/fastpayges/categories/#scientific computing">scientific computing</a>
+        
+      
+      </p>
+    
+
+    
+      
+        <div class="pb-5 d-flex flex-wrap flex-justify-end">
+          <div class="px-2">
+
+    <a href="https://github.com/ahy3nz/fastpayges/tree/master/_notebooks/2019-07-25-mm2.ipynb" role="button" target="_blank">
+<img class="notebook-badge-image" src="/fastpayges/assets/badges/github.svg" alt="View On GitHub">
+    </a>
+</div>
+
+          
+          
+        </div>
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/2019-07-25-mm2.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Running a simulation means taking a model and sampling sort of distribution with it.
+![Example simulation][/images/mm/particle-box.gif]</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Recapping-molecular-modelling">Recapping molecular modelling<a class="anchor-link" href="#Recapping-molecular-modelling"> </a></h2><p>Remember, our <strong>model</strong> from a molecular modelling perspective is the <strong>potential energy</strong>, which depends
+on the coordinates of every atom or particle in the system. We can either model the system energy
+using <strong>QM or MM</strong> methods. QM methods are more accurate, but more expensive. MM methods simplify away
+some of the less-relevant details (this depends on your system), make some approximations, and allow us to 
+study larger and slower systems.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="The-Boltzmann-distribution">The Boltzmann distribution<a class="anchor-link" href="#The-Boltzmann-distribution"> </a></h2><p>The <strong>Boltzmann distribution</strong> describes the probability of observing <strong>states</strong> as a function of its energy and other <strong>thermodynamic variables</strong> (like the temperature). Delving into the thermodynamic theory, <em>the Boltzmann distribution is the distribution that maximizes a system's entropy</em>, so this is a physically-rooted distribution. Concisely put into an equation:</p>
+<p>$\Huge p_i \; \alpha \; e^{E_i/k_BT}$</p>
+<p>where $p_i$ is the probability of a state, $E$ is the energy of the system, $k_b$ is Boltzmann's constant, and $T$ is the temperature</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="What-is-a-'state'?">What is a 'state'?<a class="anchor-link" href="#What-is-a-'state'?"> </a></h2><p>In the Boltmzann distribution, a state refers to an energetic state (which can be associated to a chemical structure's 3D coordinates. 
+Going further, depending on our thermodynamic conditions, we have <strong>macrostates</strong> that desribe a system's
+macroscopic properties (like temperature, pressure, volume, energy, number of particles). There are a set of <strong>microstates</strong> that can satisfy or achieve a particular macrostate.</p>
+<p>For example, if you had 3 coins, you could have a macrostate consisting of 2 Tails and 1 Head. The corresopnding micorstates might be HTT, THT, TTH</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Application-to-molecular-simulation">Application to molecular simulation<a class="anchor-link" href="#Application-to-molecular-simulation"> </a></h1><p>One often overlooked fact is that <em>all molecules move around, a lot or a little</em> (unless you're at absolute zero but that's not the point). Thermal motion means that every atom vibrates a little bit - every molecule can wiggle ever so slightly or fly around. However, <em>the physical phenomenon that atoms move around is the whole reason we have a distribution of configurations (coordinates)</em></p>
+<p>Under the Boltzmann distribution, the probability of witnessing a chemical microstate (a particular set of coordinates that a chemical configuration occupies) is related to the energy of that state.</p>
+<p><em>If a particular configuration is high-energy, we probably won't witness it. If it low-energy, there is a good chance we will</em></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Monte-Carlo-methods">Monte Carlo methods<a class="anchor-link" href="#Monte-Carlo-methods"> </a></h2><p>Monte carlo (MC) sampling is not unique to molecular simulation, but molecular modellers do like to implement MC methods.</p>
+<p>Briefly, MC methods involve a trial where you try to change/alter some part of your system. 
+In molecular modeling, your <em>MC trial moves involve altering your configuration</em> (rotating a molecule, displacing an atom, stretching a bond, etc.)</p>
+<p>The <em>choice to accept this move depends on the energy before and after the trial move</em>. If the energy is lower, we accept the move and proceed with the simulation. If the energy is higher, we calculate the relative probabilities (according to the Boltzmann distribution), and compare that to a randomly-generated number; we either reject the move and propose a new one or accept and proceed.</p>
+<p>There are lots of different algorithms, but a common one in the molecular modelling field is the <strong>Metropolis-Hastings</strong> algorithm</p>
+<p>If you <em>sample a lot of configurations</em>, you can eventually get a good idea of the distribution of various configurations of your system. From this resultant sample or <strong>trajectory</strong>, we can start computing various (static) properties. By nature of the sampling, the configurations are somewhat independent and uncorrelated compared to other sampling methods</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Molecular-dynamics-methods">Molecular dynamics methods<a class="anchor-link" href="#Molecular-dynamics-methods"> </a></h2><p>$\Huge F \; = \; ma$</p>
+<p>In molecular dynamics (MD) sampling, we utilize kinetic energy and momentum to actually simulate the motion of these atoms. This is where we bring <strong>Newton's laws of motion</strong> in order to physically capture these motions - <em>the acceleration on an object is related to the forces acting upon it</em></p>
+<p>To compute the forces acting upon each atom, we look back to another physical relationship - <em>force is the negative derivative of energy with respect to distance</em>. This works well because now we we can <em>relate motion to our molecular model</em>; given the energy of our system, compute the gradient to get the forces, and these forces dictate the acceleration</p>
+<p>$\Huge F(\vec r) = -\nabla U(\vec r)$</p>
+<p>There a variety of other formalisms that have been used in MD like <strong>Hamiltonian</strong> or <strong>Lagrangian mechanics</strong>, but the idea is to relate potential and kinetic energy to the motion of a system</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We also know that</p>
+<p>$\huge a = \frac{d^2 x}{d t^2}$</p>
+<p>Which means we can relate acceleration to position via a second order ordinary differential equation.
+If we integrate this, we can get a system's position over time.</p>
+<p>This is very hard to do analytically,
+so we often resort to various numerical methods to integrate a second order ODE (compute the gradient and take a small step in that direction). In MD, we call this an <strong>integrator</strong>, and the field is very interested in all the different integration algorithms, their computational complexity, and overall stability (energy conservation versus time step, time-reversibility, among others). Don't forget, this integration means we now also account for things like velocity and kinetic energy (which follow the <strong>Maxwell-Boltzmann distribution</strong>)</p>
+<p>To summarize molecular dynamics, we are <em>integrating Newton's equations of motion over time according to a potential energy function</em>.</p>
+<p>After integrating for a finite number of steps, we have sampled a number of configurations that are more correlated to each other compared to MC methods.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Statistical-side-note">Statistical side note<a class="anchor-link" href="#Statistical-side-note"> </a></h3><p>As a molecular modeller venturing into broader areas of statistics and data science, I find myself trying to relate concepts like Markov chain Monte Carlo or Hamiltonian dynamics back to these molecular modelling notions of MC and MD. I think there are similarities in that the MC analogs are drawing random samples, but the Hamiltonian and MD methods are accounting for some sort of kinetics or momentum. Even the notion of some steepest descent gradient algorithms reminds me that we essentially compute a gradient (force) of our objecive function (energy).</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="The-law-of-large-numbers,-ergodicity,-and-phase-space">The law of large numbers, ergodicity, and phase space<a class="anchor-link" href="#The-law-of-large-numbers,-ergodicity,-and-phase-space"> </a></h2><p>As in statistics, the only way we can reliably trust our sample is if we <em>draw enough samples</em>. 
+If we sample enough, the sample statistics and population statistics relate well.</p>
+<p>In simulation, before we can even begin to think about drawing enough samples, we have to draw <em>physically correct</em> samples. We call this <strong>ergodicity</strong> - when our the probability distributions from our simulations don't change much. This means we need to run a simulation long enough such that our sampled configurations results replicate the underlying physical distributions.</p>
+<p>Here's a more involved discussion. For N atoms, we have 6 N variables (for the 3 dimensions we have a velocity/momentum and a position). This results in a 6N <strong>phase space</strong>. Over the course of the simulation,
+we are effectively traversing through 6N phase space, with some regions being more "popular" or favorable than others. When this probability density no longer changes with respect to time, our system is ergodic and we just need to generate a lot of samples from this probability distribution.</p>
+<p>The formulation (<strong>Liouville's theorem</strong>) is as follows</p>
+<p>$\large \frac{\partial \rho}{\partial t} = -iL = 0$</p>
+<p>A simpler way of thinking about this: you can start a simulation from some very unrealistic coordinates (like water in a crystalline configuration even though you're at room temperature), but if you simulate long enough, eventually you begin visiting only the physically-realistic and probabilistic configurations. At this point, your system is <strong>equilibrated</strong> and then you begin the task of sampling from this distribution. So if you run a 100 ns simulation, you might discard the first 20 ns as "burn-in" or "equilibration" when you were trying to hit equilibration. The other 80 ns you actually care about and analyze - this is your "production" run where you are reliably sampling from the correct distribution.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="MC-vs-MD">MC vs MD<a class="anchor-link" href="#MC-vs-MD"> </a></h2><p>There are a variety of things to think about here: computational complexity, equilibration, and the physical properties you want to measure. But at the end of each simulation, you end up with a series of configurations (coordinates).</p>
+<h3 id="Computational-complexity">Computational complexity<a class="anchor-link" href="#Computational-complexity"> </a></h3><p>In most force fields (potential energy functions), bonded interactions are cheap because each atom participates in maybe a dozen different bonded interactions. Nonbonded interactions are much harder becuase each atom participates in a nonbonded interaction with <em>every other atom in your system</em>, this is $O(n^2)$, and these nonbonded, pairwise interactions are <em>the most expensive calculations in a simulation code</em>. In reality, there are some simulation tricks to speed up this pairwise computation to only look at the relevant/nearby atoms (neighbor lists) or use reciprocal space to rapidly compute long-distance interactions (Ewald sums)</p>
+<p>In MC, you don't move EVERY atom, you move a few or just one. To evaluate a trial move, you need to compute how the energy changes. Fortunately, for the 99% of atoms that didn't move, that saves you some energy calculations. You only need to calculate the energy for the part of the system that changed.</p>
+<p>In MD, you are moving EVERY atom, so you have to do this $O(n^2)$ calculation every, single time.</p>
+<p>So comparing each iteration, a single MC iteration is faster than a single MD iteration. Actually, for various reasons, MD algorithms have found success being implemented as GPU kernels, so MD is really accelerated by GPUs. The complexity of MC has inhibited MC packages from really harnessing the computational power of a GPU. Don't get me wrong, there are some MC packages that utilize the GPU fantastically well, but you can find more MD packages that use the GPU.</p>
+<h3 id="Equilibration">Equilibration<a class="anchor-link" href="#Equilibration"> </a></h3><p>MC means we take "random" moves - we could twist a long polymer, move an atom halfway across the simulation box, or something creative. Because MD aims to simulate the motion of atoms, our moves are somewhat constrained to local displacements.</p>
+<p>With a wider variety, and more "radical" moves, MC can reach equilibration faster than MD, whose moves are very dependent on small displacements</p>
+<h3 id="Physical-properties">Physical properties<a class="anchor-link" href="#Physical-properties"> </a></h3><p>It's 2-0, so we have to find something in favor of MD. Some physical properties depend on the time-evolved-dynamics of a system - we care about how the coordinates relate to each other over time. MC cannot do this because each configuration is fairly uncorrelated from the previous one. In MD, these configurational correlations help us calculate transport properties like viscosity and diffusion. MC has a hard time computing these properties due to the lack of correlation between configurations</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="A-grad-student-confession">A grad student confession<a class="anchor-link" href="#A-grad-student-confession"> </a></h2><p>Honestly, most comptuational grad students don't think about these underlying theories or formulations that often.
+We're more concerned with applying them to do our research. We often take coursework that covers these concepts,
+but more often than not, we shrug off simulation techniques as just calculating energy/forces and moving atoms.</p>
+<p>In terms of implementing these algorithms, they are already well-implemented in existing software packages. We don't have to write our Metropolis-Hastings algorithms, MC moves, or integrators - other generations of academics, scientists, and engineers have constructed and tested these tools and made sure they work. They made way for newer generations of students to spend their time applying these tools to research.</p>
+<p>Usually, a particular lab or field gravtitates to either MC or MD, and then that becomes the learning environment
+and code infrastructure for new students. Occasionally we move into another method, but only if the scientific problem truly necessitates using another method.</p>
+<p>Should the (unfortunate) time come when we have to find bugs in these packages, then we dust off the textbooks and re-re-re-re-learn these algorithms and techniques.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Conclusion">Conclusion<a class="anchor-link" href="#Conclusion"> </a></h1><p>There are a variety of simulation/sampling techniques (MD or MC), each with its own perks and drawbacks. Fundamentally, there is a lot of derivation and proof that validates these methods in sampling the Boltzmann distribution. The tools of other scientists and engineers have allowed us to study interesting scientific problems without being "caught in the weeds".</p>
+<p>In broader statistical/data science perspectives, we use simulation methods to sample from a distribution and compute various properties (some dependent on time-correlations), and we have to ensure that we have correctly sampled enough to draw reliable conclusions. Some build the model and simulation cornerstones, others apply these tools as they see fit.</p>
+
+</div>
+</div>
+</div>
+</div>
+
+
+
+  </div><a class="u-url" href="/fastpayges/grad%20school/molecular%20modeling/scientific%20computing/2019/07/25/mm2.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/fastpayges/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/fastpayges/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/fastpayges/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>Fastpages-based website</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/ahy3nz" title="ahy3nz"><svg class="svg-icon grey"><use xlink:href="/fastpayges/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://twitter.com/ayaang41" title="ayaang41"><svg class="svg-icon grey"><use xlink:href="/fastpayges/assets/minima-social-icons.svg#twitter"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

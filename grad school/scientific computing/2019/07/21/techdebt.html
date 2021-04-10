@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Technical Debt | fastpayges</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Technical Debt" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Technical debt is an ongoing, ever-pressing issue to any large, collaborative code base. If left unaddressed, technical debt can seriously cripple productivity." />
+<meta property="og:description" content="Technical debt is an ongoing, ever-pressing issue to any large, collaborative code base. If left unaddressed, technical debt can seriously cripple productivity." />
+<link rel="canonical" href="https://ahy3nz.github.io/fastpayges/grad%20school/scientific%20computing/2019/07/21/techdebt.html" />
+<meta property="og:url" content="https://ahy3nz.github.io/fastpayges/grad%20school/scientific%20computing/2019/07/21/techdebt.html" />
+<meta property="og:site_name" content="fastpayges" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2019-07-21T00:00:00-05:00" />
+<script type="application/ld+json">
+{"url":"https://ahy3nz.github.io/fastpayges/grad%20school/scientific%20computing/2019/07/21/techdebt.html","@type":"BlogPosting","headline":"Technical Debt","dateModified":"2019-07-21T00:00:00-05:00","datePublished":"2019-07-21T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://ahy3nz.github.io/fastpayges/grad%20school/scientific%20computing/2019/07/21/techdebt.html"},"description":"Technical debt is an ongoing, ever-pressing issue to any large, collaborative code base. If left unaddressed, technical debt can seriously cripple productivity.","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/fastpayges/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://ahy3nz.github.io/fastpayges/feed.xml" title="fastpayges" /><link rel="shortcut icon" type="image/x-icon" href="/fastpayges/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.css" integrity="sha512-h7nl+xz8wgDlNM4NqKEM4F1NkIRS17M9+uJwIGwuo8vGqIl4BhuCKdxjWEINm+xyrUjNCnK5dCrhM0sj+wTIXw==" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.js" integrity="sha512-/CMIhXiDA3m2c9kzRyd97MTb3MC6OVnx4TElQ7fkkoRghwDf6gi41gaT1PwF270W6+J60uTmwgeRpNpJdRV6sg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/contrib/auto-render.min.js" integrity="sha512-Do7uJAaHZm5OLrIv/yN4w0iG1dbu01kzdMNnFfu/mAqgUk6Nniv2JYHcwH+cNwjqgLcqcuBBk+JRvprLVI8azg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha512-0doc9hKxR3PYwso42RD1p5ySZpzzuDiOwMrdCEh2WdJZCjcmFKc/wEnL+z8fBQrnHoiNWbo+3fiGkOYXBdQp4A==" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/fastpayges/">fastpayges</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/fastpayges/about/">About Me</a><a class="page-link" href="/fastpayges/search/">Search</a><a class="page-link" href="/fastpayges/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Technical Debt</h1><p class="post-meta post-meta-title"><time class="dt-published" datetime="2019-07-21T00:00:00-05:00" itemprop="datePublished">
+        Jul 21, 2019
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      6 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/fastpayges/categories/#grad school">grad school</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/fastpayges/categories/#scientific computing">scientific computing</a>
+        
+      
+      </p>
+    
+
+    </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>Technical debt is an ongoing, ever-pressing issue to any 
+large, collaborative code base. 
+If left unaddressed, technical debt can seriously cripple productivity.</p>
+
+<p><img src="/images/tech-debt.jpg" alt="technical debt" /> <a href="https://adamrehill.files.wordpress.com/2017/03/refusing-to-tackle-technical-debt.jpg">credit</a></p>
+
+<h1 id="contextualizing-the-issue-in-academia">Contextualizing the issue in academia</h1>
+<p>You’re a STEM graduate student or young professor in the 70s or 80s. 
+Coding standards, software practices, 
+continuous integration, unit tests, and modularity
+haven’t been popularized. The codes you wrote were very long scripts
+tailored to your particular problem. Your code was bad, and the only person
+who could use your code was you.</p>
+
+<p>You’ve probably tried to share your code with a collaborator, mentee, or student,
+but it’s incredibly hard for him/her to navigate and use your code.
+Maybe you could spend some time to re-design and re-factor for extensibility,
+but time is publications is money in the life of an academic. You’ll do it later.</p>
+
+<p>Years pass and your messy code has grown from 100 lines of hard-to-understand,
+poorly-tested software to thousands of lines of mess. 
+At this point, if you wanted to re-factor, it would be a <em>significant overhaul</em>
+that would require <em>considerable amounts of time, energy, maybe money</em> that would
+detract from publishing. Uh-oh. On top of that, you’re far enough in your career
+that you’re not the one writing the code anymore, so you’ll need some help.</p>
+
+<h1 id="problems-that-arise">Problems that arise</h1>
+<p>For starters, messy code is harder to learn than well-organized, documented code.
+If you’ve ever been thrown in the deep-end of a codebase without a guide, 
+you’re left floundering for quite a long time. If it was a better codebase,
+you’d still struggle, but way less.</p>
+
+<p>In the grand scheme of “good science”, your methods and techniques need
+to be <em>reproducible by others</em>. This could be as simple as re-running the
+exact same scripts in the exact same environment. 
+Or it could be more complex as giving someone a broad 
+experiment/simulation, and hoping that person can figure it out without
+copy-pasting your code.</p>
+
+<p>In the grand scheme of “good science”, your methods have to be <em>correct</em>.
+Before you take your technique to study some obscure, complex system,
+how about some sanity checks that your results work for something simple,
+like water? In general software engineering, unit tests are easier
+in that the inputs and outputs are simpler and more direct. In scientific
+software, it’s a little more complicated and groups can take a variety of 
+approaches (checking input, doing energy calculations, checking if a
+simulation doens’t crash, etc.), but a <em>systematic testing framework</em> 
+is necessary to ensure correctness and accuracy.</p>
+
+<p>If you’re trying to popularize a method or software (AKA citations), 
+it helps if external
+audiences can understand the codebase before they get flustered, give up,
+and go to the easier-to-implement method.</p>
+
+<h1 id="how-do-we-start-addressing-technical-debt">How do we start addressing technical debt?</h1>
+<p>There are bigger brains who have thought longer about the issue and have
+considered many external factors. I’ve had some chances to talk and pick
+their brains - it’s complicated. Broadly, this could be split into two categories:
+the small, growing code base vs. the large, archaic, software monolith</p>
+
+<p>I should mention that the landscape of government funding is acknowledging
+the need for sustainable software and helping develop centers
+that can organize and facilitate sustainable efforts, 
+like <a href="http://urssi.us">URSSI</a>, 
+<a href="https://molssi.org/">MolSSI</a>, 
+<a href="https://nanohub.org/">Nanohub</a>, among others</p>
+
+<h2 id="easier-the-small-growing-code-base">Easier: the small, growing code base</h2>
+<p>Like cleaning your room, it’s easier to clean your room daily or weekly
+before the mess is incomprehensibly large after a year of not cleaning.
+<em>Refactoring often is very important</em>. As the codebase grows, functions, routines,
+classes, modules, files may need to be re-organized into a cohesive package
+rather than just of a jumble of files that don’t seem to fit well together.</p>
+
+<p><em>Write tests as you go</em>. It feels less laborious if the tests are written
+as a new routine/module is put together. Depending on the scope of the project,
+unit tests, integration tests, regression testing, stress testing, etc. are all
+different sorts of tests to sanity-check and expose bugs.</p>
+
+<p><a href="https://github.com/MolSSI/cookiecutter-cms">MolSSI has a good cookiecutter for any package getting started</a>, and it’s much better to start off on the right foot to 
+set a pattern or set of practices before things get out of hand.</p>
+
+<p>It’s <em>important to establish best practices as early as possible</em>, so good design
+and infrastructure can be in place for the future.</p>
+
+<h2 id="harder-large-software-monoliths">Harder: large software monoliths</h2>
+<p>In my experience, this is where a good portion of academic software stands.
+&gt;10,000 lines of code with poor testing, organization, or modularity.</p>
+
+<p>One approach involves a <em>dedicated application support engineer</em> on hand 
+to refactor and maintain.
+(this job has many names, but essentially a somewhat permanent position for someone
+who is familiar with the code). Obviously this costs money, and 
+the academic position is significantly less enticing than a corresponding role in 
+industry (salary, culture, career growth). 
+Some of the most successful software sells academic and commercial licenses,
+but that becomes a whole other beast to tackle in the open source community.
+Otherwise, you can hope you have a very charitable graduate student that
+spent his/her PhD with this package and you hope will donate time post-graduation
+to supporting the package. This is voluntary, so large code overhauls are unlikely.
+Honestly, this is voluntary, so expecting anything is optimistic, especially
+since PhD graduates can be burnt out.</p>
+
+<p>Another approach involves <em>accepting the monolith as it is, but trying to 
+build around that with good practice</em>. For example, if someone wanted to contribute
+a module/routine, make sure that routine is testable and sufficiently modular while
+still interacting well with the overarching package. This could take extra work if
+this involves making different programming languages work seamlessly well together.
+Another example, if you have an old simulation package, the simulation package
+itself might be hard to re-factor, but the mechanisms by which you
+generate inputs (coordinate files, simulation parameters) 
+or analyze outputs (trajectories, energies) might be a more tractable project
+to raise to modern code standards.</p>
+
+<p>Given the labs have sort of rooted traditions and work environments, 
+instilling an ethos of sustainable software definitely takes a lot of 
+initial work to foster these practices, but the open source community
+(and the molecular sciences sub-community) is friendly and willing to help.</p>
+
+<p>Overall, I think this approach is a sort of a 
+compromise between the hefty resources required
+for sustainable software and the long-term benefit of sustainable practices.</p>
+
+<h1 id="if-theres-anything-to-take-away-from-this">If there’s anything to take away from this</h1>
+<p>Sustainble software is essential to long-term productivity. 
+Technical debt is going to hinder education, progress, and collaboration.
+If you’re a manager, boss, advisor, etc., it’s important
+to recognize these issues and try to develop a plan of action with your team
+and the ones who are heavily involved with the codebase.</p>
+
+
+  </div><a class="u-url" href="/fastpayges/grad%20school/scientific%20computing/2019/07/21/techdebt.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/fastpayges/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/fastpayges/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/fastpayges/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>Fastpages-based website</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/ahy3nz" title="ahy3nz"><svg class="svg-icon grey"><use xlink:href="/fastpayges/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://twitter.com/ayaang41" title="ayaang41"><svg class="svg-icon grey"><use xlink:href="/fastpayges/assets/minima-social-icons.svg#twitter"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Scraping Reddit, part 2 | fastpayges</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Scraping Reddit, part 2" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Fastpages-based website" />
+<meta property="og:description" content="Fastpages-based website" />
+<link rel="canonical" href="https://ahy3nz.github.io/fastpayges/data%20science/personal/2021/04/09/reddit2.html" />
+<meta property="og:url" content="https://ahy3nz.github.io/fastpayges/data%20science/personal/2021/04/09/reddit2.html" />
+<meta property="og:site_name" content="fastpayges" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-04-09T00:00:00-05:00" />
+<script type="application/ld+json">
+{"url":"https://ahy3nz.github.io/fastpayges/data%20science/personal/2021/04/09/reddit2.html","@type":"BlogPosting","headline":"Scraping Reddit, part 2","dateModified":"2021-04-09T00:00:00-05:00","datePublished":"2021-04-09T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://ahy3nz.github.io/fastpayges/data%20science/personal/2021/04/09/reddit2.html"},"description":"Fastpages-based website","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/fastpayges/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://ahy3nz.github.io/fastpayges/feed.xml" title="fastpayges" /><link rel="shortcut icon" type="image/x-icon" href="/fastpayges/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.css" integrity="sha512-h7nl+xz8wgDlNM4NqKEM4F1NkIRS17M9+uJwIGwuo8vGqIl4BhuCKdxjWEINm+xyrUjNCnK5dCrhM0sj+wTIXw==" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.js" integrity="sha512-/CMIhXiDA3m2c9kzRyd97MTb3MC6OVnx4TElQ7fkkoRghwDf6gi41gaT1PwF270W6+J60uTmwgeRpNpJdRV6sg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/contrib/auto-render.min.js" integrity="sha512-Do7uJAaHZm5OLrIv/yN4w0iG1dbu01kzdMNnFfu/mAqgUk6Nniv2JYHcwH+cNwjqgLcqcuBBk+JRvprLVI8azg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha512-0doc9hKxR3PYwso42RD1p5ySZpzzuDiOwMrdCEh2WdJZCjcmFKc/wEnL+z8fBQrnHoiNWbo+3fiGkOYXBdQp4A==" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/fastpayges/">fastpayges</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/fastpayges/about/">About Me</a><a class="page-link" href="/fastpayges/search/">Search</a><a class="page-link" href="/fastpayges/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Scraping Reddit, part 2</h1><p class="post-meta post-meta-title"><time class="dt-published" datetime="2021-04-09T00:00:00-05:00" itemprop="datePublished">
+        Apr 9, 2021
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      7 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/fastpayges/categories/#data science">data science</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/fastpayges/categories/#personal">personal</a>
+        
+      
+      </p>
+    
+
+    
+      
+        <div class="pb-5 d-flex flex-wrap flex-justify-end">
+          <div class="px-2">
+
+    <a href="https://github.com/ahy3nz/fastpayges/tree/master/_notebooks/2021-04-09-reddit2.ipynb" role="button" target="_blank">
+<img class="notebook-badge-image" src="/fastpayges/assets/badges/github.svg" alt="View On GitHub">
+    </a>
+</div>
+
+          
+          
+        </div>
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/2021-04-09-reddit2.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The last post dealt with using pushshift and handling requests to access posts and comments from Reddit.
+This post deals with using the <a href="https://praw.readthedocs.io/en/latest/">Python Reddit API wrapper</a> to accces posts and comments from Reddit and then using some NLP tools for some basic sentiment analysis.</p>
+<p>There is some work to set up an application to use <a href="https://github.com/reddit-archive/reddit/wiki/OAuth2-App-Types">praw</a> with <a href="https://github.com/reddit-archive/reddit/wiki/OAuth2-Quick-Start-Example">oauth</a>, but straightforward enough for anyone who's just using this as a script.</p>
+<p>After setting up the praw application, we can build up a small pipeline:</p>
+<ol>
+<li>Use praw to download posts and comments from r/nba</li>
+<li>Format them into a dataframe</li>
+<li>Use huggingface and spacy for sentiment analysis</li>
+</ol>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
+<span class="kn">import</span> <span class="nn">itertools</span> <span class="k">as</span> <span class="nn">it</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">reduce</span><span class="p">,</span> <span class="n">partial</span>
+<span class="kn">import</span> <span class="nn">datetime</span> <span class="k">as</span> <span class="nn">dt</span>
+
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.max_colwidth&#39;</span><span class="p">,</span> <span class="mi">150</span><span class="p">)</span>
+<span class="kn">import</span> <span class="nn">praw</span>
+<span class="kn">from</span> <span class="nn">praw.models</span> <span class="kn">import</span> <span class="n">MoreComments</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">hfapi</span>
+<span class="kn">import</span> <span class="nn">spacy</span>
+<span class="kn">from</span> <span class="nn">spacytextblob.spacytextblob</span> <span class="kn">import</span> <span class="n">SpacyTextBlob</span>
+
+<span class="n">nlp</span> <span class="o">=</span> <span class="n">spacy</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;en_core_web_sm&quot;</span><span class="p">)</span>
+<span class="n">spacy_text_blob</span> <span class="o">=</span> <span class="n">SpacyTextBlob</span><span class="p">()</span>
+<span class="n">nlp</span><span class="o">.</span><span class="n">add_pipe</span><span class="p">(</span><span class="n">spacy_text_blob</span><span class="p">)</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="n">hfapi</span><span class="o">.</span><span class="n">Client</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">reddit</span> <span class="o">=</span> <span class="n">praw</span><span class="o">.</span><span class="n">Reddit</span><span class="p">(</span><span class="s2">&quot;bot1&quot;</span><span class="p">)</span> <span class="c1"># Pulls from praw.ini file</span>
+<span class="n">rnba</span> <span class="o">=</span> <span class="n">reddit</span><span class="o">.</span><span class="n">subreddit</span><span class="p">(</span><span class="s1">&#39;nba&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Compiling-praw-objects-into-a-dataframe">Compiling praw objects into a dataframe<a class="anchor-link" href="#Compiling-praw-objects-into-a-dataframe"> </a></h2>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">RedditSubmission</span><span class="p">:</span>
+    <span class="n">title</span><span class="p">:</span> <span class="nb">str</span> 
+    <span class="n">body</span><span class="p">:</span> <span class="nb">str</span> 
+    <span class="n">permalink</span><span class="p">:</span> <span class="nb">str</span> 
+    <span class="n">author</span><span class="p">:</span> <span class="nb">str</span> 
+    <span class="n">score</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">timestamp</span><span class="p">:</span> <span class="n">dt</span><span class="o">.</span><span class="n">datetime</span>
+    
+    <span class="k">def</span> <span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">title</span><span class="p">,</span>
+            <span class="s1">&#39;body&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">body</span><span class="p">,</span>
+            <span class="s1">&#39;permalink&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">permalink</span><span class="p">,</span>
+            <span class="s1">&#39;author&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">author</span><span class="p">,</span>
+            <span class="s1">&#39;score&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">score</span><span class="p">,</span>
+            <span class="s1">&#39;timestamp&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">timestamp</span>
+        <span class="p">}</span>
+    
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_praw_submission</span><span class="p">(</span>
+        <span class="bp">cls</span><span class="p">,</span>
+        <span class="n">praw_submission</span><span class="p">:</span> <span class="n">praw</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">Submission</span>
+    <span class="p">):</span>      
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span>
+            <span class="n">praw_submission</span><span class="o">.</span><span class="n">title</span><span class="p">,</span>
+            <span class="n">praw_submission</span><span class="o">.</span><span class="n">selftext</span><span class="p">,</span>
+            <span class="n">praw_submission</span><span class="o">.</span><span class="n">permalink</span><span class="p">,</span>
+            <span class="n">praw_submission</span><span class="o">.</span><span class="n">author</span><span class="p">,</span>
+            <span class="n">praw_submission</span><span class="o">.</span><span class="n">score</span><span class="p">,</span>
+            <span class="n">dt</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">fromtimestamp</span><span class="p">(</span><span class="n">praw_submission</span><span class="o">.</span><span class="n">created_utc</span><span class="p">)</span>
+        <span class="p">)</span>
+        
+<span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">RedditComment</span><span class="p">:</span>                                                                  
+    <span class="n">body</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">permalink</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">author</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">score</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">timestamp</span><span class="p">:</span> <span class="n">dt</span><span class="o">.</span><span class="n">datetime</span>
+
+    <span class="k">def</span> <span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s1">&#39;body&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">body</span><span class="p">,</span>
+            <span class="s1">&#39;permalink&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">permalink</span><span class="p">,</span>
+            <span class="s1">&#39;author&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">author</span><span class="p">,</span>
+            <span class="s1">&#39;score&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">score</span><span class="p">,</span>
+            <span class="s1">&#39;timestamp&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">timestamp</span>
+        <span class="p">}</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_praw_comment</span><span class="p">(</span>
+        <span class="bp">cls</span><span class="p">,</span>
+        <span class="n">praw_comment</span><span class="p">:</span> <span class="n">praw</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">Comment</span>
+    <span class="p">):</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span>
+            <span class="n">praw_comment</span><span class="o">.</span><span class="n">body</span><span class="p">,</span>
+            <span class="n">praw_comment</span><span class="o">.</span><span class="n">permalink</span><span class="p">,</span>
+            <span class="n">praw_comment</span><span class="o">.</span><span class="n">author</span><span class="p">,</span>
+            <span class="n">praw_comment</span><span class="o">.</span><span class="n">score</span><span class="p">,</span>
+            <span class="n">dt</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">fromtimestamp</span><span class="p">(</span><span class="n">praw_comment</span><span class="o">.</span><span class="n">created_utc</span><span class="p">)</span>
+        <span class="p">)</span>
+
+        
+<span class="k">def</span> <span class="nf">process_submission_from_praw</span><span class="p">(</span><span class="n">praw_submission_generator</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">praw_submission</span> <span class="ow">in</span> <span class="n">praw_submission_generator</span><span class="p">:</span>
+        <span class="k">yield</span> <span class="n">RedditSubmission</span><span class="o">.</span><span class="n">from_praw_submission</span><span class="p">(</span><span class="n">praw_submission</span><span class="p">)</span>
+        
+<span class="k">def</span> <span class="nf">process_comment_from_praw_submission</span><span class="p">(</span><span class="n">praw_submission_generator</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">praw_submission</span> <span class="ow">in</span> <span class="n">praw_submission_generator</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">praw_comment</span> <span class="ow">in</span> <span class="n">praw_submission</span><span class="o">.</span><span class="n">comments</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">praw_comment</span><span class="p">,</span> <span class="n">MoreComments</span><span class="p">):</span>
+                <span class="k">continue</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">yield</span> <span class="n">RedditComment</span><span class="o">.</span><span class="n">from_praw_comment</span><span class="p">(</span><span class="n">praw_comment</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">praw_submission_generator1</span> <span class="o">=</span> <span class="n">rnba</span><span class="o">.</span><span class="n">hot</span><span class="p">(</span><span class="n">limit</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">praw_submission_generator2</span> <span class="o">=</span> <span class="n">rnba</span><span class="o">.</span><span class="n">hot</span><span class="p">(</span><span class="n">limit</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+
+<span class="n">submissions</span> <span class="o">=</span> <span class="n">process_submission_from_praw</span><span class="p">(</span><span class="n">praw_submission_generator1</span><span class="p">)</span>
+<span class="n">comments</span> <span class="o">=</span> <span class="n">process_comment_from_praw_submission</span><span class="p">(</span><span class="n">praw_submission_generator2</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">submission_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">submissions</span><span class="p">)</span>
+<span class="n">comment_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">comments</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Using-huggingface-for-sentiment-analysis">Using huggingface for sentiment analysis<a class="anchor-link" href="#Using-huggingface-for-sentiment-analysis"> </a></h2><p>Specifically, using <a href="https://github.com/huggingface/hfapi">huggingface api</a></p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">classification_single_body</span><span class="p">(</span><span class="n">client</span><span class="p">,</span> <span class="n">sentence</span><span class="p">):</span>
+    <span class="n">classification</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">text_classification</span><span class="p">(</span><span class="n">sentence</span><span class="p">)</span>
+    <span class="k">if</span> <span class="s1">&#39;error&#39;</span> <span class="ow">in</span> <span class="n">classification</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
+    <span class="n">neg_sentiment</span><span class="p">,</span> <span class="n">pos_sentiment</span> <span class="o">=</span> <span class="n">classification</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">neg_sentiment</span><span class="p">[</span><span class="s1">&#39;score&#39;</span><span class="p">],</span> <span class="n">pos_sentiment</span><span class="p">[</span><span class="s1">&#39;score&#39;</span><span class="p">]</span>
+
+<span class="k">def</span> <span class="nf">classification_multiple_body</span><span class="p">(</span><span class="n">client</span><span class="p">,</span> <span class="n">bunch_of_sentences</span><span class="p">,</span> <span class="n">colnames</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">colnames</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">colnames</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;negative_score&#39;</span><span class="p">,</span> <span class="s1">&#39;positive_score&#39;</span><span class="p">]</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+        <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">classification_single_body</span><span class="p">(</span><span class="n">client</span><span class="p">,</span> <span class="n">x</span><span class="p">),</span> <span class="n">bunch_of_sentences</span><span class="p">),</span>
+        <span class="n">columns</span><span class="o">=</span><span class="n">colnames</span>
+    <span class="p">)</span>
+
+    
+    <span class="k">return</span> <span class="n">df</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="n">hfapi</span><span class="o">.</span><span class="n">Client</span><span class="p">()</span>
+<span class="n">classification_multiple_bodies_partial</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">classification_multiple_body</span><span class="p">,</span> <span class="n">client</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">submission_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span>
+    <span class="n">submission_df</span><span class="p">,</span> <span class="n">classification_multiple_bodies_partial</span><span class="p">(</span><span class="n">submission_df</span><span class="p">[</span><span class="s1">&#39;title&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_list</span><span class="p">())</span>
+<span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Scoring the submissions, here's a title with an appropriately positive score "Nikola Jokic leads the league in offensive win shares at 8.9. This is also more than any player's OVERALL win shares for the current season."</p>
+<p>Here's a title that is scored as incredibly negative, but in reality is pretty positive "Kyrie Irving needs one more 3 point make to enter the 50-40-90 club for the 2020-2021 season" -- being even close to the 50-40-90 club is incredible</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">submission_df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">&quot;negative_score&quot;</span><span class="p">)[[</span><span class="s1">&#39;title&#39;</span><span class="p">,</span> <span class="s1">&#39;score&#39;</span><span class="p">,</span> <span class="s1">&#39;negative_score&#39;</span><span class="p">,</span> <span class="s1">&#39;positive_score&#39;</span><span class="p">]]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>title</th>
+      <th>score</th>
+      <th>negative_score</th>
+      <th>positive_score</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>19</th>
+      <td>[Orsborn]: Mike Malone on Pop still going strong at 72: "For him to be as engaged and as locked in and as committed as he is at this juncture of h...</td>
+      <td>241</td>
+      <td>0.000185</td>
+      <td>0.999816</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>Kevin Durant: “Stephen Curry and Klay Thompson are the best shooters I’ve played with.”</td>
+      <td>1610</td>
+      <td>0.000185</td>
+      <td>0.999815</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>[Thinking Basketball] The 10 Best NBA peaks since 1977</td>
+      <td>1346</td>
+      <td>0.000283</td>
+      <td>0.999717</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>[Highlight] Russell banks in the 3 to tie it at 124</td>
+      <td>92</td>
+      <td>0.000615</td>
+      <td>0.999385</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>Nikola Jokic leads the league in offensive win shares at 8.9. This is also more than any player's OVERALL win shares for the current season.</td>
+      <td>406</td>
+      <td>0.000845</td>
+      <td>0.999155</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>Charles Barkley: "I've been poor, I've been rich, I've been fat, I've been in the Hall of Fame, and one thing I can tell you is that the Clippers ...</td>
+      <td>23341</td>
+      <td>0.999229</td>
+      <td>0.000771</td>
+    </tr>
+    <tr>
+      <th>38</th>
+      <td>Kyrie Irving needs one more 3 point make to enter the 50-40-90 club for the 2020-2021 season</td>
+      <td>443</td>
+      <td>0.999282</td>
+      <td>0.000718</td>
+    </tr>
+    <tr>
+      <th>75</th>
+      <td>[Stein] The Bucks' too-long-to-list-it-all injury report tonight against Charlotte includes no Giannis Antetokounmpo (left knee soreness) or Jrue ...</td>
+      <td>43</td>
+      <td>0.999286</td>
+      <td>0.000714</td>
+    </tr>
+    <tr>
+      <th>40</th>
+      <td>Bucks missing all five starters against Hornets</td>
+      <td>79</td>
+      <td>0.999449</td>
+      <td>0.000551</td>
+    </tr>
+    <tr>
+      <th>93</th>
+      <td>China’s Forced-Labor Backlash Threatens to Put N.B.A. in Unwanted Spotlight</td>
+      <td>174</td>
+      <td>0.999517</td>
+      <td>0.000483</td>
+    </tr>
+  </tbody>
+</table>
+<p>100 rows × 4 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>I think we were querying the API too quickly, so these responses started timing out, but you get the idea here</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">comment_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span>
+    <span class="n">comment_df</span><span class="p">,</span> <span class="n">classification_multiple_bodies_partial</span><span class="p">(</span><span class="n">comment_df</span><span class="p">[</span><span class="s1">&#39;body&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_list</span><span class="p">())</span>
+<span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Using-spacy-for-sentiment-analysis">Using spacy for sentiment analysis<a class="anchor-link" href="#Using-spacy-for-sentiment-analysis"> </a></h2>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">submission_df</span><span class="p">[</span><span class="s1">&#39;title_sentiment&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="o">*</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">sentiment</span><span class="o">.</span><span class="n">polarity</span><span class="p">,</span> <span class="n">nlp</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span><span class="n">submission_df</span><span class="p">[</span><span class="s1">&#39;title&#39;</span><span class="p">]))]</span>
+<span class="n">submission_df</span><span class="p">[</span><span class="s1">&#39;body_sentiment&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="o">*</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">sentiment</span><span class="o">.</span><span class="n">polarity</span><span class="p">,</span> <span class="n">nlp</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span><span class="n">submission_df</span><span class="p">[</span><span class="s1">&#39;body&#39;</span><span class="p">]))]</span>
+<span class="n">comment_df</span><span class="p">[</span><span class="s1">&#39;body_sentiment&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="o">*</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">sentiment</span><span class="o">.</span><span class="n">polarity</span><span class="p">,</span> <span class="n">nlp</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span><span class="n">comment_df</span><span class="p">[</span><span class="s1">&#39;body&#39;</span><span class="p">]))]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Here's a simple title to score "Kevin Durant: “Stephen Curry and Klay Thompson are the best shooters I’ve played with.”"</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">submission_df</span><span class="p">[[</span><span class="s1">&#39;title&#39;</span><span class="p">,</span> <span class="s1">&#39;score&#39;</span><span class="p">,</span> <span class="s1">&#39;title_sentiment&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">&quot;title_sentiment&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>title</th>
+      <th>score</th>
+      <th>title_sentiment</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>99</th>
+      <td>The Mavs will play 3 back-to-backs over a 7 game span to start April. Over April and May, 62% of their games will be part of a b2b</td>
+      <td>15</td>
+      <td>-0.400000</td>
+    </tr>
+    <tr>
+      <th>83</th>
+      <td>[Post Game Thread] The Los Angeles Clippers (35-18) defeat the Phoenix Suns (36-15), 113 - 103</td>
+      <td>727</td>
+      <td>-0.400000</td>
+    </tr>
+    <tr>
+      <th>43</th>
+      <td>[Post Game Thread] The Boston Celtics (27-26) defeat the Minnesota Timberwolves (13-40) in OT, 145 - 136</td>
+      <td>49</td>
+      <td>-0.400000</td>
+    </tr>
+    <tr>
+      <th>91</th>
+      <td>[Post Game Thread] The Dallas Mavericks (29-22) defeat the Milwaukee Bucks (32-19), 116 - 101</td>
+      <td>754</td>
+      <td>-0.400000</td>
+    </tr>
+    <tr>
+      <th>37</th>
+      <td>The Denver Nuggets came onto the floor for their game against the Spurs with "X Gon' Give it to Ya" playing in the background</td>
+      <td>88</td>
+      <td>-0.400000</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>[Orsborn]: Mike Malone on Pop still going strong at 72: "For him to be as engaged and as locked in and as committed as he is at this juncture of h...</td>
+      <td>241</td>
+      <td>0.505556</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>Steve Kerr on leaving the Warriors: “I have a great job right now. I love coaching the Warriors, so I'm not going anywhere.”</td>
+      <td>465</td>
+      <td>0.528571</td>
+    </tr>
+    <tr>
+      <th>84</th>
+      <td>[Highlight] Cody Zeller perfectly blocks Sam Merrill's layup off the backboard</td>
+      <td>15</td>
+      <td>1.000000</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>Kevin Durant: “Stephen Curry and Klay Thompson are the best shooters I’ve played with.”</td>
+      <td>1610</td>
+      <td>1.000000</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>[Thinking Basketball] The 10 Best NBA peaks since 1977</td>
+      <td>1346</td>
+      <td>1.000000</td>
+    </tr>
+  </tbody>
+</table>
+<p>100 rows × 3 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>I want to point out one comment "Goes off 😎😎 in OT ⌛⌛ against the worst team in the league 🐺🐺", which has a negative sentiment, probably because of the words "off" and "words", but the sentence itself is more positive because it's about a player performing very well</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">comment_df</span><span class="p">[[</span><span class="s1">&#39;body&#39;</span><span class="p">,</span> <span class="s1">&#39;score&#39;</span><span class="p">,</span> <span class="s1">&#39;body_sentiment&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">&quot;body_sentiment&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>body</th>
+      <th>score</th>
+      <th>body_sentiment</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2480</th>
+      <td>he has some of the worst luck with injuries.</td>
+      <td>591</td>
+      <td>-1.0</td>
+    </tr>
+    <tr>
+      <th>118</th>
+      <td>I tea bagged your fucking drum set!!!</td>
+      <td>3</td>
+      <td>-1.0</td>
+    </tr>
+    <tr>
+      <th>2081</th>
+      <td>RIP to the insane plus/minus of the Spurs bench</td>
+      <td>71</td>
+      <td>-1.0</td>
+    </tr>
+    <tr>
+      <th>1379</th>
+      <td>Goes off 😎😎 in OT ⌛⌛ against the worst team in the league 🐺🐺</td>
+      <td>1</td>
+      <td>-1.0</td>
+    </tr>
+    <tr>
+      <th>1287</th>
+      <td>fucking disgusting</td>
+      <td>1</td>
+      <td>-1.0</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>2270</th>
+      <td>Perfect.... boost his confidence, while we continue to tank</td>
+      <td>5</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>273</th>
+      <td>It’s almost like he’s one of the best point guards of all time!</td>
+      <td>2</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>31</th>
+      <td>Best scorer on the Bulls since MJ</td>
+      <td>120</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>1632</th>
+      <td>Remember when DSJ was like the mavs best player? What a time</td>
+      <td>1</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>436</th>
+      <td>I will zag and point out another thing here. KD doesn't want to outright say Steph is the greatest shooter ever. He needs to add Klay to this stat...</td>
+      <td>-1</td>
+      <td>1.0</td>
+    </tr>
+  </tbody>
+</table>
+<p>3200 rows × 3 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Closing-remarks">Closing remarks<a class="anchor-link" href="#Closing-remarks"> </a></h2><p>Thanks to praw, it was really easy to pull and gather raw data. 
+On top of that, the plethora of NLP software development has made it really easy to apply these models to whatever context you want.</p>
+<p>To really take this further, an important middle step would need data cleaning (modifying for typos, slang, abbreviations), maybe filters/named entity resolution to look for specific players.
+Maybe you want to find some way to add weights to highly up-voted submissions/comments, or maybe you want some way to combine the sentiments from both submissions and comments.
+Lastly, the <em>big</em> caveat in NLP for reddit is using a language model sophisticated enough to capture the sarcasm, nuance, and toxicity that is the reddit community (and specifically within r/nba).</p>
+
+</div>
+</div>
+</div>
+</div>
+
+
+
+  </div><a class="u-url" href="/fastpayges/data%20science/personal/2021/04/09/reddit2.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/fastpayges/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/fastpayges/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/fastpayges/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>Fastpages-based website</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/ahy3nz" title="ahy3nz"><svg class="svg-icon grey"><use xlink:href="/fastpayges/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://twitter.com/ayaang41" title="ayaang41"><svg class="svg-icon grey"><use xlink:href="/fastpayges/assets/minima-social-icons.svg#twitter"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Molecular Modeling Software: Open Babel | fastpayges</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Molecular Modeling Software: Open Babel" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Fastpages-based website" />
+<meta property="og:description" content="Fastpages-based website" />
+<link rel="canonical" href="https://ahy3nz.github.io/fastpayges/molecular%20modeling/scientific%20computing/grad%20school/2019/10/03/openbabel1.html" />
+<meta property="og:url" content="https://ahy3nz.github.io/fastpayges/molecular%20modeling/scientific%20computing/grad%20school/2019/10/03/openbabel1.html" />
+<meta property="og:site_name" content="fastpayges" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2019-10-03T00:00:00-05:00" />
+<script type="application/ld+json">
+{"url":"https://ahy3nz.github.io/fastpayges/molecular%20modeling/scientific%20computing/grad%20school/2019/10/03/openbabel1.html","@type":"BlogPosting","headline":"Molecular Modeling Software: Open Babel","dateModified":"2019-10-03T00:00:00-05:00","datePublished":"2019-10-03T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://ahy3nz.github.io/fastpayges/molecular%20modeling/scientific%20computing/grad%20school/2019/10/03/openbabel1.html"},"description":"Fastpages-based website","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/fastpayges/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://ahy3nz.github.io/fastpayges/feed.xml" title="fastpayges" /><link rel="shortcut icon" type="image/x-icon" href="/fastpayges/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.css" integrity="sha512-h7nl+xz8wgDlNM4NqKEM4F1NkIRS17M9+uJwIGwuo8vGqIl4BhuCKdxjWEINm+xyrUjNCnK5dCrhM0sj+wTIXw==" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.js" integrity="sha512-/CMIhXiDA3m2c9kzRyd97MTb3MC6OVnx4TElQ7fkkoRghwDf6gi41gaT1PwF270W6+J60uTmwgeRpNpJdRV6sg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/contrib/auto-render.min.js" integrity="sha512-Do7uJAaHZm5OLrIv/yN4w0iG1dbu01kzdMNnFfu/mAqgUk6Nniv2JYHcwH+cNwjqgLcqcuBBk+JRvprLVI8azg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha512-0doc9hKxR3PYwso42RD1p5ySZpzzuDiOwMrdCEh2WdJZCjcmFKc/wEnL+z8fBQrnHoiNWbo+3fiGkOYXBdQp4A==" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/fastpayges/">fastpayges</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/fastpayges/about/">About Me</a><a class="page-link" href="/fastpayges/search/">Search</a><a class="page-link" href="/fastpayges/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Molecular Modeling Software: Open Babel</h1><p class="post-meta post-meta-title"><time class="dt-published" datetime="2019-10-03T00:00:00-05:00" itemprop="datePublished">
+        Oct 3, 2019
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      6 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/fastpayges/categories/#molecular modeling">molecular modeling</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/fastpayges/categories/#scientific computing">scientific computing</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/fastpayges/categories/#grad school">grad school</a>
+        
+      
+      </p>
+    
+
+    
+      
+        <div class="pb-5 d-flex flex-wrap flex-justify-end">
+          <div class="px-2">
+
+    <a href="https://github.com/ahy3nz/fastpayges/tree/master/_notebooks/2019-10-03-openbabel1.ipynb" role="button" target="_blank">
+<img class="notebook-badge-image" src="/fastpayges/assets/badges/github.svg" alt="View On GitHub">
+    </a>
+</div>
+
+          
+          
+        </div>
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/2019-10-03-openbabel1.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>"Open Babel is a chemical toolbox designed to speak the many languages of chemical data. It's an open, collaborative project allowing anyone to search, convert, analyze, or store data from molecular modeling, chemistry, solid-state materials, biochemistry, or related areas."</p>
+<ul>
+<li><a href="http://openbabel.org/wiki/Main_Page">Open Babel main page</a></li>
+<li><a href="http://openbabel.org/docs/current/index.html">Open Babel overview documentation</a></li>
+<li><a href="https://github.com/openbabel/openbabel">Open Babel git repo</a></li>
+</ul>
+<p>Open Babel is written in C++ and can be interacted with via the command line or C++ scripts, but I want to focus on the Python interface for Open Babel, <code>pybel</code></p>
+<ul>
+<li><a href="https://openbabel.org/docs/dev/UseTheLibrary/Python_Pybel.html">Pybel documentation</a></li>
+<li><a href="https://github.com/openbabel/openbabel/blob/master/scripts/python/openbabel/pybel.py">Pybel in the repo</a></li>
+</ul>
+<p>Open Babel and pybel are available <a href="https://pypi.org/project/openbabel/">on pip</a> and <a href="https://anaconda.org/openbabel/openbabel">conda</a>.</p>
+<p>There seems to be an <a href="https://openbabel.org/wiki/Frequently_Asked_Questions">interesting history</a> in which there was first Babel, open-sourced by others into OpenBabel, but shares some history with OELib/OEChem from OpenEye.</p>
+<p>Given I'm Python-centric, I like to dabble with pybel to interface with openbabel, and see where openbabel functionality could be useful (maybe from a molecular modelling perspective).</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">openbabel</span>
+<span class="kn">import</span> <span class="nn">pybel</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>For starters, pybel provides functionality to read smiles strings, with some convenient 2D visualization within Jupyter. This is propane ($C_3H_8$).</p>
+<p>Going further, openbabel <a href="http://openbabel.org/docs/current/FileFormats/Overview.html">supports a wide range of fileformats</a></p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">molecule</span> <span class="o">=</span> <span class="n">pybel</span><span class="o">.</span><span class="n">readstring</span><span class="p">(</span><span class="s2">&quot;smi&quot;</span><span class="p">,</span> <span class="s1">&#39;CCC&#39;</span><span class="p">)</span>
+<span class="n">molecule</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_svg output_subarea output_execute_result">
+<svg xmlns="http://www.w3.org/2000/svg" font-family="sans-serif" height="100" stroke="rgb(0,0,0)" stroke-linecap="round" stroke-width="2" viewBox="0 0 149.282 100" width="100" x="0" y="0">
+<line stroke="rgb(0,0,0)" stroke-width="2.0" x1="98.0" x2="74.6" y1="53.5" y2="40.0" />
+<line stroke="rgb(0,0,0)" stroke-width="2.0" x1="74.6" x2="51.3" y1="40.0" y2="53.5" />
+<text fill="rgb(102,102,102)" font-size="16" stroke="rgb(102,102,102)" stroke-width="1" x="105.282032" y="68.000000">CH</text>
+<text fill="rgb(102,102,102)" font-size="13" stroke="rgb(102,102,102)" stroke-width="1" x="129.282032" y="71.680000">3</text>
+<text fill="rgb(102,102,102)" font-size="16" stroke="rgb(102,102,102)" stroke-width="1" x="14.000000" y="68.000000">H</text>
+<text fill="rgb(102,102,102)" font-size="13" stroke="rgb(102,102,102)" stroke-width="1" x="26.000000" y="71.680000">3</text>
+<text fill="rgb(102,102,102)" font-size="16" stroke="rgb(102,102,102)" stroke-width="1" x="32.500000" y="68.000000">C</text>
+</svg>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">molecule</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>pybel.Molecule</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Within this <code>pybel.Molecule</code> object, we can access various other data. 
+Notably, we can access the underlying <code>openbabel.OBMol</code> object as defined in the C source code.
+This is handled using the SWIG package, and this is our route to utilizing
+openbabel functionality within python</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">molecule</span><span class="o">.</span><span class="n">OBMol</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&lt;openbabel.OBMol; proxy of &lt;Swig Object of type &#39;OpenBabel::OBMol *&#39; at 0x10e33e840&gt; &gt;</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The <code>openbabel.OBMol</code> object is immense, so I refer readers to <a href="http://openbabel.org/dev-api/classOpenBabel_1_1OBMol.shtml">the API</a> for an exhaustive list of getters, setters, and other functions relevant to molecular modelling and cheminformatics.</p>
+<p>Openbabel ships with a variety of iterator objects to loop through various properties of <code>openbabel.OBMol</code> objects.
+Not as pythonic as trying to generators or enumeration, but it still works</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">atom</span> <span class="ow">in</span> <span class="n">openbabel</span><span class="o">.</span><span class="n">OBMolAtomIter</span><span class="p">(</span><span class="n">molecule</span><span class="o">.</span><span class="n">OBMol</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">atom</span><span class="o">.</span><span class="n">GetIndex</span><span class="p">(),</span><span class="n">atom</span><span class="o">.</span><span class="n">GetType</span><span class="p">(),</span> <span class="n">atom</span><span class="o">.</span><span class="n">GetAtomicNum</span><span class="p">())</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>0 C3 6
+1 C3 6
+2 C3 6
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Since we created <code>pybel.Molecule</code> out of a SMILES string, the hydrogens were implicit and ignored.
+To fully enumerate this compound, we can add hydrogens</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">atom</span> <span class="ow">in</span> <span class="n">openbabel</span><span class="o">.</span><span class="n">OBMolAtomIter</span><span class="p">(</span><span class="n">molecule</span><span class="o">.</span><span class="n">OBMol</span><span class="p">):</span>
+    <span class="n">molecule</span><span class="o">.</span><span class="n">OBMol</span><span class="o">.</span><span class="n">AddHydrogens</span><span class="p">(</span><span class="n">atom</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">molecule</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_svg output_subarea output_execute_result">
+<svg xmlns="http://www.w3.org/2000/svg" font-family="sans-serif" height="100" stroke="rgb(0,0,0)" stroke-linecap="round" stroke-width="2" viewBox="0 0 214.641 194.641" width="100" x="0" y="0">
+<line stroke="rgb(0,0,0)" stroke-width="2.0" x1="80.0" x2="100.0" y1="114.6" y2="80.0" />
+<line stroke="rgb(0,0,0)" stroke-width="2.0" x1="100.0" x2="140.0" y1="80.0" y2="80.0" />
+<line stroke="rgb(0,0,0)" stroke-width="2.0" x1="80.0" x2="80.0" y1="114.6" y2="141.6" />
+<line stroke="rgb(0,0,0)" stroke-width="2.0" x1="80.0" x2="103.4" y1="114.6" y2="128.1" />
+<line stroke="rgb(0,0,0)" stroke-width="2.0" x1="80.0" x2="53.0" y1="114.6" y2="114.6" />
+<line stroke="rgb(0,0,0)" stroke-width="2.0" x1="100.0" x2="100.0" y1="80.0" y2="53.0" />
+<line stroke="rgb(0,0,0)" stroke-width="2.0" x1="100.0" x2="76.6" y1="80.0" y2="66.5" />
+<line stroke="rgb(0,0,0)" stroke-width="2.0" x1="140.0" x2="163.4" y1="80.0" y2="66.5" />
+<line stroke="rgb(0,0,0)" stroke-width="2.0" x1="140.0" x2="140.0" y1="80.0" y2="53.0" />
+<line stroke="rgb(0,0,0)" stroke-width="2.0" x1="140.0" x2="153.5" y1="80.0" y2="103.4" />
+<text fill="rgb(191,191,191)" font-size="16" stroke="rgb(191,191,191)" stroke-width="1" x="74.000000" y="162.641016">H</text>
+<text fill="rgb(191,191,191)" font-size="16" stroke="rgb(191,191,191)" stroke-width="1" x="108.641016" y="142.641016">H</text>
+<text fill="rgb(191,191,191)" font-size="16" stroke="rgb(191,191,191)" stroke-width="1" x="34.000000" y="122.641016">H</text>
+<text fill="rgb(191,191,191)" font-size="16" stroke="rgb(191,191,191)" stroke-width="1" x="94.000000" y="48.000000">H</text>
+<text fill="rgb(191,191,191)" font-size="16" stroke="rgb(191,191,191)" stroke-width="1" x="59.358984" y="68.000000">H</text>
+<text fill="rgb(191,191,191)" font-size="16" stroke="rgb(191,191,191)" stroke-width="1" x="168.641016" y="68.000000">H</text>
+<text fill="rgb(191,191,191)" font-size="16" stroke="rgb(191,191,191)" stroke-width="1" x="134.000000" y="48.000000">H</text>
+<text fill="rgb(191,191,191)" font-size="16" stroke="rgb(191,191,191)" stroke-width="1" x="154.000000" y="122.641016">H</text>
+</svg>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">atom</span> <span class="ow">in</span> <span class="n">openbabel</span><span class="o">.</span><span class="n">OBMolAtomIter</span><span class="p">(</span><span class="n">molecule</span><span class="o">.</span><span class="n">OBMol</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:&lt;4}{:&lt;4}{:&lt;4}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">atom</span><span class="o">.</span><span class="n">GetIndex</span><span class="p">(),</span> <span class="n">atom</span><span class="o">.</span><span class="n">GetType</span><span class="p">(),</span> <span class="n">atom</span><span class="o">.</span><span class="n">GetAtomicNum</span><span class="p">()))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>0   C3  6   
+1   C3  6   
+2   C3  6   
+3   H   1   
+4   H   1   
+5   H   1   
+6   H   1   
+7   H   1   
+8   H   1   
+9   H   1   
+10  H   1   
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We can also iterate through the bonds in our <code>openbabel.Molecule</code> object, and even get an idea for the equilibrium bond length</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">bond</span> <span class="ow">in</span> <span class="n">openbabel</span><span class="o">.</span><span class="n">OBMolBondIter</span><span class="p">(</span><span class="n">molecule</span><span class="o">.</span><span class="n">OBMol</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:&lt;5}{:&lt;5}{:&lt;5}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+        <span class="n">bond</span><span class="o">.</span><span class="n">GetBeginAtom</span><span class="p">()</span><span class="o">.</span><span class="n">GetIndex</span><span class="p">(),</span> <span class="n">bond</span><span class="o">.</span><span class="n">GetEndAtom</span><span class="p">()</span><span class="o">.</span><span class="n">GetIndex</span><span class="p">(),</span> 
+        <span class="n">bond</span><span class="o">.</span><span class="n">GetEquibLength</span><span class="p">()))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>0    1    1.52 
+1    2    1.52 
+0    3    1.07 
+0    4    1.07 
+0    5    1.07 
+1    6    1.07 
+1    7    1.07 
+2    8    1.07 
+2    9    1.07 
+2    10   1.07 
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The angles</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">molecule</span><span class="o">.</span><span class="n">OBMol</span><span class="o">.</span><span class="n">FindAngles</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">angle</span> <span class="ow">in</span> <span class="n">openbabel</span><span class="o">.</span><span class="n">OBMolAngleIter</span><span class="p">(</span><span class="n">molecule</span><span class="o">.</span><span class="n">OBMol</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>(0, 1, 3)
+(0, 1, 4)
+(0, 1, 5)
+(0, 3, 4)
+(0, 3, 5)
+(0, 4, 5)
+(1, 0, 2)
+(1, 0, 6)
+(1, 0, 7)
+(1, 2, 6)
+(1, 2, 7)
+(1, 6, 7)
+(2, 1, 8)
+(2, 1, 9)
+(2, 1, 10)
+(2, 8, 9)
+(2, 8, 10)
+(2, 9, 10)
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>And the torsions (proper dihdrals, not improper)</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">molecule</span><span class="o">.</span><span class="n">OBMol</span><span class="o">.</span><span class="n">FindTorsions</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">dih</span> <span class="ow">in</span> <span class="n">openbabel</span><span class="o">.</span><span class="n">OBMolTorsionIter</span><span class="p">(</span><span class="n">molecule</span><span class="o">.</span><span class="n">OBMol</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">dih</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>(3, 0, 1, 2)
+(3, 0, 1, 6)
+(3, 0, 1, 7)
+(4, 0, 1, 2)
+(4, 0, 1, 6)
+(4, 0, 1, 7)
+(5, 0, 1, 2)
+(5, 0, 1, 6)
+(5, 0, 1, 7)
+(0, 1, 2, 8)
+(0, 1, 2, 9)
+(0, 1, 2, 10)
+(6, 1, 2, 8)
+(6, 1, 2, 9)
+(6, 1, 2, 10)
+(7, 1, 2, 8)
+(7, 1, 2, 9)
+(7, 1, 2, 10)
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="SMARTS-matching-within-openbabel">SMARTS matching within openbabel<a class="anchor-link" href="#SMARTS-matching-within-openbabel"> </a></h2><p>Every <code>openbabel.OBAtom</code> object has the function <a href="http://openbabel.org/dev-api/classOpenBabel_1_1OBAtom.shtml#abfdefac42d3c895920f1f715f0d710a5">MatchesSMARTS</a>.</p>
+<p>Without referring to much to my earlier Foyer post, SMARTS matching helps identify atoms within a system that fit a particular SMARTS pattern (chemistry and bonding)</p>
+<p>This next section will do some primitive atomtyping via SMARTS matching.</p>
+<p>To start, we'll create a dictionary that relates atomtypes to their SMARTS definition (a boiled-down version of the Foyer FFXML).</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">smarts_definitions</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;internal C&#39;</span><span class="p">:</span><span class="s1">&#39;[C;X4]([C])([C])([H])[H]&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;external C&#39;</span><span class="p">:</span><span class="s1">&#39;[C;X4]([C])([H])([H])[H]&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;external H&#39;</span><span class="p">:</span><span class="s1">&#39;[H][C;X4]&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;internal H&#39;</span><span class="p">:</span><span class="s1">&#39;[H]([C;X4]([C])([C]))&#39;</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Next, we will iterate through all of our atoms. For each atom, we will iterate through each of our SMARTS definitions to see if there is a match</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">atom</span> <span class="ow">in</span> <span class="n">openbabel</span><span class="o">.</span><span class="n">OBMolAtomIter</span><span class="p">(</span><span class="n">molecule</span><span class="o">.</span><span class="n">OBMol</span><span class="p">):</span>
+    <span class="n">matched</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="k">for</span> <span class="n">label</span><span class="p">,</span> <span class="n">smarts</span> <span class="ow">in</span> <span class="n">smarts_definitions</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">atom</span><span class="o">.</span><span class="n">MatchesSMARTS</span><span class="p">(</span><span class="n">smarts</span><span class="p">):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Atom </span><span class="si">{}</span><span class="s2"> is </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">atom</span><span class="o">.</span><span class="n">GetIndex</span><span class="p">(),</span> <span class="n">label</span><span class="p">))</span>
+            <span class="n">matched</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">matched</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Atom </span><span class="si">{}</span><span class="s2"> is unmatched&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">atom</span><span class="o">.</span><span class="n">GetIndex</span><span class="p">()))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Atom 0 is external C
+Atom 1 is internal C
+Atom 2 is external C
+Atom 3 is external H
+Atom 4 is external H
+Atom 5 is external H
+Atom 6 is external H
+Atom 6 is internal H
+Atom 7 is external H
+Atom 7 is internal H
+Atom 8 is external H
+Atom 9 is external H
+Atom 10 is external H
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>It's also worth noting that the <a href="https://openbabel.org/wiki/SMARTS">SMARTS definitions in openbabel</a> are slightly different from SMARTS in Foyer. This isn't so surprising since scientists are always devising their own takes on SMILES and SMARTS nowadays. 
+Some other key differences:</p>
+<ul>
+<li>Foyer can utilizes labels (when matching SMARTS patterns, we can also leverage the atoms for which we already know the atom type). The code above doesn't apply labels, nor would the SMARTS matching in openbabel know what to do with the labels. In this regard, it's helpful that Foyer has its own SMARTS matching engine</li>
+<li>Foyer utilizes blacklists and whitelists to help identify multiple atom types while resolving to a singular atom type.</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Force-fields">Force fields<a class="anchor-link" href="#Force-fields"> </a></h2><p>Openbabel has some support for <a href="https://github.com/openbabel/openbabel/tree/master/src/forcefields">molecular mechanics force fields</a> (GAFF, UFF, MMFF94, MM2, ghemical).</p>
+<p>Within Openbabel, these basic FFs can parametrize systems and also compute forces/energies.
+Some functional forms appear to include harmonic bonds, harmonic angles, periodic torsions, RB torsions, LJ nonbond interactions, harmonic impropers, and Coulombic interactions.
+These various computes are defined as classes within each FF, so it's a little different from OpenMM where there are broadly classes of different force objects for different FFs to utilizes when studying a system. 
+For each force class's compute method, you pass the relevant parameters and measurables, and out pops the gradient or energy.</p>
+<p>From these force fields, you can generate conformers, perform energy mimization, and even run molecular dynamics (with constraints and cutoffs)</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Summary">Summary<a class="anchor-link" href="#Summary"> </a></h2><p>Open babel is an extensive molecular modelling, cheminformatics, and bioinformatics package, and I'm sure many computational chemists/biologists would find something useful within this library. As the name "Babel" suggests, it's related to all the many various languages that split from one, original language. The Open babel library has a lot of functionality and API that a C++ or Python (or CLI) developer could utilize in their own work.</p>
+
+</div>
+</div>
+</div>
+</div>
+
+
+
+  </div><a class="u-url" href="/fastpayges/molecular%20modeling/scientific%20computing/grad%20school/2019/10/03/openbabel1.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/fastpayges/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/fastpayges/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/fastpayges/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>Fastpages-based website</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/ahy3nz" title="ahy3nz"><svg class="svg-icon grey"><use xlink:href="/fastpayges/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://twitter.com/ayaang41" title="ayaang41"><svg class="svg-icon grey"><use xlink:href="/fastpayges/assets/minima-social-icons.svg#twitter"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

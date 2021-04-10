@@ -1,0 +1,1101 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Molecular Modeling Software: OpenForceField | fastpayges</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Molecular Modeling Software: OpenForceField" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Putting together open-source molecular modeling software." />
+<meta property="og:description" content="Putting together open-source molecular modeling software." />
+<link rel="canonical" href="https://ahy3nz.github.io/fastpayges/molecular%20modeling/scientific%20computing/grad%20school/2019/10/15/openforcefield1.html" />
+<meta property="og:url" content="https://ahy3nz.github.io/fastpayges/molecular%20modeling/scientific%20computing/grad%20school/2019/10/15/openforcefield1.html" />
+<meta property="og:site_name" content="fastpayges" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2019-10-15T00:00:00-05:00" />
+<script type="application/ld+json">
+{"url":"https://ahy3nz.github.io/fastpayges/molecular%20modeling/scientific%20computing/grad%20school/2019/10/15/openforcefield1.html","@type":"BlogPosting","headline":"Molecular Modeling Software: OpenForceField","dateModified":"2019-10-15T00:00:00-05:00","datePublished":"2019-10-15T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://ahy3nz.github.io/fastpayges/molecular%20modeling/scientific%20computing/grad%20school/2019/10/15/openforcefield1.html"},"description":"Putting together open-source molecular modeling software.","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/fastpayges/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://ahy3nz.github.io/fastpayges/feed.xml" title="fastpayges" /><link rel="shortcut icon" type="image/x-icon" href="/fastpayges/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.css" integrity="sha512-h7nl+xz8wgDlNM4NqKEM4F1NkIRS17M9+uJwIGwuo8vGqIl4BhuCKdxjWEINm+xyrUjNCnK5dCrhM0sj+wTIXw==" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.js" integrity="sha512-/CMIhXiDA3m2c9kzRyd97MTb3MC6OVnx4TElQ7fkkoRghwDf6gi41gaT1PwF270W6+J60uTmwgeRpNpJdRV6sg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/contrib/auto-render.min.js" integrity="sha512-Do7uJAaHZm5OLrIv/yN4w0iG1dbu01kzdMNnFfu/mAqgUk6Nniv2JYHcwH+cNwjqgLcqcuBBk+JRvprLVI8azg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha512-0doc9hKxR3PYwso42RD1p5ySZpzzuDiOwMrdCEh2WdJZCjcmFKc/wEnL+z8fBQrnHoiNWbo+3fiGkOYXBdQp4A==" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/fastpayges/">fastpayges</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/fastpayges/about/">About Me</a><a class="page-link" href="/fastpayges/search/">Search</a><a class="page-link" href="/fastpayges/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Molecular Modeling Software: OpenForceField</h1><p class="page-description">Putting together open-source molecular modeling software.</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2019-10-15T00:00:00-05:00" itemprop="datePublished">
+        Oct 15, 2019
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      13 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/fastpayges/categories/#molecular modeling">molecular modeling</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/fastpayges/categories/#scientific computing">scientific computing</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/fastpayges/categories/#grad school">grad school</a>
+        
+      
+      </p>
+    
+
+    
+      
+        <div class="pb-5 d-flex flex-wrap flex-justify-end">
+          <div class="px-2">
+
+    <a href="https://github.com/ahy3nz/fastpayges/tree/master/_notebooks/2019-10-15-openforcefield1.ipynb" role="button" target="_blank">
+<img class="notebook-badge-image" src="/fastpayges/assets/badges/github.svg" alt="View On GitHub">
+    </a>
+</div>
+
+          
+          
+        </div>
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/2019-10-15-openforcefield1.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The open-source molecular modelling community is a small (but growing) trend within academics. 
+A lot of academics (professors, lab scientists, grad students) are putting together libraries and API that help fulfill a small task or purpose, and 21st century software engineering standards make them usable by others.
+Even in these early stages of open-source molecular modelling, these libraries are striving for interoperability, where two independently-developed API have gotten to the point where now they want to interact and communicate with each other.</p>
+<p>This is a very interesting point in time, where molecular modellers are now tasked with the effort of making many different libraries and API work together to successfully run simulations and complete research projects. 
+Usually, scientists work within a singular software package that was designed by some core developers, and those scientists didn't need to venture outside that single software package, the license they paid for it, and the manual.</p>
+<p>With the release of <a href="https://openforcefield.org/news/introducing-openforcefield-1.0/">OpenForceField 1.0</a>, I was curious to use their SMRINOFF force field. 
+To my understanding (don't quote me on this), the idea behind SMIRNOFF is to simplify molecular mechanics force fields, cut down on redundant atom types/parameters, and parametrize molecules based on "chemical perception" (chemical context and local bonding environment). 
+Armed with these simplified, context-based force field methodologies, the frustrating, in-the-weeds obstacles associated with force field development might be ameliorated - the kinds of obstacles of which molecular modellers are painfully aware.</p>
+<p>Beyond the SMIRNOFF force field, I was curious how parameters might compare to the older OPLS all-atom force fields. As a personal challenge, I wanted to see how much "modern computational science" I could use, specifically trying to exercise the interoperability between different open-source molecular modelling packages.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Building-the-our-molecular-system-and-model">Building the our molecular system and model<a class="anchor-link" href="#Building-the-our-molecular-system-and-model"> </a></h2><p>We begin with some imports. We can already see a variety of packages being used: mBuild, Foyer, ParmEd, OpenForceField, Simtk, OpenMM, MDTraj, and NGLView.</p>
+<p>Take note of all the different data structure interconversions happening. There are <em>a lot</em>. This is good that we can get these API working together this often, but maybe not-so-good that we have to do these interconversions so often</p>
+<p>Note: OpenForceField also utilizes RDKit and OpenEyeToolkit. mBuild also utilizes OpenBabel</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">mbuild</span>
+<span class="kn">from</span> <span class="nn">mbuild.examples</span> <span class="kn">import</span> <span class="n">Ethane</span>
+<span class="kn">import</span> <span class="nn">foyer</span>
+
+<span class="c1"># ParmEd for interconverting data structures</span>
+<span class="kn">import</span> <span class="nn">parmed</span>
+
+<span class="c1"># Omnia suite of molecular modelling tools</span>
+<span class="kn">from</span> <span class="nn">openforcefield.topology</span> <span class="kn">import</span> <span class="n">Topology</span><span class="p">,</span> <span class="n">Molecule</span>
+<span class="kn">from</span> <span class="nn">openforcefield.typing.engines.smirnoff</span> <span class="kn">import</span> <span class="n">ForceField</span>
+<span class="kn">from</span> <span class="nn">simtk</span> <span class="kn">import</span> <span class="n">openmm</span><span class="p">,</span> <span class="n">unit</span>
+
+<span class="c1"># For post-simulation analysis and visualization</span>
+<span class="kn">import</span> <span class="nn">mdtraj</span> <span class="c1"># Also Omnia</span>
+<span class="kn">import</span> <span class="nn">nglview</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>Warning: Unable to load toolkit &#39;OpenEye Toolkit&#39;. The Open Force Field Toolkit does not require the OpenEye Toolkits, and can use RDKit/AmberTools instead. However, if you have a valid license for the OpenEye Toolkits, consider installing them for faster performance and additional file format support: https://docs.eyesopen.com/toolkits/python/quickstart-python/linuxosx.html OpenEye offers free Toolkit licenses for academics: https://www.eyesopen.com/academic-licensing
+/Users/ayang41/anaconda3/envs/mosdef37/lib/python3.7/site-packages/nglview/widget.py:162: DeprecationWarning: Traits should be given as instances, not types (for example, `Int()`, not `Int`). Passing types is deprecated in traitlets 4.1.
+  _ngl_view_id = List(Unicode).tag(sync=True)
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We will use mBuild to create a generic Ethane ($C_2H_6$) molecule. 
+While this is imported from the examples, mBuild functionality allows users to construct chemical systems in a lego-like fashion by declaring particles and bonding them. 
+Under the hood, rigid transformations are performed to orient particles-to-be-bonded</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">mbuild_compound</span> <span class="o">=</span> <span class="n">Ethane</span><span class="p">()</span>
+<span class="n">mbuild_compound</span><span class="o">.</span><span class="n">visualize</span><span class="p">(</span><span class="n">backend</span><span class="o">=</span><span class="s1">&#39;nglview&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>/Users/ayang41/Programs/mbuild/mbuild/utils/io.py:120: DeprecationWarning: openbabel 2.0 detected and will be dropped in a future release. Consider upgrading to 3.x.
+  warnings.warn(msg, DeprecationWarning)
+/Users/ayang41/Programs/mbuild/mbuild/utils/io.py:120: DeprecationWarning: openbabel 2.0 detected and will be dropped in a future release. Consider upgrading to 3.x.
+  warnings.warn(msg, DeprecationWarning)
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Another operation we can do within mBuild is to take this compound, convert it to an <code>openbabel.Molecule</code> object,
+and obtain the SMILES string for it.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">ethane_obmol</span> <span class="o">=</span> <span class="n">mbuild_compound</span><span class="o">.</span><span class="n">to_pybel</span><span class="p">()</span>
+<span class="n">ethane_obmol</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;smi&quot;</span><span class="p">,</span> <span class="s1">&#39;out.smi&#39;</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">smiles_string</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;out.smi&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">smiles_string</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[&#39;CC\tEthane\n&#39;]
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>/Users/ayang41/Programs/mbuild/mbuild/utils/io.py:120: DeprecationWarning: openbabel 2.0 detected and will be dropped in a future release. Consider upgrading to 3.x.
+  warnings.warn(msg, DeprecationWarning)
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Using foyer, we can convert an <code>mbuild.Compound</code> object to an <code>openmm.Topology</code> object. 
+<code>openmm.Topology</code> objects don't actually know positions, they just know certain atomic and bonding information, but no coordinates/velocities/force field information.
+This foyer function helps recover the positions in a simple array of <code>simtk.Quantity</code></p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">omm_topology</span><span class="p">,</span> <span class="n">xyz</span> <span class="o">=</span> <span class="n">foyer</span><span class="o">.</span><span class="n">forcefield</span><span class="o">.</span><span class="n">generate_topology</span><span class="p">(</span><span class="n">mbuild_compound</span><span class="p">,</span> <span class="n">residues</span><span class="o">=</span><span class="s1">&#39;Ethane&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">omm_topology</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">xyz</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>&lt;Topology; 1 chains, 1 residues, 8 atoms, 7 bonds&gt;
+[Vec3(x=2.819666989525475e-16, y=-1.4, z=-1.4644271506889933e-16), Vec3(x=-1.0699999332427972, y=-1.4000000000000001, z=-6.273541601638111e-17), Vec3(x=0.3570000827312472, y=-2.169000053405761, z=0.6530000269412993), Vec3(x=0.3570000827312474, y=-1.5810000836849212, z=-0.9929999709129338), Vec3(x=0.0, y=0.0, z=0.0), Vec3(x=1.0699999332427979, y=0.0, z=0.0), Vec3(x=-0.35700008273124695, y=0.7690000534057617, z=0.6530000269412994), Vec3(x=-0.35700008273124695, y=0.18100008368492126, z=-0.9929999709129333)] A
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>To translate these objects into <code>openforcefield.Topology</code> objects, we need to identify the unique molecules, which helps identify the isolated subgraphs - individual molecules that don't bond to anything outside its molecular network.</p>
+<p>Using the SMILES string, we can generate an <code>openforcefield.Molecule</code> object, which is this self-enclosed bonding entity (chemically speaking, this is a molecule)</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">ethane_molecule</span> <span class="o">=</span> <span class="n">Molecule</span><span class="o">.</span><span class="n">from_smiles</span><span class="p">(</span><span class="n">smiles_string</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">ethane_molecule</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>Molecule with name &#39;&#39; and SMILES &#39;[H][C]([H])([H])[C]([H])([H])[H]&#39;</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Now that we have isolated the unique molecules, we can construct our <code>openforcefield.Topology</code> object from our <code>openmm.Topology</code> and <code>openmm.Molecule</code> objects.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">off_topology</span> <span class="o">=</span> <span class="n">Topology</span><span class="o">.</span><span class="n">from_openmm</span><span class="p">(</span><span class="n">omm_topology</span><span class="p">,</span> <span class="n">unique_molecules</span><span class="o">=</span><span class="p">[</span><span class="n">ethane_molecule</span><span class="p">])</span>
+<span class="n">off_topology</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&lt;openforcefield.topology.topology.Topology at 0x113ad0748&gt;</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Adding-in-a-force-field,-evaluating-energy">Adding in a force field, evaluating energy<a class="anchor-link" href="#Adding-in-a-force-field,-evaluating-energy"> </a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Next, we need to create our <code>openforcefield.Forcefield</code> object. These are created from <code>offxml</code> files, and the OpenForceField group publishes new ones fairly regularly.</p>
+<p>In the comments is an example (but out-of-date) force field within the <a href="https://github.com/openforcefield/openforcefield">main openforcefield package</a>.</p>
+<p>The one we are using is the most-recent SMIRNOFF force field (I think this one is Parsley, or maybe just 1.0.0). 
+The SMIRNOFF force fields are being housed in <a href="https://github.com/openforcefield/smirnoff99Frosst">a separate repo</a>, but utilize pythonic <code>entry_points</code> to help one repo into another.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">off_forcefield</span> <span class="o">=</span> <span class="n">ForceField</span><span class="p">(</span><span class="s1">&#39;smirnoff99Frosst-1.1.0.offxml&#39;</span><span class="p">)</span>
+<span class="n">off_forcefield</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&lt;openforcefield.typing.engines.smirnoff.forcefield.ForceField at 0x114dd72e8&gt;</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>With the <code>openforcefield.Topology</code> and <code>openforcefield.Forcefield</code> objects, we can create an <code>openmm.System</code>. 
+Note the discrepancy/interplay between the objects - <code>openforcefield</code> for the molecular mechanics building blocks, but <code>openmm</code> is ultimately the workhorse for simulating and representing these systems (although you could opt to simulate with other engines via <code>parmed</code>).</p>
+<p>Note the use of AM1-BCC methods to identify partial charges.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">smirnoff_omm_system</span> <span class="o">=</span> <span class="n">off_forcefield</span><span class="o">.</span><span class="n">create_openmm_system</span><span class="p">(</span><span class="n">off_topology</span><span class="p">)</span>
+<span class="n">smirnoff_omm_system</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>Warning: In AmberToolsToolkitwrapper.compute_partial_charges_am1bcc: Molecule &#39;&#39; has more than one conformer, but this function will only generate charges for the first one.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&lt;simtk.openmm.openmm.System; proxy of &lt;Swig Object of type &#39;OpenMM::System *&#39; at 0x111a4fde0&gt; &gt;</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>This is a utility function we will use to evaluate the energy of a molecular system.
+Given an <code>openmm.system</code> (force field, parameters, topological, atomic information) and atomic coordinates, we can get a potential energy associated with that set of coordinatess</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">get_energy</span><span class="p">(</span><span class="n">system</span><span class="p">,</span> <span class="n">positions</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return the potential energy.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    system : simtk.openmm.System</span>
+<span class="sd">        The system to check</span>
+<span class="sd">    positions : simtk.unit.Quantity of dimension (natoms,3) with units of length</span>
+<span class="sd">        The positions to use</span>
+<span class="sd">    Returns</span>
+<span class="sd">    ---------</span>
+<span class="sd">    energy</span>
+<span class="sd">    </span>
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    Taken from an openforcefield notebook</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">integrator</span> <span class="o">=</span> <span class="n">openmm</span><span class="o">.</span><span class="n">VerletIntegrator</span><span class="p">(</span><span class="mf">1.0</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">femtoseconds</span><span class="p">)</span>
+    <span class="n">context</span> <span class="o">=</span> <span class="n">openmm</span><span class="o">.</span><span class="n">Context</span><span class="p">(</span><span class="n">system</span><span class="p">,</span> <span class="n">integrator</span><span class="p">)</span>
+    <span class="n">context</span><span class="o">.</span><span class="n">setPositions</span><span class="p">(</span><span class="n">positions</span><span class="p">)</span>
+    <span class="n">state</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">getState</span><span class="p">(</span><span class="n">getEnergy</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">energy</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">getPotentialEnergy</span><span class="p">()</span><span class="o">.</span><span class="n">in_units_of</span><span class="p">(</span><span class="n">unit</span><span class="o">.</span><span class="n">kilocalories_per_mole</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">energy</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Next, we will try to calculate the potential energy of our ethane system under the SMIRNOFF force field.
+As a (small) obstacle to doing this, we need to change the dimensions of our simulation box because some force fields and simulations use cutoffs, and cutoffs cannot be larger than the simulation box itself.</p>
+<p>Okay 45 kcal/mol, cool. Potential energies of single configurations are usually not helpful for any real physical analysis, but can be helpful in comparing force fields.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">new_vectors</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">10</span><span class="o">*</span><span class="n">unit</span><span class="o">.</span><span class="n">nanometer</span><span class="p">,</span> <span class="mi">0</span><span class="o">*</span><span class="n">unit</span><span class="o">.</span><span class="n">nanometer</span><span class="p">,</span> <span class="mi">0</span><span class="o">*</span><span class="n">unit</span><span class="o">.</span><span class="n">nanometer</span><span class="p">],</span> 
+               <span class="p">[</span><span class="mi">0</span><span class="o">*</span><span class="n">unit</span><span class="o">.</span><span class="n">nanometer</span><span class="p">,</span> <span class="mi">10</span><span class="o">*</span><span class="n">unit</span><span class="o">.</span><span class="n">nanometer</span><span class="p">,</span> <span class="mi">0</span><span class="o">*</span><span class="n">unit</span><span class="o">.</span><span class="n">nanometer</span><span class="p">],</span>
+               <span class="p">[</span><span class="mi">0</span><span class="o">*</span><span class="n">unit</span><span class="o">.</span><span class="n">nanometer</span><span class="p">,</span> <span class="mi">0</span><span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">nanometer</span><span class="p">,</span> <span class="mi">10</span><span class="o">*</span><span class="n">unit</span><span class="o">.</span><span class="n">nanometer</span><span class="p">]]</span>
+<span class="n">smirnoff_omm_system</span><span class="o">.</span><span class="n">setDefaultPeriodicBoxVectors</span><span class="p">(</span><span class="o">*</span><span class="n">new_vectors</span><span class="p">)</span>
+<span class="n">get_energy</span><span class="p">(</span><span class="n">smirnoff_omm_system</span><span class="p">,</span> <span class="n">xyz</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>Quantity(value=44.96860291382222, unit=kilocalorie/mole)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Tangent:-Interfacing-with-other-simulation-engines">Tangent: Interfacing with other simulation engines<a class="anchor-link" href="#Tangent:-Interfacing-with-other-simulation-engines"> </a></h2><p>We can use <code>parmed</code> to convert the <code>openmm.Topology</code>, <code>openmm.System</code>, and coordinates into a <code>parmed.Structure</code>.
+From a <code>parmed.Structure</code>, we can spit out files appropriate for different simulation packages. 
+Word of caution, while the developers of <code>parmed</code> did an excellent job building the conversion tools, please do your due diligence to make sure the output is as you expect</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pmd_structure</span> <span class="o">=</span> <span class="n">parmed</span><span class="o">.</span><span class="n">openmm</span><span class="o">.</span><span class="n">load_topology</span><span class="p">(</span><span class="n">omm_topology</span><span class="p">,</span> <span class="n">system</span><span class="o">=</span><span class="n">smirnoff_omm_system</span><span class="p">,</span> <span class="n">xyz</span><span class="o">=</span><span class="n">xyz</span><span class="p">)</span>
+<span class="n">pmd_structure</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&lt;Structure 8 atoms; 1 residues; 7 bonds; PBC (orthogonal); NOT parametrized&gt;</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Comparing-to-the-OPLS-AA-force-field">Comparing to the OPLS-AA force field<a class="anchor-link" href="#Comparing-to-the-OPLS-AA-force-field"> </a></h2><p>Let's use a different force field. 
+<code>foyer</code> ships with an XML of the OPLS-AA force field.
+We will use <code>foyer</code> (which utilizes some <code>parmed</code> and <code>openmm</code> api) to build our molecular model of ethane with OPLS</p>
+<ul>
+<li>Create the <code>foyer.Forcefield</code> object</li>
+<li>Apply it to our <code>mbuild.Compound</code>, get a <code>parmed.Structure</code></li>
+<li>Convert the <code>parmed.Structure</code> to an <code>openmm.System</code></li>
+<li>Reset the box vectors to be consistent with the SMIRNOFF example</li>
+<li>Evaluate the energy</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">foyer_ff</span> <span class="o">=</span> <span class="n">foyer</span><span class="o">.</span><span class="n">Forcefield</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;oplsaa&#39;</span><span class="p">)</span>
+<span class="n">opls_pmd_structure</span> <span class="o">=</span> <span class="n">foyer_ff</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">mbuild_compound</span><span class="p">)</span>
+<span class="n">opls_omm_system</span> <span class="o">=</span> <span class="n">opls_pmd_structure</span><span class="o">.</span><span class="n">createSystem</span><span class="p">()</span>
+<span class="n">opls_omm_system</span><span class="o">.</span><span class="n">setDefaultPeriodicBoxVectors</span><span class="p">(</span><span class="o">*</span><span class="n">new_vectors</span><span class="p">)</span>
+<span class="n">get_energy</span><span class="p">(</span><span class="n">opls_omm_system</span><span class="p">,</span> <span class="n">opls_pmd_structure</span><span class="o">.</span><span class="n">positions</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>/Users/ayang41/Programs/foyer/foyer/validator.py:132: ValidationWarning: You have empty smart definition(s)
+  warn(&#34;You have empty smart definition(s)&#34;, ValidationWarning)
+/Users/ayang41/Programs/foyer/foyer/forcefield.py:248: UserWarning: Parameters have not been assigned to all impropers. Total system impropers: 8, Parameterized impropers: 0. Note that if your system contains torsions of Ryckaert-Bellemans functional form, all of these torsions are processed as propers
+  warnings.warn(msg)
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>Quantity(value=37.52734328319192, unit=kilocalorie/mole)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>37.5 kcal/mol versus 45.0 kcal/mol, for a <em>single</em> ethane. This is a little alarming because this energetic difference stems from how the interactions are quantified and parametrized.</p>
+<p>However, this isn't a deal-breaker since most physically-interesting phenomena depend on changes in (free) energies. So a singular energy isn't important - how it varies when you change configurations or sample configurational space is generally more important</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Cracking-open-the-models-and-looking-at-parameters">Cracking open the models and looking at parameters<a class="anchor-link" href="#Cracking-open-the-models-and-looking-at-parameters"> </a></h2><p>In this whole process, we've been dealing with data structures and API that are fairly transparent. 
+What's great now is that we can look in-depth at these data structures. 
+Specifically, we could look at the force field parameters, either within the force field files or molecular models themselves.</p>
+<p>We're going to crack open these <code>openmm.System</code> objects, looking at how some of these forces are parametrized</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Within the SMIRNOFF force field applied to ethane, we have some harmonic bonds, harmonic angles, periodic torsions, and nonbonded forces</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">smirnoff_omm_system</span><span class="o">.</span><span class="n">getForces</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[&lt;simtk.openmm.openmm.NonbondedForce; proxy of &lt;Swig Object of type &#39;OpenMM::NonbondedForce *&#39; at 0x116245960&gt; &gt;,
+ &lt;simtk.openmm.openmm.PeriodicTorsionForce; proxy of &lt;Swig Object of type &#39;OpenMM::PeriodicTorsionForce *&#39; at 0x116245a50&gt; &gt;,
+ &lt;simtk.openmm.openmm.HarmonicAngleForce; proxy of &lt;Swig Object of type &#39;OpenMM::HarmonicAngleForce *&#39; at 0x116245a80&gt; &gt;,
+ &lt;simtk.openmm.openmm.HarmonicBondForce; proxy of &lt;Swig Object of type &#39;OpenMM::HarmonicBondForce *&#39; at 0x116245ab0&gt; &gt;]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Within the OPLS force field applied to ethane, we have some harmonic bonds, harmonic angles, Ryckaert-Belleman torsions, and nonbonded forces. 
+Don't worry about the center of mass motion remover - that's more for running a simulation.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">opls_omm_system</span><span class="o">.</span><span class="n">getForces</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[&lt;simtk.openmm.openmm.HarmonicBondForce; proxy of &lt;Swig Object of type &#39;OpenMM::HarmonicBondForce *&#39; at 0x116245930&gt; &gt;,
+ &lt;simtk.openmm.openmm.HarmonicAngleForce; proxy of &lt;Swig Object of type &#39;OpenMM::HarmonicAngleForce *&#39; at 0x116245b40&gt; &gt;,
+ &lt;simtk.openmm.openmm.RBTorsionForce; proxy of &lt;Swig Object of type &#39;OpenMM::RBTorsionForce *&#39; at 0x116245b70&gt; &gt;,
+ &lt;simtk.openmm.openmm.NonbondedForce; proxy of &lt;Swig Object of type &#39;OpenMM::NonbondedForce *&#39; at 0x116245ba0&gt; &gt;,
+ &lt;simtk.openmm.openmm.CMMotionRemover; proxy of &lt;Swig Object of type &#39;OpenMM::CMMotionRemover *&#39; at 0x116245bd0&gt; &gt;]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We are going to compare the <em>nonbonded parameters</em> between these <code>openmm.System</code> objects. 
+For every particle in our system, we're going to look at their charges, LJ sigmas, and LJ epsilsons (both of these systems utilize Coulombic electrostatics and Lennard-Jones potentials)</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Based on the charges and frequency-of-appearance, we can see which ones are carbons and which ones are hydrogens.</p>
+<p>The OPLS-system is more-charged, carbons are more negative and hydrogens are more positive. 
+The SMIRNOFF-system actually isn't electro-neutral, and that might be consequence of having used AM1-BCC for such a small system.</p>
+<p>The sigmas are pretty similar between FF implementations. The hydrogen epsilsons in SMIRNOFF are about half of those in OPLS. The carbon epsilons in SMIRNOFF are almost double those in OPLS. This is kind of interesting, while SMIRNOFF-ethane has weaker electrostatics (weaker charges), the LJ might compensate with the greater carbon-epsilon.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">opls_omm_nonbond_force</span> <span class="o">=</span> <span class="n">opls_omm_system</span><span class="o">.</span><span class="n">getForce</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">smirnoff_omm_nonbond_force</span> <span class="o">=</span> <span class="n">smirnoff_omm_system</span><span class="o">.</span><span class="n">getForce</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">opls_omm_nonbond_force</span><span class="o">.</span><span class="n">getNumParticles</span><span class="p">()):</span>
+    <span class="n">opls_params</span> <span class="o">=</span> <span class="n">opls_omm_nonbond_force</span><span class="o">.</span><span class="n">getParticleParameters</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+    <span class="n">smirnoff_params</span> <span class="o">=</span> <span class="n">smirnoff_omm_nonbond_force</span><span class="o">.</span><span class="n">getParticleParameters</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>    
+    <span class="nb">print</span><span class="p">(</span><span class="n">opls_params</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">smirnoff_params</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;---&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[Quantity(value=-0.18, unit=elementary charge), Quantity(value=0.35000000000000003, unit=nanometer), Quantity(value=0.276144, unit=kilojoule/mole)]
+[Quantity(value=-0.0941, unit=elementary charge), Quantity(value=0.3399669508423535, unit=nanometer), Quantity(value=0.4577296, unit=kilojoule/mole)]
+---
+[Quantity(value=0.06, unit=elementary charge), Quantity(value=0.25, unit=nanometer), Quantity(value=0.12552, unit=kilojoule/mole)]
+[Quantity(value=0.0317, unit=elementary charge), Quantity(value=0.2649532787749369, unit=nanometer), Quantity(value=0.06568879999999999, unit=kilojoule/mole)]
+---
+[Quantity(value=0.06, unit=elementary charge), Quantity(value=0.25, unit=nanometer), Quantity(value=0.12552, unit=kilojoule/mole)]
+[Quantity(value=0.0317, unit=elementary charge), Quantity(value=0.2649532787749369, unit=nanometer), Quantity(value=0.06568879999999999, unit=kilojoule/mole)]
+---
+[Quantity(value=0.06, unit=elementary charge), Quantity(value=0.25, unit=nanometer), Quantity(value=0.12552, unit=kilojoule/mole)]
+[Quantity(value=0.0317, unit=elementary charge), Quantity(value=0.2649532787749369, unit=nanometer), Quantity(value=0.06568879999999999, unit=kilojoule/mole)]
+---
+[Quantity(value=-0.18, unit=elementary charge), Quantity(value=0.35000000000000003, unit=nanometer), Quantity(value=0.276144, unit=kilojoule/mole)]
+[Quantity(value=-0.0941, unit=elementary charge), Quantity(value=0.3399669508423535, unit=nanometer), Quantity(value=0.4577296, unit=kilojoule/mole)]
+---
+[Quantity(value=0.06, unit=elementary charge), Quantity(value=0.25, unit=nanometer), Quantity(value=0.12552, unit=kilojoule/mole)]
+[Quantity(value=0.0317, unit=elementary charge), Quantity(value=0.2649532787749369, unit=nanometer), Quantity(value=0.06568879999999999, unit=kilojoule/mole)]
+---
+[Quantity(value=0.06, unit=elementary charge), Quantity(value=0.25, unit=nanometer), Quantity(value=0.12552, unit=kilojoule/mole)]
+[Quantity(value=0.0317, unit=elementary charge), Quantity(value=0.2649532787749369, unit=nanometer), Quantity(value=0.06568879999999999, unit=kilojoule/mole)]
+---
+[Quantity(value=0.06, unit=elementary charge), Quantity(value=0.25, unit=nanometer), Quantity(value=0.12552, unit=kilojoule/mole)]
+[Quantity(value=0.0317, unit=elementary charge), Quantity(value=0.2649532787749369, unit=nanometer), Quantity(value=0.06568879999999999, unit=kilojoule/mole)]
+---
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Running-some-molecular-dynamics-simulations">Running some molecular dynamics simulations<a class="anchor-link" href="#Running-some-molecular-dynamics-simulations"> </a></h2><p>We've come this far in building our model with different force fields, we might as well build up the rest of the simulation.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><code>openmm</code> will be used to run our simulation, since we already have an <code>openmm.System</code> object. 
+We need an integrator that describes our equations of motion, timestep, and temperature behavior.</p>
+<p>As a side note, we forcibly made our simulation box really big to address cutoffs, but we can probably go with a smaller box that still fits the bill. The smaller box helps speed up the computation.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">integrator</span> <span class="o">=</span> <span class="n">openmm</span><span class="o">.</span><span class="n">LangevinIntegrator</span><span class="p">(</span><span class="mi">323</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">kelvin</span><span class="p">,</span> <span class="mf">1.0</span><span class="o">/</span><span class="n">unit</span><span class="o">.</span><span class="n">picoseconds</span><span class="p">,</span> <span class="mf">0.001</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">picoseconds</span><span class="p">)</span>
+<span class="n">smallbox_vectors</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">2</span><span class="o">*</span><span class="n">unit</span><span class="o">.</span><span class="n">nanometer</span><span class="p">,</span> <span class="mi">0</span><span class="o">*</span><span class="n">unit</span><span class="o">.</span><span class="n">nanometer</span><span class="p">,</span> <span class="mi">0</span><span class="o">*</span><span class="n">unit</span><span class="o">.</span><span class="n">nanometer</span><span class="p">],</span> 
+               <span class="p">[</span><span class="mi">0</span><span class="o">*</span><span class="n">unit</span><span class="o">.</span><span class="n">nanometer</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">unit</span><span class="o">.</span><span class="n">nanometer</span><span class="p">,</span> <span class="mi">0</span><span class="o">*</span><span class="n">unit</span><span class="o">.</span><span class="n">nanometer</span><span class="p">],</span>
+               <span class="p">[</span><span class="mi">0</span><span class="o">*</span><span class="n">unit</span><span class="o">.</span><span class="n">nanometer</span><span class="p">,</span> <span class="mi">0</span><span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">nanometer</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">unit</span><span class="o">.</span><span class="n">nanometer</span><span class="p">]]</span>
+<span class="n">smirnoff_omm_system</span><span class="o">.</span><span class="n">setDefaultPeriodicBoxVectors</span><span class="p">(</span><span class="o">*</span><span class="n">smallbox_vectors</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We combine our <code>openmm.Topology</code>, <code>openmm.System</code>, and <code>openmm.Integrator</code> to make our <code>openmm.Simulation</code>, then set the positions</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">smirnoff_simulation</span> <span class="o">=</span> <span class="n">openmm</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">Simulation</span><span class="p">(</span><span class="n">omm_topology</span><span class="p">,</span> <span class="n">smirnoff_omm_system</span><span class="p">,</span> <span class="n">integrator</span><span class="p">)</span>
+<span class="n">smirnoff_simulation</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">setPositions</span><span class="p">(</span><span class="n">xyz</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Before running the simulation, we need to report some information.
+Otherwise, the simulation's going to run and we won't have anything to show for it.
+This is handled in <code>openmm</code> by creating <code>openmmm.reporters</code> and attaching them to your <code>openmm.Simulation</code>
+We will write out the timeseries of coordinates (trajectory) in a <code>dcd</code> format, 
+but also a <code>pdb</code> format to show a singular configuration. 
+In this case, we're printing a <code>pdb</code> file that corresponds to the first configuration, before any simulation was run.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">smirnoff_simulation</span><span class="o">.</span><span class="n">reporters</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">openmm</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">DCDReporter</span><span class="p">(</span><span class="s1">&#39;trajectory.dcd&#39;</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="n">pdbreporter</span> <span class="o">=</span> <span class="n">openmm</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">PDBReporter</span><span class="p">(</span><span class="s1">&#39;first_frame.pdb&#39;</span><span class="p">,</span> <span class="mi">5000</span><span class="p">)</span>
+<span class="n">pdbreporter</span><span class="o">.</span><span class="n">report</span><span class="p">(</span><span class="n">smirnoff_simulation</span><span class="p">,</span> <span class="n">smirnoff_simulation</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">getState</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Now we can run our simulation!</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">smirnoff_simulation</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>After it's finished, we can load the trajectory files into an <code>mdtraj.Trajectory</code> object, and visualize in a jupyter notebook with <code>nglview</code>. From this <code>mdtraj.Trajectory</code> object, you have pythonic-access to all the coordinates over time, and also access to various analysis libraries within <code>mdtraj</code>.</p>
+<p>The ethane is jumping around the boundaries of the periodic box, but you can see it wiggling. 
+Unfortunately, markdown doesn't show NGL widgets, so I advise people to look at the notebook.
+Not super interesting, but simulations from open-source software are doable. 
+If I had a more powerful computer, maybe I'd try a larger system, but I'll leave it to others to build off of my notebook (you can find this in my website's <a href="https://github.com/ahy3nz/ahy3nz.github.io/tree/master/files/notebooks">git repo</a>)</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">traj</span> <span class="o">=</span> <span class="n">mdtraj</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;trajectory.dcd&#39;</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="s1">&#39;first_frame.pdb&#39;</span><span class="p">)</span>
+<span class="n">nglview</span><span class="o">.</span><span class="n">show_mdtraj</span><span class="p">(</span><span class="n">traj</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+</div>
+
+
+
+  </div><a class="u-url" href="/fastpayges/molecular%20modeling/scientific%20computing/grad%20school/2019/10/15/openforcefield1.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/fastpayges/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/fastpayges/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/fastpayges/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>Fastpages-based website</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/ahy3nz" title="ahy3nz"><svg class="svg-icon grey"><use xlink:href="/fastpayges/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://twitter.com/ayaang41" title="ayaang41"><svg class="svg-icon grey"><use xlink:href="/fastpayges/assets/minima-social-icons.svg#twitter"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
