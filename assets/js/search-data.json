@@ -326,7 +326,7 @@
   
       ,"page1": {
           "title": "About Me",
-          "content": "This website is powered by fastpages 1. . a blogging platform that natively supports Jupyter notebooks in addition to other formats. &#8617; . |",
+          "content": "",
           "url": "https://ahy3nz.github.io/fastpayges/about/",
           "relUrl": "/about/",
           "date": ""
@@ -352,6 +352,17 @@
   
 
   
+      ,"page9": {
+          "title": "",
+          "content": "{“/about/”:”https://ahy3nz.github.io/”} .",
+          "url": "https://ahy3nz.github.io/fastpayges/redirects.json",
+          "relUrl": "/redirects.json",
+          "date": ""
+      }
+      
+  
+
+  
   
 
   
@@ -360,7 +371,7 @@
   
 
   
-      ,"page12": {
+      ,"page13": {
           "title": "",
           "content": "Sitemap: {{ “sitemap.xml” | absolute_url }} | .",
           "url": "https://ahy3nz.github.io/fastpayges/robots.txt",
