@@ -1,0 +1,1118 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Scraping Reddit, part 1 | fastpayges</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Scraping Reddit, part 1" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Fastpages-based website" />
+<meta property="og:description" content="Fastpages-based website" />
+<link rel="canonical" href="https://ahy3nz.github.io/fastpayges/data%20science/2021/02/01/reddit1.html" />
+<meta property="og:url" content="https://ahy3nz.github.io/fastpayges/data%20science/2021/02/01/reddit1.html" />
+<meta property="og:site_name" content="fastpayges" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-02-01T00:00:00-06:00" />
+<script type="application/ld+json">
+{"url":"https://ahy3nz.github.io/fastpayges/data%20science/2021/02/01/reddit1.html","@type":"BlogPosting","headline":"Scraping Reddit, part 1","dateModified":"2021-02-01T00:00:00-06:00","datePublished":"2021-02-01T00:00:00-06:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://ahy3nz.github.io/fastpayges/data%20science/2021/02/01/reddit1.html"},"description":"Fastpages-based website","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/fastpayges/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://ahy3nz.github.io/fastpayges/feed.xml" title="fastpayges" /><link rel="shortcut icon" type="image/x-icon" href="/fastpayges/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.css" integrity="sha512-h7nl+xz8wgDlNM4NqKEM4F1NkIRS17M9+uJwIGwuo8vGqIl4BhuCKdxjWEINm+xyrUjNCnK5dCrhM0sj+wTIXw==" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.js" integrity="sha512-/CMIhXiDA3m2c9kzRyd97MTb3MC6OVnx4TElQ7fkkoRghwDf6gi41gaT1PwF270W6+J60uTmwgeRpNpJdRV6sg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/contrib/auto-render.min.js" integrity="sha512-Do7uJAaHZm5OLrIv/yN4w0iG1dbu01kzdMNnFfu/mAqgUk6Nniv2JYHcwH+cNwjqgLcqcuBBk+JRvprLVI8azg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha512-0doc9hKxR3PYwso42RD1p5ySZpzzuDiOwMrdCEh2WdJZCjcmFKc/wEnL+z8fBQrnHoiNWbo+3fiGkOYXBdQp4A==" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/fastpayges/">fastpayges</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/fastpayges/about/">About Me</a><a class="page-link" href="/fastpayges/credits/">Credits</a><a class="page-link" href="/fastpayges/search/">Search</a><a class="page-link" href="/fastpayges/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Scraping Reddit, part 1</h1><p class="post-meta post-meta-title"><time class="dt-published" datetime="2021-02-01T00:00:00-06:00" itemprop="datePublished">
+        Feb 1, 2021
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      9 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/fastpayges/categories/#data science">data science</a>
+        
+      
+      </p>
+    
+
+    
+      
+        <div class="pb-5 d-flex flex-wrap flex-justify-end">
+          <div class="px-2">
+
+    <a href="https://github.com/ahy3nz/fastpayges/tree/master/_notebooks/2021-02-01-reddit1.ipynb" role="button" target="_blank">
+<img class="notebook-badge-image" src="/fastpayges/assets/badges/github.svg" alt="View On GitHub">
+    </a>
+</div>
+
+          
+          
+        </div>
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/2021-02-01-reddit1.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>In light of recent internet trends about retail investors, I'm sure many of us have questions about the kinds of content that gets posted on reddit, and if there are home-grown, analytical ways of addressing these questions.
+I'll be showing two ways of parsing submissions and comments to Reddit, this one focusing on using <a href="http://pushshift.io/">pushshift API endpoints</a> using the <code>requests</code> library, some custom classes for processing these responses, and <code>asyncio</code> to handle asynchronous threading for multiple requests to pushshift.</p>
+<p>These codes ran quickly on my chromebook (dual-core, dual-thread, 1.90 Ghz, 4 Gb memory), but querying lots of data from pushshift makes some of the final cells take ~10 minutes.</p>
+<p>Note: at the time of putting this together, parts of pushshift appear to be down for repair/upgrade, but at least the <a href="https://github.com/pushshift/api">github repo</a> is still online</p>
+<p>Raw notebook <a href="https://github.com/ahy3nz/ahy3nz.github.io/tree/master/files/notebooks">here</a>, but I didn't bother adding an environment -- most of these packages are in the python standard library or easily available on conda or pip</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">datetime</span> <span class="k">as</span> <span class="nn">dt</span>
+<span class="kn">import</span> <span class="nn">asyncio</span>
+<span class="kn">import</span> <span class="nn">io</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>At its core, we are submitting queries to a URL and getting responses to these queries. 
+Technically speaking, this means we are submitting get requests to pushshift endpoints.</p>
+<p>The endpoint generally takes the form of something like "<a href="https://api.pushshift.io/reddit/search/submission">https://api.pushshift.io/reddit/search/submission</a>", with the "payload" or <code>params</code> kwarg to our request being some set of search parameters (like a keyword, subreddit, or timestamp info), <a href="https://pushshift.io/api-parameters/">pushshift API parameters here</a>. 
+With this endpoint, we're searching the Reddit submissions (not the comments)</p>
+<p>One of the simpler payloads could be searching a subreddit within a particular time window. 
+This requires before and after timestamps, which can easily be handled with python's <code>datetime</code>library</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">today</span> <span class="o">=</span> <span class="n">dt</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">today</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">hour</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">minute</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">second</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">microsecond</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">timestamp</span><span class="p">()</span>
+<span class="n">today_minus_seven</span> <span class="o">=</span> <span class="p">(</span><span class="n">dt</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">today</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">hour</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">minute</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">second</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">microsecond</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">-</span> 
+                     <span class="n">dt</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">7</span><span class="p">))</span><span class="o">.</span><span class="n">timestamp</span><span class="p">()</span>
+<span class="n">today_minus_eight</span> <span class="o">=</span> <span class="p">(</span><span class="n">dt</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">today</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">hour</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">minute</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">second</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">microsecond</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">-</span> 
+                     <span class="n">dt</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">8</span><span class="p">))</span><span class="o">.</span><span class="n">timestamp</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>This the the actual get request, observe the URL as the main arg, and the various search parameters in the <code>params</code> kwarg</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">reddit_response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;https://api.pushshift.io/reddit/search/submission&quot;</span><span class="p">,</span>
+                              <span class="n">params</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;subreddit&#39;</span><span class="p">:</span> <span class="s1">&#39;stocks&#39;</span><span class="p">,</span>
+                                      <span class="s1">&#39;before&#39;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">today_minus_seven</span><span class="p">),</span> 
+                                      <span class="s1">&#39;after&#39;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">today_minus_eight</span><span class="p">)})</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">reddit_response</span><span class="o">.</span><span class="n">status_code</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>200</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>There are a variety of ways to parse <a href="https://requests.readthedocs.io/en/master/">request responses</a>, but here's one way to parse the title and text from the response to a Reddit submission get request</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">reddit_response</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;title&#39;</span><span class="p">],</span><span class="n">reddit_response</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;selftext&#39;</span><span class="p">],</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>(&#39;Would it be wise to increase the geographical diversity of my portfolio?&#39;,
+ &#39;Hello everyone, \n\nMy portfolio of 16 companies consists of 13 US stocks because they all seem to have some of the highest potential returns but in the midst of the pandemic I feel I should reallocate some resources towards European and UK stocks. Is anyone watching any interesting non-US stocks at the moment?&#39;)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>As a little bit of dressing on top, we can grab a list of stock tickers. 
+There are a lot of sources to pull tickers from (<code>yfinance</code> is a popular one), but we can also pull a list of tickers from the SEC</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">ticker_response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;https://www.sec.gov/include/ticker.txt&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">tickers</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
+    <span class="n">io</span><span class="o">.</span><span class="n">StringIO</span><span class="p">(</span><span class="n">ticker_response</span><span class="o">.</span><span class="n">text</span><span class="p">),</span> 
+    <span class="n">delimiter</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">,</span> 
+    <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> 
+    <span class="n">usecols</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+<span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">to_list</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">tickers</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[&#39;aapl&#39;, &#39;msft&#39;, &#39;amzn&#39;, &#39;goog&#39;, &#39;tcehy&#39;]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">string</span>                                                                         
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Any</span> 
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">Counter</span>
+<span class="kn">from</span> <span class="nn">requests</span> <span class="kn">import</span> <span class="n">Response</span>
+<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We have all the raw information contained within the request response object, but for data processing purposes, we can define a class and some functions to simplify the work.</p>
+<p>Key characteristics:</p>
+<ul>
+<li>A corresponding python object property for each relevant property of a typical reddit submission.<ul>
+<li>Unfortuantely the <code>score</code> property from pushshift isn't the most reliable because it's only a snapshot from when the data were indexed</li>
+</ul>
+</li>
+<li><code>summarize()</code> that uses <code>collections.Counter</code> to tally up how frequently a stock ticker appears</li>
+<li><code>to_dict()</code> for serialization and conversion for pandas</li>
+<li><code>from_response()</code> to quickly instantiate a <code>List[RedditSubmission]</code> from a single response </li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">RedditSubmission</span><span class="p">:</span>
+    <span class="n">title</span><span class="p">:</span> <span class="nb">str</span> 
+    <span class="n">body</span><span class="p">:</span> <span class="nb">str</span> 
+    <span class="n">permalink</span><span class="p">:</span> <span class="nb">str</span> 
+    <span class="n">author</span><span class="p">:</span> <span class="nb">str</span> 
+    <span class="n">score</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">timestamp</span><span class="p">:</span> <span class="n">dt</span><span class="o">.</span><span class="n">datetime</span>
+
+    <span class="k">def</span> <span class="nf">summarize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> 
+        <span class="n">tickers</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> 
+        <span class="n">weighted</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]:</span>
+        <span class="sd">&quot;&quot;&quot; Process RedditSubmission for tickers </span>
+<span class="sd">        </span>
+<span class="sd">        Use a Counter to count the number of times a ticker occurs.</span>
+<span class="sd">        Include some corrections for punctuation</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">title</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">title_no_punctuation</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">title</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span>
+                <span class="nb">str</span><span class="o">.</span><span class="n">maketrans</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">string</span><span class="o">.</span><span class="n">punctuation</span><span class="p">)</span>
+            <span class="p">)</span>
+            <span class="n">tickers_title</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">(</span>
+                <span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">tickers</span><span class="p">,</span> <span class="n">title_no_punctuation</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">tickers_title</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">body</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">body_no_punctuation</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">body</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span>
+                <span class="nb">str</span><span class="o">.</span><span class="n">maketrans</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">string</span><span class="o">.</span><span class="n">punctuation</span><span class="p">)</span>
+            <span class="p">)</span>
+
+            <span class="n">tickers_body</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">(</span>
+                <span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">tickers</span><span class="p">,</span> <span class="n">body_no_punctuation</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">tickers_body</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">()</span>
+        <span class="n">total_tickers</span> <span class="o">=</span> <span class="n">tickers_title</span> <span class="o">+</span> <span class="n">tickers_body</span>
+        
+        <span class="k">return</span> <span class="n">total_tickers</span>
+    
+    <span class="k">def</span> <span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">title</span><span class="p">,</span>
+            <span class="s1">&#39;body&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">body</span><span class="p">,</span>
+            <span class="s1">&#39;permalink&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">permalink</span><span class="p">,</span>
+            <span class="s1">&#39;author&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">author</span><span class="p">,</span>
+            <span class="s1">&#39;score&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">score</span><span class="p">,</span>
+            <span class="s1">&#39;timestamp&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">timestamp</span>
+        <span class="p">}</span>
+    
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_response</span><span class="p">(</span>
+        <span class="bp">cls</span><span class="p">,</span> 
+        <span class="n">resp_object</span><span class="p">:</span> <span class="n">Response</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">]]:</span>
+        <span class="sd">&quot;&quot;&quot; Create a list of RedditSubmission objects from response&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">resp_object</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
+            <span class="n">processed_response</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="bp">cls</span><span class="p">(</span>
+                    <span class="n">msg</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;title&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+                    <span class="n">msg</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;body&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+                    <span class="n">msg</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;permalink&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+                    <span class="n">msg</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;author&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+                    <span class="n">msg</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;score&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+                    <span class="p">(</span>
+                        <span class="n">dt</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">fromtimestamp</span><span class="p">(</span><span class="n">msg</span><span class="p">[</span><span class="s1">&#39;created_utc&#39;</span><span class="p">])</span> 
+                        <span class="k">if</span> <span class="n">msg</span><span class="p">[</span><span class="s1">&#39;created_utc&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">None</span>
+                    <span class="p">)</span>
+                <span class="p">)</span> <span class="k">for</span> <span class="n">msg</span> <span class="ow">in</span> <span class="n">resp_object</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s1">&#39;data&#39;</span><span class="p">]</span>
+            <span class="p">]</span>
+            <span class="k">return</span> <span class="n">processed_response</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>In reality, there's a decently-long wait time after we make the initial get request. 
+The time to make and process the request is actually fairly quick, so this is a good opportunity to use python's <a href="https://docs.python.org/3/library/asyncio.html">asyncio</a> library.</p>
+<p>Asyncio allows for concurrency in a different manner than multiprocessing or multithreading. 
+You can have many tasks running, but only one is "controlling" the CPU, and gives up control when it's not actively doing any work (like waiting for a response from the pushshift server).</p>
+<p>The overall syntax is very similar to writing any other python function</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">async</span> <span class="k">def</span> <span class="nf">submission_request_coroutine</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+    <span class="n">reddit_response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;https://api.pushshift.io/reddit/search/submission&quot;</span><span class="p">,</span>
+                              <span class="n">params</span><span class="o">=</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">reddit_response</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Define a range of timestamps, initialize an async coroutine for each timestamp, then use asyncio to submit each request and gather them back together</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">snapshots</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span>
+    <span class="n">start</span><span class="o">=</span><span class="n">dt</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">(</span><span class="n">tz</span><span class="o">=</span><span class="n">dt</span><span class="o">.</span><span class="n">timezone</span><span class="o">.</span><span class="n">utc</span><span class="p">)</span> <span class="o">-</span> <span class="n">dt</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">7</span><span class="p">),</span>
+    <span class="n">end</span><span class="o">=</span><span class="n">dt</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">(</span><span class="n">tz</span><span class="o">=</span><span class="n">dt</span><span class="o">.</span><span class="n">timezone</span><span class="o">.</span><span class="n">utc</span><span class="p">)</span> <span class="o">-</span> <span class="n">dt</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+    <span class="n">freq</span><span class="o">=</span><span class="s1">&#39;10min&#39;</span>
+<span class="p">)</span>
+
+<span class="n">tasks</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">submission_request_coroutine</span><span class="p">(</span><span class="n">subreddit</span><span class="o">=</span><span class="s1">&#39;stocks&#39;</span><span class="p">,</span> 
+                 <span class="n">after</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">snapshot</span><span class="o">.</span><span class="n">timestamp</span><span class="p">()),</span>
+                 <span class="n">before</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">snapshots</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">timestamp</span><span class="p">()),</span>
+                 <span class="n">size</span><span class="o">=</span><span class="mi">10</span>
+                <span class="p">)</span> 
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">snapshot</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">snapshots</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+<span class="p">]</span>
+<span class="n">all_submission_responses</span> <span class="o">=</span> <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span>
+    <span class="o">*</span><span class="n">tasks</span>
+<span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The data is a <code>List[Response]</code> objects, which we can conver to a <code>List[List[RedditSubmission]]</code>, then flatten as a <code>List[RedditSubmission]</code> with itertools</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">itertools</span> <span class="k">as</span> <span class="nn">it</span>
+
+<span class="n">reddit_submissions</span> <span class="o">=</span> <span class="p">[</span><span class="o">*</span><span class="n">it</span><span class="o">.</span><span class="n">chain</span><span class="o">.</span><span class="n">from_iterable</span><span class="p">(</span>
+    <span class="n">RedditSubmission</span><span class="o">.</span><span class="n">from_response</span><span class="p">(</span><span class="n">resp</span><span class="p">)</span> <span class="k">for</span> <span class="n">resp</span> <span class="ow">in</span> <span class="n">all_submission_responses</span>
+    <span class="k">if</span> <span class="n">resp</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span>
+<span class="p">)]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We can get a ticker counter for each <code>RedditSubmission</code>, but we'd like to quickly aggregate them all into a single, summary ticker counter over all the reddit submission in our time window. 
+This can be easily achieved with <code>functools.reduce</code></p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">reduce</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">Counter</span>
+
+<span class="k">def</span> <span class="nf">aggregate_dictionaries</span><span class="p">(</span><span class="n">d1</span><span class="p">,</span> <span class="n">d2</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Given two dictionaries, aggregate key-value pairs &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">d1</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">Counter</span><span class="p">(</span><span class="o">**</span><span class="n">d2</span><span class="p">)</span><span class="o">.</span><span class="n">most_common</span><span class="p">())</span>
+    <span class="n">my_counter</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">(</span><span class="o">**</span><span class="n">d1</span><span class="p">)</span>
+    <span class="n">my_counter</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">d2</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">my_counter</span><span class="o">.</span><span class="n">most_common</span><span class="p">())</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">submissions_breakdown</span> <span class="o">=</span> <span class="n">reduce</span><span class="p">(</span>
+    <span class="n">aggregate_dictionaries</span><span class="p">,</span> 
+    <span class="p">(</span><span class="n">submission</span><span class="o">.</span><span class="n">summarize</span><span class="p">(</span><span class="n">tickers</span><span class="p">)</span> <span class="k">for</span> <span class="n">submission</span> <span class="ow">in</span> <span class="n">reddit_submissions</span><span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>It seems the list of tickers from the SEC was pretty generous (\$A appears to be a ticker), but we can subselect for some of the recent trending tickers</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">submissions_breakdown</span><span class="p">[</span><span class="s1">&#39;gme&#39;</span><span class="p">],</span> <span class="n">submissions_breakdown</span><span class="p">[</span><span class="s1">&#39;amc&#39;</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>(18, 11)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">submissions_breakdown</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>{&#39;a&#39;: 322,
+ &#39;on&#39;: 234,
+ &#39;for&#39;: 181,
+ &#39;it&#39;: 105,
+ &#39;or&#39;: 76,
+ &#39;be&#39;: 76,
+ &#39;next&#39;: 71,
+ &#39;are&#39;: 62,
+ &#39;new&#39;: 56,
+ &#39;good&#39;: 54,
+ &#39;now&#39;: 53,
+ &#39;can&#39;: 52,
+ &#39;all&#39;: 49,
+ &#39;at&#39;: 45,
+ &#39;out&#39;: 40,
+ &#39;amp&#39;: 34,
+ &#39;an&#39;: 33,
+ &#39;by&#39;: 31,
+ &#39;go&#39;: 30,
+ &#39;has&#39;: 26,
+ &#39;am&#39;: 24,
+ &#39;any&#39;: 22,
+ &#39;when&#39;: 21,
+ &#39;best&#39;: 20,
+ &#39;vs&#39;: 20,
+ &#39;one&#39;: 19,
+ &#39;so&#39;: 18,
+ &#39;gme&#39;: 18,
+ &#39;big&#39;: 17,
+ &#39;free&#39;: 15,
+ &#39;play&#39;: 13,
+ &#39;apps&#39;: 13,
+ &#39;amc&#39;: 11,
+ &#39;cash&#39;: 10,
+ &#39;see&#39;: 10,
+ &#39;find&#39;: 9,
+ &#39;run&#39;: 8,
+ &#39;rise&#39;: 7,
+ &#39;else&#39;: 7,
+ &#39;ever&#39;: 7,
+ &#39;work&#39;: 6,
+ &#39;real&#39;: 6,
+ &#39;open&#39;: 6,
+ &#39;wall&#39;: 5,
+ &#39;fund&#39;: 5,
+ &#39;post&#39;: 5,
+ &#39;love&#39;: 5,
+ &#39;well&#39;: 5,
+ &#39;very&#39;: 5,
+ &#39;ago&#39;: 5,
+ &#39;info&#39;: 5,
+ &#39;plan&#39;: 5,
+ &#39;pay&#39;: 5,
+ &#39;bit&#39;: 5,
+ &#39;ride&#39;: 4,
+ &#39;life&#39;: 4,
+ &#39;huge&#39;: 4,
+ &#39;low&#39;: 4,
+ &#39;nok&#39;: 4,
+ &#39;grow&#39;: 4,
+ &#39;cap&#39;: 4,
+ &#39;link&#39;: 3,
+ &#39;safe&#39;: 3,
+ &#39;plus&#39;: 3,
+ &#39;fast&#39;: 3,
+ &#39;stay&#39;: 3,
+ &#39;tech&#39;: 3,
+ &#39;fun&#39;: 3,
+ &#39;he&#39;: 3,
+ &#39;step&#39;: 3,
+ &#39;turn&#39;: 3,
+ &#39;live&#39;: 3,
+ &#39;site&#39;: 3,
+ &#39;ways&#39;: 3,
+ &#39;hear&#39;: 2,
+ &#39;teva&#39;: 2,
+ &#39;bb&#39;: 2,
+ &#39;co&#39;: 2,
+ &#39;boom&#39;: 2,
+ &#39;nice&#39;: 2,
+ &#39;mass&#39;: 2,
+ &#39;peak&#39;: 2,
+ &#39;max&#39;: 2,
+ &#39;wash&#39;: 2,
+ &#39;pump&#39;: 2,
+ &#39;tell&#39;: 2,
+ &#39;fly&#39;: 2,
+ &#39;pros&#39;: 2,
+ &#39;rock&#39;: 1,
+ &#39;both&#39;: 1,
+ &#39;gt&#39;: 1,
+ &#39;loan&#39;: 1,
+ &#39;nga&#39;: 1,
+ &#39;invu&#39;: 1,
+ &#39;most&#39;: 1,
+ &#39;ofc&#39;: 1,
+ &#39;nio&#39;: 1,
+ &#39;spot&#39;: 1,
+ &#39;min&#39;: 1,
+ &#39;onto&#39;: 1,
+ &#39;evfm&#39;: 1,
+ &#39;blue&#39;: 1,
+ &#39;nat&#39;: 1,
+ &#39;pure&#39;: 1,
+ &#39;sign&#39;: 1,
+ &#39;man&#39;: 1,
+ &#39;st&#39;: 1,
+ &#39;de&#39;: 1,
+ &#39;w&#39;: 1,
+ &#39;trtc&#39;: 1,
+ &#39;form&#39;: 1,
+ &#39;hi&#39;: 1,
+ &#39;joe&#39;: 1,
+ &#39;true&#39;: 1,
+ &#39;home&#39;: 1,
+ &#39;vrs&#39;: 1,
+ &#39;med&#39;: 1,
+ &#39;sqz&#39;: 1,
+ &#39;five&#39;: 1,
+ &#39;ship&#39;: 1,
+ &#39;trxc&#39;: 1,
+ &#39;wish&#39;: 1,
+ &#39;re&#39;: 1,
+ &#39;car&#39;: 1,
+ &#39;nakd&#39;: 1,
+ &#39;rkt&#39;: 1,
+ &#39;flex&#39;: 1,
+ &#39;pm&#39;: 1,
+ &#39;ppl&#39;: 1,
+ &#39;earn&#39;: 1,
+ &#39;flow&#39;: 1,
+ &#39;lscc&#39;: 1,
+ &#39;peg&#39;: 1,
+ &#39;two&#39;: 1,
+ &#39;gain&#39;: 1,
+ &#39;wow&#39;: 1,
+ &#39;pro&#39;: 1,
+ &#39;team&#39;: 1,
+ &#39;fix&#39;: 1,
+ &#39;fnko&#39;: 1,
+ &#39;et&#39;: 1,
+ &#39;al&#39;: 1,
+ &#39;muh&#39;: 1,
+ &#39;save&#39;: 1,
+ &#39;gold&#39;: 1,
+ &#39;beat&#39;: 1,
+ &#39;vive&#39;: 1,
+ &#39;u&#39;: 1,
+ &#39;rh&#39;: 1,
+ &#39;x&#39;: 1,
+ &#39;vxrt&#39;: 1,
+ &#39;mind&#39;: 1,
+ &#39;ehth&#39;: 1,
+ &#39;job&#39;: 1,
+ &#39;road&#39;: 1,
+ &#39;box&#39;: 1}</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Lastly, if we're not interested in the tickers that occur, we can still boil all the data into a single dataframe</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">reddit_submissions</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>title</th>
+      <th>body</th>
+      <th>permalink</th>
+      <th>author</th>
+      <th>score</th>
+      <th>timestamp</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>KSTR ETF "The nasdaq of china"</td>
+      <td>None</td>
+      <td>/r/stocks/comments/l664ce/kstr_etf_the_nasdaq_...</td>
+      <td>GioDesa</td>
+      <td>1</td>
+      <td>2021-01-27 09:56:46</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Opinions/Projections on AMC?</td>
+      <td>None</td>
+      <td>/r/stocks/comments/l665a0/opinionsprojections_...</td>
+      <td>Double_jn_it</td>
+      <td>1</td>
+      <td>2021-01-27 09:58:03</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>GE, SPCE, &amp;amp; PLUG</td>
+      <td>None</td>
+      <td>/r/stocks/comments/l6668r/ge_spce_plug/</td>
+      <td>_MeatLoafLover</td>
+      <td>1</td>
+      <td>2021-01-27 09:59:21</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Reddit is under DDOS attack. Certain gaming re...</td>
+      <td>None</td>
+      <td>/r/stocks/comments/l66692/reddit_is_under_ddos...</td>
+      <td>theBacillus</td>
+      <td>1</td>
+      <td>2021-01-27 09:59:22</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>#GainStock</td>
+      <td>None</td>
+      <td>/r/stocks/comments/l66777/gainstock/</td>
+      <td>lxPHENOMENONxl</td>
+      <td>1</td>
+      <td>2021-01-27 10:00:19</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>2338</th>
+      <td>AN OPEN LETTER TO GAMESTOP CEO</td>
+      <td>None</td>
+      <td>/r/stocks/comments/l98k85/an_open_letter_to_ga...</td>
+      <td>Artuhan</td>
+      <td>1</td>
+      <td>2021-01-31 03:55:51</td>
+    </tr>
+    <tr>
+      <th>2339</th>
+      <td>AN OPEN LETTER TO GAMESTOP CEO</td>
+      <td>None</td>
+      <td>/r/stocks/comments/l98lai/an_open_letter_to_ga...</td>
+      <td>Artuhan</td>
+      <td>1</td>
+      <td>2021-01-31 03:58:05</td>
+    </tr>
+    <tr>
+      <th>2340</th>
+      <td>Thoughts on YOLO (AdvisorShares Pure Cannabis ...</td>
+      <td>None</td>
+      <td>/r/stocks/comments/l98nly/thoughts_on_yolo_adv...</td>
+      <td>ConfidentProgrammer1</td>
+      <td>1</td>
+      <td>2021-01-31 04:02:29</td>
+    </tr>
+    <tr>
+      <th>2341</th>
+      <td>Daily advice</td>
+      <td>None</td>
+      <td>/r/stocks/comments/l98pic/daily_advice/</td>
+      <td>Bukprotingas</td>
+      <td>1</td>
+      <td>2021-01-31 04:06:24</td>
+    </tr>
+    <tr>
+      <th>2342</th>
+      <td>AMC- Next stop?</td>
+      <td>None</td>
+      <td>/r/stocks/comments/l98pif/amc_next_stop/</td>
+      <td>Hj-Fish</td>
+      <td>1</td>
+      <td>2021-01-31 04:06:24</td>
+    </tr>
+  </tbody>
+</table>
+<p>2343 rows × 6 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Next-up">Next up<a class="anchor-link" href="#Next-up"> </a></h1><p>While we just built our own Reddit API from some fundamental python libraries, there are more sophisticated API out there that do a better job of querying Reddit, like <a href="https://praw.readthedocs.io/en/latest/">praw</a>, and then we could try some other things like sentiment analysis</p>
+
+</div>
+</div>
+</div>
+</div>
+
+
+
+  </div><a class="u-url" href="/fastpayges/data%20science/2021/02/01/reddit1.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/fastpayges/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/fastpayges/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/fastpayges/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>Fastpages-based website</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/ahy3nz" title="ahy3nz"><svg class="svg-icon grey"><use xlink:href="/fastpayges/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://twitter.com/ayaang41" title="ayaang41"><svg class="svg-icon grey"><use xlink:href="/fastpayges/assets/minima-social-icons.svg#twitter"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

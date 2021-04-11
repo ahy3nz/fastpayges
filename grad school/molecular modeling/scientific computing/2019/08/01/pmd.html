@@ -79,7 +79,7 @@ window.onload = wrap_img;
           </span>
         </label>
 
-        <div class="trigger"><a class="page-link" href="/fastpayges/about/">About Me</a><a class="page-link" href="/fastpayges/search/">Search</a><a class="page-link" href="/fastpayges/categories/">Tags</a></div>
+        <div class="trigger"><a class="page-link" href="/fastpayges/about/">About Me</a><a class="page-link" href="/fastpayges/credits/">Credits</a><a class="page-link" href="/fastpayges/search/">Search</a><a class="page-link" href="/fastpayges/categories/">Tags</a></div>
       </nav></div>
 </header>
 <main class="page-content" aria-label="Content">
@@ -366,7 +366,7 @@ There are two different bondtypes, one for C-C and another for C-H.</p>
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Before going forward, I want to introduce the term <strong>atom type</strong>, which describes the identity of an atom.</p>
 <p>If you had a system of just argon atoms, they are all chemically identical. There might be a bunch of argon atoms, but there would only be one atom type</p>
-<p>In a more complicated example, let's say you had a box of propane <img src="/images/mm/propane_2d.png" alt="propane" /></p>
+<p>In a more complicated example, let's say you had a box of propane <img src="/fastpayges/images/mm/propane_2d.png" alt="propane" /></p>
 
 </div>
 </div>
@@ -550,9 +550,9 @@ There are two different bondtypes, one for C-C and another for C-H.</p>
 <p>A dihedral refers to the interaction between 4 linearly connected atoms. This isn't exactly chemistry, but rather an approximation to chemistry and things like steric interactions (think Neumann projections back from organic chemistry).</p>
 <p>There a variety of ways to model this interaction. For example:</p>
 <ul>
-<li><p>Periodic torsions <img src="/images/mm/periodic_torsion.png" alt="periodic" /></p>
+<li><p>Periodic torsions <img src="/fastpayges/images/mm/periodic_torsion.png" alt="periodic" /></p>
 </li>
-<li><p>Ryckaert-Bellemans (RB) torsions <img src="/images/mm/rb_torsion.png" alt="rbtorsion" /></p>
+<li><p>Ryckaert-Bellemans (RB) torsions <img src="/fastpayges/images/mm/rb_torsion.png" alt="rbtorsion" /></p>
 </li>
 </ul>
 <p>They are both trigonometric series, but there's not much commonality between them - there's not a simple underlying set of parameters/function between the two that you can easily relate. You'd have to generate some energies for one function, and then numerically fit the other. Since there's no easy way for one function/set of parameters to express both of these functions, we have to handle them separately within <code>pmd.Structure</code></p>

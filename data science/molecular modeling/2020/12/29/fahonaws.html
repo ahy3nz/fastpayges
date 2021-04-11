@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Accessing Folding@Home data on AWS | fastpayges</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Accessing Folding@Home data on AWS" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Fastpages-based website" />
+<meta property="og:description" content="Fastpages-based website" />
+<link rel="canonical" href="https://ahy3nz.github.io/fastpayges/data%20science/molecular%20modeling/2020/12/29/fahonaws.html" />
+<meta property="og:url" content="https://ahy3nz.github.io/fastpayges/data%20science/molecular%20modeling/2020/12/29/fahonaws.html" />
+<meta property="og:site_name" content="fastpayges" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-12-29T00:00:00-06:00" />
+<script type="application/ld+json">
+{"url":"https://ahy3nz.github.io/fastpayges/data%20science/molecular%20modeling/2020/12/29/fahonaws.html","@type":"BlogPosting","headline":"Accessing Folding@Home data on AWS","dateModified":"2020-12-29T00:00:00-06:00","datePublished":"2020-12-29T00:00:00-06:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://ahy3nz.github.io/fastpayges/data%20science/molecular%20modeling/2020/12/29/fahonaws.html"},"description":"Fastpages-based website","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/fastpayges/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://ahy3nz.github.io/fastpayges/feed.xml" title="fastpayges" /><link rel="shortcut icon" type="image/x-icon" href="/fastpayges/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.css" integrity="sha512-h7nl+xz8wgDlNM4NqKEM4F1NkIRS17M9+uJwIGwuo8vGqIl4BhuCKdxjWEINm+xyrUjNCnK5dCrhM0sj+wTIXw==" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.js" integrity="sha512-/CMIhXiDA3m2c9kzRyd97MTb3MC6OVnx4TElQ7fkkoRghwDf6gi41gaT1PwF270W6+J60uTmwgeRpNpJdRV6sg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/contrib/auto-render.min.js" integrity="sha512-Do7uJAaHZm5OLrIv/yN4w0iG1dbu01kzdMNnFfu/mAqgUk6Nniv2JYHcwH+cNwjqgLcqcuBBk+JRvprLVI8azg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha512-0doc9hKxR3PYwso42RD1p5ySZpzzuDiOwMrdCEh2WdJZCjcmFKc/wEnL+z8fBQrnHoiNWbo+3fiGkOYXBdQp4A==" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/fastpayges/">fastpayges</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/fastpayges/about/">About Me</a><a class="page-link" href="/fastpayges/credits/">Credits</a><a class="page-link" href="/fastpayges/search/">Search</a><a class="page-link" href="/fastpayges/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Accessing Folding@Home data on AWS</h1><p class="post-meta post-meta-title"><time class="dt-published" datetime="2020-12-29T00:00:00-06:00" itemprop="datePublished">
+        Dec 29, 2020
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      4 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/fastpayges/categories/#data science">data science</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/fastpayges/categories/#molecular modeling">molecular modeling</a>
+        
+      
+      </p>
+    
+
+    
+      
+        <div class="pb-5 d-flex flex-wrap flex-justify-end">
+          <div class="px-2">
+
+    <a href="https://github.com/ahy3nz/fastpayges/tree/master/_notebooks/2020-12-29-fahonaws.ipynb" role="button" target="_blank">
+<img class="notebook-badge-image" src="/fastpayges/assets/badges/github.svg" alt="View On GitHub">
+    </a>
+</div>
+
+          
+          
+        </div>
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/2020-12-29-fahonaws.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Some F@H data is <a href="https://registry.opendata.aws/foldingathome-covid19/">freely accessible on AWS</a>.
+This will be a relatively short post on accessing and navigating the data on AWS.</p>
+<p>If you regularly use AWS, this will be nothing new. 
+If you're a grad student who has only ever navigated local file directories or used <code>scp</code>/<code>rsync</code>/<code>ssh</code> to interact with remote clusters, this might be your first time interacting with files on AWS S3.</p>
+<p>The python environment is fairly straightforward analytical environment, but with s3fs, boto3, and botocore to interact with files on S3</p>
+<p><code>conda create -n fahaws python=3.7 pandas s3fs jupyter ipykernel -c conda-forge -yq</code></p>
+<p>(Active environment)</p>
+<p><code>python -m pip install boto3 botocore</code></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="The-AWS-CLI">The AWS CLI<a class="anchor-link" href="#The-AWS-CLI"> </a></h2><p>The tools to navigate files within AWS directories follow that of unix-like systems.
+<a href="https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html">AWS CLI installation</a>.</p>
+<p><code>aws s3 ls s3://fah-public-data-covid19-absolute-free-energy/ --no-sign-request</code> to list files within this particular S3 bucket. The no sign request flag at the end helps us bypass the need for any credentials.</p>
+<p>You can read from stdout or pipe the output to a textfile, but this will be your bread and butter for wading through terabytes and terabytes of F@H data.</p>
+<p>As of this post (Dec 2020), looks like the files in <code>free_energy_data/</code> have been last updated end of Sept 2020</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Summary-of-free-energy-results-data">Summary of free energy results data<a class="anchor-link" href="#Summary-of-free-energy-results-data"> </a></h2><p>Fortunately, loading remote files via pandas is a common task, so there are convenient functions.
+Loading a dataframe over S3 is just like loading a dataframe locally (note the S3 string syntax)</p>
+<p>The column <code>febkT</code> looks like the binding free energies in units of $k_B T$ (multiply by Boltzmann's constant and temperature to get energies in kJ or kcal).
+It's worth mentioning that the value of the binding free energy is not as helpful as the <em>relative</em> binding free energy to find the best binder of the bunch (how do these free energies compare against each other?)</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_pickle</span><span class="p">(</span><span class="s2">&quot;s3://fah-public-data-covid19-absolute-free-energy/free_energy_data/results.pkl&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>dataset</th>
+      <th>fah</th>
+      <th>identity</th>
+      <th>receptor</th>
+      <th>score</th>
+      <th>febkT</th>
+      <th>error</th>
+      <th>ns_RL</th>
+      <th>ns_L</th>
+      <th>wl_RL</th>
+      <th>L_error</th>
+      <th>RL_error</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1155</th>
+      <td>MS0323_v3</td>
+      <td>PROJ14822/RUN258</td>
+      <td>DAR-DIA-43a-5</td>
+      <td>protein-0387.pdb</td>
+      <td>-5.201610</td>
+      <td>-25.546943</td>
+      <td>3.773523</td>
+      <td>[131, 89, 74, 113, 80]</td>
+      <td>[450, 490, 540, 410, 620]</td>
+      <td>[0.18446, 0.14757, 0.18446, 0.18446, 0.18446]</td>
+      <td>0.116912</td>
+      <td>3.280887</td>
+    </tr>
+    <tr>
+      <th>609</th>
+      <td>MS0326_v3</td>
+      <td>PROJ14823/RUN1202</td>
+      <td>MUS-SCH-c2f-13</td>
+      <td>Mpro-x0107-protein.pdb</td>
+      <td>-9.550890</td>
+      <td>-25.259420</td>
+      <td>22.776358</td>
+      <td>[121, 138, 96, 16, 5]</td>
+      <td>[200, 200, 200, 200, 200]</td>
+      <td>[0.18446, 0.18446, 0.23058, 0.23058, 0.23058]</td>
+      <td>16.216396</td>
+      <td>0.109175</td>
+    </tr>
+    <tr>
+      <th>759</th>
+      <td>MS0331_v3</td>
+      <td>PROJ14825/RUN685</td>
+      <td>MAK-UNK-129-18</td>
+      <td>Mpro-x0107_0.pdb</td>
+      <td>-8.425830</td>
+      <td>-24.789359</td>
+      <td>18.021078</td>
+      <td>[58, 68, 5, 7]</td>
+      <td>[200]</td>
+      <td>[0.37782, 0.30226, 0.9224, 0.59034]</td>
+      <td>0.000000</td>
+      <td>9.238496</td>
+    </tr>
+    <tr>
+      <th>615</th>
+      <td>MS0326_v3</td>
+      <td>PROJ14823/RUN2911</td>
+      <td>√ÅLV-UNI-7ff-30</td>
+      <td>Mpro-x0540-protein.pdb</td>
+      <td>-2.774634</td>
+      <td>-24.447756</td>
+      <td>6.605737</td>
+      <td>[174, 124, 70]</td>
+      <td>[200, 200, 200, 200, 200]</td>
+      <td>[0.14757, 0.14757, 0.18446]</td>
+      <td>0.042010</td>
+      <td>5.184169</td>
+    </tr>
+    <tr>
+      <th>1086</th>
+      <td>MS0326_v3</td>
+      <td>PROJ14823/RUN2580</td>
+      <td>SEL-UNI-842-3</td>
+      <td>Mpro-x0397-protein.pdb</td>
+      <td>-4.474095</td>
+      <td>-23.705301</td>
+      <td>1.248983</td>
+      <td>[166, 134, 45]</td>
+      <td>[200, 200, 200, 200, 200]</td>
+      <td>[0.18015, 0.22519, 0.35183]</td>
+      <td>0.212546</td>
+      <td>2.529874</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Some-code-to-iterate-through-these-buckets">Some code to iterate through these buckets<a class="anchor-link" href="#Some-code-to-iterate-through-these-buckets"> </a></h2><p>Pythonically, we can build some S3 code to list each object in this S3 bucket.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">boto3</span>
+<span class="kn">from</span> <span class="nn">botocore</span> <span class="kn">import</span> <span class="n">UNSIGNED</span>
+<span class="kn">from</span> <span class="nn">botocore.client</span> <span class="kn">import</span> <span class="n">Config</span>
+
+<span class="n">s3</span> <span class="o">=</span> <span class="n">boto3</span><span class="o">.</span><span class="n">resource</span><span class="p">(</span><span class="s1">&#39;s3&#39;</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="n">Config</span><span class="p">(</span><span class="n">signature_version</span><span class="o">=</span><span class="n">UNSIGNED</span><span class="p">))</span>
+<span class="n">s3_client</span> <span class="o">=</span> <span class="n">boto3</span><span class="o">.</span><span class="n">client</span><span class="p">(</span><span class="s1">&#39;s3&#39;</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="n">Config</span><span class="p">(</span><span class="n">signature_version</span><span class="o">=</span><span class="n">UNSIGNED</span><span class="p">))</span>
+
+<span class="n">bucket_name</span> <span class="o">=</span> <span class="s2">&quot;fah-public-data-covid19-absolute-free-energy&quot;</span>
+<span class="n">bucket</span> <span class="o">=</span> <span class="n">s3</span><span class="o">.</span><span class="n">Bucket</span><span class="p">(</span><span class="n">bucket_name</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>This S3 bucket is very large -- all the simulation inputs, trajectories, and outputs are in here, so it will take a while to enumerate every object.
+Instead, we'll just make a generator and pull out a single item for proof-of-concept.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">paginator</span> <span class="o">=</span> <span class="n">s3_client</span><span class="o">.</span><span class="n">get_paginator</span><span class="p">(</span><span class="s1">&#39;list_objects_v2&#39;</span><span class="p">)</span>
+<span class="n">pages</span> <span class="o">=</span> <span class="n">paginator</span><span class="o">.</span><span class="n">paginate</span><span class="p">(</span><span class="n">Bucket</span><span class="o">=</span><span class="n">bucket_name</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">page_iterator</span><span class="p">(</span><span class="n">pages</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">page</span> <span class="ow">in</span> <span class="n">pages</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">page</span><span class="p">[</span><span class="s1">&#39;Contents&#39;</span><span class="p">]:</span>
+            <span class="k">yield</span> <span class="n">item</span><span class="p">[</span><span class="s1">&#39;Key&#39;</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">all_objects</span> <span class="o">=</span> <span class="n">page_iterator</span><span class="p">(</span><span class="n">pages</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">next</span><span class="p">(</span><span class="n">all_objects</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&#39;PROJ14377/RUN0/CLONE0/frame0.tpr&#39;</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>And if you wanted to, you could layer a filter over the generator to impose some logic like filtering for the top-level directories</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">first_level_dirs</span> <span class="o">=</span> <span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span><span class="o">==</span><span class="mi">1</span><span class="p">,</span> <span class="n">all_objects</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Unix-like-python-filesytem-libraries">Unix-like python filesytem libraries<a class="anchor-link" href="#Unix-like-python-filesytem-libraries"> </a></h1><p><a href="https://s3fs.readthedocs.io/en/latest/">S3FS</a>, built on botocore and fsspec, has a very unix-like syntax to navigate and open files</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">s3fs</span>
+<span class="n">fs</span> <span class="o">=</span> <span class="n">s3fs</span><span class="o">.</span><span class="n">S3FileSystem</span><span class="p">(</span><span class="n">anon</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">fs</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="n">bucket_name</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[&#39;fah-public-data-covid19-absolute-free-energy/PROJ14377&#39;,
+ &#39;fah-public-data-covid19-absolute-free-energy/PROJ14378&#39;,
+ &#39;fah-public-data-covid19-absolute-free-energy/PROJ14379&#39;,
+ &#39;fah-public-data-covid19-absolute-free-energy/PROJ14380&#39;,
+ &#39;fah-public-data-covid19-absolute-free-energy/PROJ14383&#39;,
+ &#39;fah-public-data-covid19-absolute-free-energy/PROJ14384&#39;,
+ &#39;fah-public-data-covid19-absolute-free-energy/PROJ14630&#39;,
+ &#39;fah-public-data-covid19-absolute-free-energy/PROJ14631&#39;,
+ &#39;fah-public-data-covid19-absolute-free-energy/PROJ14650&#39;,
+ &#39;fah-public-data-covid19-absolute-free-energy/PROJ14651&#39;,
+ &#39;fah-public-data-covid19-absolute-free-energy/PROJ14652&#39;,
+ &#39;fah-public-data-covid19-absolute-free-energy/PROJ14653&#39;,
+ &#39;fah-public-data-covid19-absolute-free-energy/PROJ14654&#39;,
+ &#39;fah-public-data-covid19-absolute-free-energy/PROJ14655&#39;,
+ &#39;fah-public-data-covid19-absolute-free-energy/PROJ14656&#39;,
+ &#39;fah-public-data-covid19-absolute-free-energy/PROJ14665&#39;,
+ &#39;fah-public-data-covid19-absolute-free-energy/PROJ14666&#39;,
+ &#39;fah-public-data-covid19-absolute-free-energy/PROJ14667&#39;,
+ &#39;fah-public-data-covid19-absolute-free-energy/PROJ14668&#39;,
+ &#39;fah-public-data-covid19-absolute-free-energy/PROJ14669&#39;,
+ &#39;fah-public-data-covid19-absolute-free-energy/PROJ14670&#39;,
+ &#39;fah-public-data-covid19-absolute-free-energy/PROJ14671&#39;,
+ &#39;fah-public-data-covid19-absolute-free-energy/PROJ14702&#39;,
+ &#39;fah-public-data-covid19-absolute-free-energy/PROJ14703&#39;,
+ &#39;fah-public-data-covid19-absolute-free-energy/PROJ14704&#39;,
+ &#39;fah-public-data-covid19-absolute-free-energy/PROJ14705&#39;,
+ &#39;fah-public-data-covid19-absolute-free-energy/PROJ14723&#39;,
+ &#39;fah-public-data-covid19-absolute-free-energy/PROJ14724&#39;,
+ &#39;fah-public-data-covid19-absolute-free-energy/PROJ14726&#39;,
+ &#39;fah-public-data-covid19-absolute-free-energy/PROJ14802&#39;,
+ &#39;fah-public-data-covid19-absolute-free-energy/PROJ14803&#39;,
+ &#39;fah-public-data-covid19-absolute-free-energy/PROJ14804&#39;,
+ &#39;fah-public-data-covid19-absolute-free-energy/PROJ14805&#39;,
+ &#39;fah-public-data-covid19-absolute-free-energy/PROJ14806&#39;,
+ &#39;fah-public-data-covid19-absolute-free-energy/PROJ14807&#39;,
+ &#39;fah-public-data-covid19-absolute-free-energy/PROJ14808&#39;,
+ &#39;fah-public-data-covid19-absolute-free-energy/PROJ14809&#39;,
+ &#39;fah-public-data-covid19-absolute-free-energy/PROJ14810&#39;,
+ &#39;fah-public-data-covid19-absolute-free-energy/PROJ14811&#39;,
+ &#39;fah-public-data-covid19-absolute-free-energy/PROJ14812&#39;,
+ &#39;fah-public-data-covid19-absolute-free-energy/PROJ14813&#39;,
+ &#39;fah-public-data-covid19-absolute-free-energy/PROJ14823&#39;,
+ &#39;fah-public-data-covid19-absolute-free-energy/PROJ14824&#39;,
+ &#39;fah-public-data-covid19-absolute-free-energy/PROJ14826&#39;,
+ &#39;fah-public-data-covid19-absolute-free-energy/PROJ14833&#39;,
+ &#39;fah-public-data-covid19-absolute-free-energy/SVR51748107&#39;,
+ &#39;fah-public-data-covid19-absolute-free-energy/free_energy_data&#39;,
+ &#39;fah-public-data-covid19-absolute-free-energy/receptor_structures.tar.gz&#39;,
+ &#39;fah-public-data-covid19-absolute-free-energy/setup_files&#39;]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">fs</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="n">bucket_name</span> <span class="o">+</span> <span class="s2">&quot;/free_energy_data&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[&#39;fah-public-data-covid19-absolute-free-energy/free_energy_data/&#39;,
+ &#39;fah-public-data-covid19-absolute-free-energy/free_energy_data/BRO_L_14382.pkl&#39;,
+ &#39;fah-public-data-covid19-absolute-free-energy/free_energy_data/BRO_RL_14717.pkl&#39;,
+ &#39;fah-public-data-covid19-absolute-free-energy/free_energy_data/BRO_RL_14718.pkl&#39;,
+ &#39;fah-public-data-covid19-absolute-free-energy/free_energy_data/BRO_RL_14719.pkl&#39;,
+ &#39;fah-public-data-covid19-absolute-free-energy/free_energy_data/BRO_RL_14720.pkl&#39;,
+ &#39;fah-public-data-covid19-absolute-free-energy/free_energy_data/BRO_RL_14817.pkl&#39;,
+ &#39;fah-public-data-covid19-absolute-free-energy/free_energy_data/BRO_RL_14818.pkl&#39;,
+ &#39;fah-public-data-covid19-absolute-free-energy/free_energy_data/BRO_RL_14819.pkl&#39;,
+ &#39;fah-public-data-covid19-absolute-free-energy/free_energy_data/BRO_RL_14820.pkl&#39;,
+ &#39;fah-public-data-covid19-absolute-free-energy/free_energy_data/HITS_L_14676.pkl&#39;,
+ &#39;fah-public-data-covid19-absolute-free-energy/free_energy_data/HITS_RL_14730.pkl&#39;,
+ &#39;fah-public-data-covid19-absolute-free-energy/free_energy_data/HITS_RL_14830.pkl&#39;,
+ &#39;fah-public-data-covid19-absolute-free-energy/free_energy_data/MLTN_L_14374.pkl&#39;,
+ &#39;fah-public-data-covid19-absolute-free-energy/free_energy_data/MLTN_RL_14721.pkl&#39;,
+ &#39;fah-public-data-covid19-absolute-free-energy/free_energy_data/MLTN_RL_14821.pkl&#39;,
+ &#39;fah-public-data-covid19-absolute-free-energy/free_energy_data/MS0323_L_14364.pkl&#39;,
+ &#39;fah-public-data-covid19-absolute-free-energy/free_energy_data/MS0323_RL_14722.pkl&#39;,
+ &#39;fah-public-data-covid19-absolute-free-energy/free_energy_data/MS0323_RL_14822.pkl&#39;,
+ &#39;fah-public-data-covid19-absolute-free-energy/free_energy_data/MS0326_L_14369_14372_14370_14371.pkl&#39;,
+ &#39;fah-public-data-covid19-absolute-free-energy/free_energy_data/MS0326_RL_14723.pkl&#39;,
+ &#39;fah-public-data-covid19-absolute-free-energy/free_energy_data/MS0326_RL_14724.pkl&#39;,
+ &#39;fah-public-data-covid19-absolute-free-energy/free_energy_data/MS0326_RL_14823.pkl&#39;,
+ &#39;fah-public-data-covid19-absolute-free-energy/free_energy_data/MS0326_RL_14824.pkl&#39;,
+ &#39;fah-public-data-covid19-absolute-free-energy/free_energy_data/MS0331_L_14376.pkl&#39;,
+ &#39;fah-public-data-covid19-absolute-free-energy/free_energy_data/MS0331_RL_14725.pkl&#39;,
+ &#39;fah-public-data-covid19-absolute-free-energy/free_energy_data/MS0331_RL_14825.pkl&#39;,
+ &#39;fah-public-data-covid19-absolute-free-energy/free_energy_data/MS0406-2_L_14380.pkl&#39;,
+ &#39;fah-public-data-covid19-absolute-free-energy/free_energy_data/MS0406-2_RL_14727.pkl&#39;,
+ &#39;fah-public-data-covid19-absolute-free-energy/free_energy_data/MS0406-2_RL_14728.pkl&#39;,
+ &#39;fah-public-data-covid19-absolute-free-energy/free_energy_data/MS0406-2_RL_14827.pkl&#39;,
+ &#39;fah-public-data-covid19-absolute-free-energy/free_energy_data/MS0406-2_RL_14828.pkl&#39;,
+ &#39;fah-public-data-covid19-absolute-free-energy/free_energy_data/MS0406_L_14378.pkl&#39;,
+ &#39;fah-public-data-covid19-absolute-free-energy/free_energy_data/MS0406_RL_14752.pkl&#39;,
+ &#39;fah-public-data-covid19-absolute-free-energy/free_energy_data/MS0406_RL_14852.pkl&#39;,
+ &#39;fah-public-data-covid19-absolute-free-energy/free_energy_data/hello.txt&#39;,
+ &#39;fah-public-data-covid19-absolute-free-energy/free_energy_data/organization.pkl&#39;,
+ &#39;fah-public-data-covid19-absolute-free-energy/free_energy_data/results.pkl&#39;]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">with</span> <span class="n">fs</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;fah-public-data-covid19-absolute-free-energy/free_energy_data/hello.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>hello aws!
+
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">with</span> <span class="n">fs</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&quot;fah-public-data-covid19-absolute-free-energy/free_energy_data/organization.pkl&quot;</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">organization_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_pickle</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">organization_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>dataset</th>
+      <th>identity</th>
+      <th>receptor</th>
+      <th>score</th>
+      <th>v1_project</th>
+      <th>v1_run</th>
+      <th>v2_project</th>
+      <th>v2_run</th>
+      <th>v3_project</th>
+      <th>v3_run</th>
+      <th>project</th>
+      <th>run</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>72_RL</td>
+      <td>CCNCC(COC)Oc1ccccc1</td>
+      <td>receptor-270-343.pdb</td>
+      <td>0.999790</td>
+      <td>14600</td>
+      <td>0</td>
+      <td>14700</td>
+      <td>0</td>
+      <td>14800</td>
+      <td>0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>72_RL</td>
+      <td>O=C(Cc1cccnc1)c1ccccc1</td>
+      <td>receptor-343.pdb</td>
+      <td>0.999652</td>
+      <td>14600</td>
+      <td>1</td>
+      <td>14700</td>
+      <td>1</td>
+      <td>14800</td>
+      <td>1</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>72_RL</td>
+      <td>CCCCC(N)c1cc(C)ccn1</td>
+      <td>receptor-343.pdb</td>
+      <td>0.999256</td>
+      <td>14600</td>
+      <td>2</td>
+      <td>14700</td>
+      <td>2</td>
+      <td>14800</td>
+      <td>2</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>72_RL</td>
+      <td>COCC(C)Nc1ccncn1</td>
+      <td>receptor-343.pdb</td>
+      <td>0.999096</td>
+      <td>14600</td>
+      <td>3</td>
+      <td>14700</td>
+      <td>3</td>
+      <td>14800</td>
+      <td>3</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>72_RL</td>
+      <td>CCN(CC)CCNc1ccc(C#N)cn1</td>
+      <td>receptor-270-343.pdb</td>
+      <td>0.998980</td>
+      <td>14600</td>
+      <td>4</td>
+      <td>14700</td>
+      <td>4</td>
+      <td>14800</td>
+      <td>4</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+</div>
+
+
+
+  </div><a class="u-url" href="/fastpayges/data%20science/molecular%20modeling/2020/12/29/fahonaws.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/fastpayges/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/fastpayges/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/fastpayges/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>Fastpages-based website</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/ahy3nz" title="ahy3nz"><svg class="svg-icon grey"><use xlink:href="/fastpayges/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://twitter.com/ayaang41" title="ayaang41"><svg class="svg-icon grey"><use xlink:href="/fastpayges/assets/minima-social-icons.svg#twitter"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

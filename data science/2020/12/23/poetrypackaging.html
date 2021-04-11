@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Poetry and Docker | fastpayges</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Poetry and Docker" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="What is poetry and where does this fit in the python software/DS ecosystem? And some beginner forays into docker." />
+<meta property="og:description" content="What is poetry and where does this fit in the python software/DS ecosystem? And some beginner forays into docker." />
+<link rel="canonical" href="https://ahy3nz.github.io/fastpayges/data%20science/2020/12/23/poetrypackaging.html" />
+<meta property="og:url" content="https://ahy3nz.github.io/fastpayges/data%20science/2020/12/23/poetrypackaging.html" />
+<meta property="og:site_name" content="fastpayges" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-12-23T00:00:00-06:00" />
+<script type="application/ld+json">
+{"url":"https://ahy3nz.github.io/fastpayges/data%20science/2020/12/23/poetrypackaging.html","@type":"BlogPosting","headline":"Poetry and Docker","dateModified":"2020-12-23T00:00:00-06:00","datePublished":"2020-12-23T00:00:00-06:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://ahy3nz.github.io/fastpayges/data%20science/2020/12/23/poetrypackaging.html"},"description":"What is poetry and where does this fit in the python software/DS ecosystem? And some beginner forays into docker.","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/fastpayges/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://ahy3nz.github.io/fastpayges/feed.xml" title="fastpayges" /><link rel="shortcut icon" type="image/x-icon" href="/fastpayges/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.css" integrity="sha512-h7nl+xz8wgDlNM4NqKEM4F1NkIRS17M9+uJwIGwuo8vGqIl4BhuCKdxjWEINm+xyrUjNCnK5dCrhM0sj+wTIXw==" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.js" integrity="sha512-/CMIhXiDA3m2c9kzRyd97MTb3MC6OVnx4TElQ7fkkoRghwDf6gi41gaT1PwF270W6+J60uTmwgeRpNpJdRV6sg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/contrib/auto-render.min.js" integrity="sha512-Do7uJAaHZm5OLrIv/yN4w0iG1dbu01kzdMNnFfu/mAqgUk6Nniv2JYHcwH+cNwjqgLcqcuBBk+JRvprLVI8azg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha512-0doc9hKxR3PYwso42RD1p5ySZpzzuDiOwMrdCEh2WdJZCjcmFKc/wEnL+z8fBQrnHoiNWbo+3fiGkOYXBdQp4A==" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/fastpayges/">fastpayges</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/fastpayges/about/">About Me</a><a class="page-link" href="/fastpayges/credits/">Credits</a><a class="page-link" href="/fastpayges/search/">Search</a><a class="page-link" href="/fastpayges/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Poetry and Docker</h1><p class="post-meta post-meta-title"><time class="dt-published" datetime="2020-12-23T00:00:00-06:00" itemprop="datePublished">
+        Dec 23, 2020
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      5 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/fastpayges/categories/#data science">data science</a>
+        
+      
+      </p>
+    
+
+    </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>What is <a href="https://python-poetry.org/">poetry</a> and where does this fit in the python software/DS ecosystem? And some beginner forays into docker.</p>
+
+<p>To skip the reading and jump to the code, go to <a href="https://github.com/ahy3nz/poetry-demo">this repo</a></p>
+
+<h1 id="personal-opinions-motivating-this-work">Personal opinions motivating this work</h1>
+
+<p>The data science world is large.
+Data science is kind of like an intersection of statistics/math, subject matter, software engineering, algorithms, and all the collaboration/teamwork that comes with a job.
+Starting out, you definitely cannot be expected to have a mastery over everything, but at least some minimal competencies and capacity to learn (this basically applies to all jobs).</p>
+
+<p>I’m about 11 months into technically being labeled a “data scientist” and I’ve observed that each data scientist ends up cultivating their own sets of skills they find valuable and/or interesting – generalist/specialist is basically skilling up however you want.
+Seeing the work of other data scientists has built up a long laundry list of things I’d like to learn but don’t have the business-hours to devote because of more-pressing project demands.
+Among these is this concept of packaging and building “applications”.
+For a graduate student, your “application” might be a codebase and set of functions that others can reliably and consistently use in their own hacky codes.
+For a software engineer, your “application” might be deployed onto some cloud server, where the code needs to be self-sufficient and robust, listening for input, processing this input, and pumping out some output without hands on a keyboard.
+For a data scientist, you may eventually need to think about how an application gets deployed, from consistency of functions and numerical accuracy to considering the entire technical stack involved.
+Day-to-day, I think consistency of functions and numerical accuracy are generally kept front-of-mind with unit tests or and mainly because you’re always thinking of the mathematical model.</p>
+
+<p>If you’re a little more software-savvy, you’ll think about your python environment, using conda or something to control your python software dependencies, your software build, and any compilation that has to happen.
+Since I’m on socially-distanced, self-quarantined holiday, this is a great time to do some learning</p>
+
+<h1 id="poetry">Poetry</h1>
+
+<h2 id="dependency-hell-an-introduction">“Dependency” hell, an introduction</h2>
+
+<p>Most software depends on other software, and if the dependencies change some core functionality, then your own software may no longer function as intended.
+To resolve this, you venture through <a href="https://en.wikipedia.org/wiki/Dependency_hell">“dependency hell”</a> to figure out whose code broke your code, and how to fix this.</p>
+
+<p>Data scientists like to use python virtual environments to ensure dependencies are compatible and runnable.
+Some like to use pip and venv, which is fine for installing packages, but only recently will pip attempt to address dependency resolution.
+Conda is also very popular for managing software packages, compiling software, and resolving software dependencies.</p>
+
+<h2 id="what-does-poetry-do">What does poetry do?</h2>
+<p>A new contestant, <a href="https://python-poetry.org/">poetry</a> finds itself in some python packaging and dependency conversations like “oh I’ve heard of poetry but never really tried it”.
+Poetry helps manage the python package dependencies for a given software, with a simple CLI to add and update new package dependencies.
+Poetry generally involves the binary (available on conda and pip), but interacts with your package via two files, the <code class="language-plaintext highlighter-rouge">poetry.lock</code> and <code class="language-plaintext highlighter-rouge">pyproject.toml</code>.
+If someone gives you those files, you should be able to build your own compatible python environment.
+In tandem, the two specify the necessary dependncies for your project, with the former pinning dependencies and the latter floating dependencies.
+Poetry also has some convenient functions for compiling source distributions and wheels so you can distribute this code on somewhere like pypi (but it doesn’t look like there’s any mention of conda recipes).</p>
+
+<h2 id="what-about-docker">What about docker?</h2>
+<p>Docker provides a lot of virtualization and environment control so you can put together an entire tech stack just for your application to run on a bare-bones, nothing-installed server somewhere.
+This comes in the form of a dockerfile, which like a set of instructions on how to build your container.
+For an early career data scientist, that’s probably all you need to know.
+Software engineers deal with this all the time, and data scientists eventually dip their toes here as a model/project comes to maturity.</p>
+
+<p>You can learn a lot about dockerfiles by reading them and writing your own, so take a look at the repo linked at the beginning of this post.
+In general, it kind of resembles a lot of shell commands.
+Getting conda to work with docker comes with some sticking points:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">conda</code> commands within each layer won’t work unless you run the shell script that comes with conda, so you have to remember to run that script throughout the dockerfile</li>
+  <li>Note the use of the <code class="language-plaintext highlighter-rouge">entrypoint.sh</code> file, which becomes the final script that is executed when you call <code class="language-plaintext highlighter-rouge">docker run</code>. Observe the necessary <code class="language-plaintext highlighter-rouge">chmod</code> to make it executable, and note the <code class="language-plaintext highlighter-rouge">conda.sh</code> command even inside the <code class="language-plaintext highlighter-rouge">entrypoint.sh</code> file if you want the container to run some code within a conda environment.</li>
+  <li><code class="language-plaintext highlighter-rouge">docker run -it poetry /bin/bash</code> if you want to open an interactive shell session to the container, running commands/codes inside the docker container like you would an SSH session.</li>
+  <li>Technically, since you have absolute control over the image, you might not need the virtual environment for small python packages. As the packages get more complex and package builds become more complicated, it becomes easier to let conda handle the package management rather than try to correctly install everything in a dockerfile</li>
+</ul>
+
+<p>If you envision running lots of python code or calculations on cloud servers, docker containers and python environments are the sorts of tech that make it happen (and if you and your proejct are up for it, container-orchestration and workflow tools)</p>
+
+<h1 id="bare-bones-example">Bare bones example</h1>
+<p>I’ve documented my experiences in this <a href="https://github.com/ahy3nz/poetry-demo">sandbox for using docker and poetry</a>.
+There are a lot of tutorials on the internet, so I won’t bother here.
+But, for a data scientist versed in python environments, this repo showcases how to build your docker images for conda/poetry/python.
+For a “real” industrial application, things will likely get messier as the environments and software stack get more complex, but this is a decent start for an amateur.</p>
+
+
+  </div><a class="u-url" href="/fastpayges/data%20science/2020/12/23/poetrypackaging.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/fastpayges/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/fastpayges/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/fastpayges/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>Fastpages-based website</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/ahy3nz" title="ahy3nz"><svg class="svg-icon grey"><use xlink:href="/fastpayges/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://twitter.com/ayaang41" title="ayaang41"><svg class="svg-icon grey"><use xlink:href="/fastpayges/assets/minima-social-icons.svg#twitter"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
