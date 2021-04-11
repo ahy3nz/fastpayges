@@ -2,7 +2,7 @@
 title: Poetry and Docker
 toc: false
 layout: post
-categories: [personal, data science]
+categories: [data science]
 ---
 
 What is [poetry](https://python-poetry.org/) and where does this fit in the python software/DS ecosystem? And some beginner forays into docker.
