@@ -435,7 +435,7 @@ ax[1].set_ylim([-30, 30])
 
 
 
-![png](/images/2020-04-05-clutch_files/evaluating_clutch_9_1.png)
+![png]({{site.baseurl}}/images/2020-04-05-clutch_files/evaluating_clutch_9_1.png)
 
 
 ## Commentary on the analysis
