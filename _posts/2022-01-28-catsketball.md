@@ -22,9 +22,9 @@ So here are a couple of thoughts:
 
 - For most people, no one has a strong sense of who performs well in which categories, besides points
 
-- If you compete against a new player each week, you don't know how your _opponent_ will perform in each category, and you especially don't know which categories are easy victories, possibly winnable, and downright impossible to win
+- If you compete against a new player each week, you don't know how your _opponent_ will perform in each category, and you especially don't know which categories are easy victories, possibly winnable, or downright impossible to win
 
-- If you have a couple of streaming spots to pick up a player from the waiver wire, it would be nice to be informed of who's the waiver wire pickup. Not only will player news/injuries shake up waiver wire, but you might also want to consider if you should prioritze rebounds, steals, blocks, FG%, or 3PM, as a waiver wire pickup might be crucial to swinging a category your way
+- If you have a couple of streaming spots to pick up a player from the waiver wire, it would be nice to be informed of who is the correct waiver wire pickup. Not only will player news/injuries shake up waiver wire, but you might also want to consider if you should prioritze rebounds, steals, blocks, FG%, or 3PM, as a waiver wire pickup might be crucial to swinging a category your way
 
 # The problem
 
@@ -55,7 +55,7 @@ To reduce the problem, we can focus on the parts that would be easy to resolve w
 
 Basically, what we're looking for is _information_ that could help us make a decision.
 
-In the life of a data work, this is somewhat common: we have a lot of complex business logic that rely on a lot of information. 
+Over the course of data work, this is somewhat common: we have a lot of complex business logic that relies on a lot of information. 
 The decisionmaking is hard to automate, but the data pulling is a very achievable task.
 This work boils down to reporting, dashboarding, analytics, etc.
 
@@ -63,7 +63,7 @@ So this approach is a dashboard that leverages Streamlit and [ESPN API](https://
 Also, you can generally assess your team's composition (and other teams') to figure out which trades you might want to make.
 
 If you need help with blocks, you might want to swap your waiver wire 3 pt specialist for a rim-defending center.
-If there's a team weak in steals, and your team is overwhelmingly strong in steals, you could try to trade a steals person to rebalance your steals in favor of another category you're weak in.
+If there's a team weak in steals, and your team is overwhelmingly strong in steals, you could try to trade a steals person to rebalance your steals in favor of another category in which you are weak.
 
 # Technical commentary
 
