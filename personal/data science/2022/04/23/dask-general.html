@@ -151,7 +151,7 @@ Wherever you might be calling <code>pandas.DataFrame</code>, you could just as e
 <p>This mental model is really great at hiding any of the underlying implementation details of dask (and dask dataframes), so it's great for beginners.</p>
 <p>If we look further, we can add to this mental model as such: Dask operates by distributing (dataframe) operations on small chunks of data (Pandas DataFrames).
 Now, we understand that Dask is actually orchestrating and scheduling tasks to operate on out-of-memory chunks of data.
-At this point, we can understand Dask is really a good parallel compute engine.</p>
+At this point, we can understand Dask is really a good parallel compute engine, and this might be useful for the grad students submitting serial python code to a cluster that has multiple cores that need to be leveraged.</p>
 
 </div>
 </div>
@@ -2659,6 +2659,8 @@ The beauty here is that the computations with SQL clients are generally offloade
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="Parting-thoughts,-Dask-can-be-used-as-multi-processing-engine">Parting thoughts, Dask can be used as multi-processing engine<a class="anchor-link" href="#Parting-thoughts,-Dask-can-be-used-as-multi-processing-engine"> </a></h1><p>While <code>dask.DataFrame</code> has a lot of parity with <code>pandas.DataFrame</code> such that you can supercharge your pandas-code, you can also use Dask to handle arbitrary python objects.
 In doing so, you open a lot of additional code up for parallelization. With operations like <code>scatter</code>, you can also observe some parallelization optimizations that you might not observe from using something built-in like <code>concurrent.futures</code></p>
+<p>Because python code is generally serial in operation, if you submit python code to a cluster, you might not be successfully leveraging all the the cores available. 
+The use of dask, delayed, and even scatter will help add some straightforward parallelization</p>
 
 </div>
 </div>
