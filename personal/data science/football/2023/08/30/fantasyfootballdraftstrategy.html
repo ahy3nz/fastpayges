@@ -1,0 +1,1970 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Fantasy football, using draft order to identify relative opportunities | fastpayges</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Fantasy football, using draft order to identify relative opportunities" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Fastpages-based website" />
+<meta property="og:description" content="Fastpages-based website" />
+<link rel="canonical" href="https://ahy3nz.github.io/fastpayges/personal/data%20science/football/2023/08/30/fantasyfootballdraftstrategy.html" />
+<meta property="og:url" content="https://ahy3nz.github.io/fastpayges/personal/data%20science/football/2023/08/30/fantasyfootballdraftstrategy.html" />
+<meta property="og:site_name" content="fastpayges" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2023-08-30T00:00:00-05:00" />
+<script type="application/ld+json">
+{"mainEntityOfPage":{"@type":"WebPage","@id":"https://ahy3nz.github.io/fastpayges/personal/data%20science/football/2023/08/30/fantasyfootballdraftstrategy.html"},"url":"https://ahy3nz.github.io/fastpayges/personal/data%20science/football/2023/08/30/fantasyfootballdraftstrategy.html","@type":"BlogPosting","headline":"Fantasy football, using draft order to identify relative opportunities","dateModified":"2023-08-30T00:00:00-05:00","datePublished":"2023-08-30T00:00:00-05:00","description":"Fastpages-based website","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/fastpayges/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://ahy3nz.github.io/fastpayges/feed.xml" title="fastpayges" /><link rel="shortcut icon" type="image/x-icon" href="/fastpayges/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.css" integrity="sha512-h7nl+xz8wgDlNM4NqKEM4F1NkIRS17M9+uJwIGwuo8vGqIl4BhuCKdxjWEINm+xyrUjNCnK5dCrhM0sj+wTIXw==" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.js" integrity="sha512-/CMIhXiDA3m2c9kzRyd97MTb3MC6OVnx4TElQ7fkkoRghwDf6gi41gaT1PwF270W6+J60uTmwgeRpNpJdRV6sg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/contrib/auto-render.min.js" integrity="sha512-Do7uJAaHZm5OLrIv/yN4w0iG1dbu01kzdMNnFfu/mAqgUk6Nniv2JYHcwH+cNwjqgLcqcuBBk+JRvprLVI8azg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha512-0doc9hKxR3PYwso42RD1p5ySZpzzuDiOwMrdCEh2WdJZCjcmFKc/wEnL+z8fBQrnHoiNWbo+3fiGkOYXBdQp4A==" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/fastpayges/">fastpayges</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/fastpayges/about/">About Me</a><a class="page-link" href="/fastpayges/credits/">Credits</a><a class="page-link" href="/fastpayges/search/">Search</a><a class="page-link" href="/fastpayges/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Fantasy football, using draft order to identify relative opportunities</h1><p class="post-meta post-meta-title"><time class="dt-published" datetime="2023-08-30T00:00:00-05:00" itemprop="datePublished">
+        Aug 30, 2023
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      16 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/fastpayges/categories/#personal">personal</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/fastpayges/categories/#data science">data science</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/fastpayges/categories/#football">football</a>
+        
+      
+      </p>
+    
+
+    
+      
+        <div class="pb-5 d-flex flex-wrap flex-justify-end">
+          <div class="px-2">
+
+    <a href="https://github.com/ahy3nz/fastpayges/tree/master/_notebooks/2023-08-30-fantasyfootballdraftstrategy.ipynb" role="button" target="_blank">
+<img class="notebook-badge-image" src="/fastpayges/assets/badges/github.svg" alt="View On GitHub">
+    </a>
+</div>
+
+          
+          
+        </div>
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <ul class="section-nav">
+<li class="toc-entry toc-h2"><a href="#Overview">Overview </a></li>
+<li class="toc-entry toc-h2"><a href="#Player-rankings-and-projections-are-constant">Player rankings and projections are constant </a></li>
+<li class="toc-entry toc-h2"><a href="#Value-over-next-possible-player">Value over next possible player </a></li>
+<li class="toc-entry toc-h2"><a href="#VONPP-exercise">VONPP exercise </a></li>
+<li class="toc-entry toc-h2"><a href="#Ranking-the-entire-pool-of-players">Ranking the entire pool of players </a></li>
+<li class="toc-entry toc-h2"><a href="#Looking-at-the-results-of-our-rankings">Looking at the results of our rankings </a></li>
+</ul><!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/2023-08-30-fantasyfootballdraftstrategy.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Overview">
+<a class="anchor" href="#Overview" aria-hidden="true"><span class="octicon octicon-link"></span></a>Overview<a class="anchor-link" href="#Overview"> </a>
+</h2>
+<p>An ongoing thought process I've had within fantasy football has been the concept of relative opportunity.
+Even if one player is projected to score more points, the introduction of positions means we need to consider how many points we lose out in if we opt for Outstanding QB and Decent WR versus Outstanding WR and Decent QB.
+At any particular draft position, we must consider what players we can draft now versus what players we will be able to draft later.</p>
+<p>A big question mark becomes, how do we simply characterize the next-best-possible player when examining the relative opportunity of best-possible player versus next-best-possible? How can this be used to determine a draft strategy?</p>
+<h2 id="Player-rankings-and-projections-are-constant">
+<a class="anchor" href="#Player-rankings-and-projections-are-constant" aria-hidden="true"><span class="octicon octicon-link"></span></a>Player rankings and projections are constant<a class="anchor-link" href="#Player-rankings-and-projections-are-constant"> </a>
+</h2>
+<p>Before a draft begins, under a particular league setting (0.5 PPR), there is a true ranking and projection of football players.
+During the draft, any arbitrary selection of players does not affect the projections and rankings of the remaining football players.
+If we utilize any set of scoring projections, like <a href="https://betiq.teamrankings.com/fantasy-football/projections/half-ppr/">this one I found</a>, we assume these to be correct.</p>
+<p>Further, among any particular position, there will always be a well-defined best player available.
+We know all WR1-30 and their associated order. 
+If WR1 is available, then WR1 is the best player available. 
+At no other point would we ever consider WR2 unless WR1 was drafted. 
+Similarly, we would never consider WR3 unless both WR1 and WR2 have been drafted.
+Thus, at any moment in time, we never need to consider the body of all possible players;
+we only need to consider the best available QB/RB/WR/TE and pick 1 player among the 4.</p>
+<p>Among the best available QB/RB/WR/TE, we then turn to relative opportunity amongst these 4 players.</p>
+<h2 id="Value-over-next-possible-player">
+<a class="anchor" href="#Value-over-next-possible-player" aria-hidden="true"><span class="octicon octicon-link"></span></a>Value over next possible player<a class="anchor-link" href="#Value-over-next-possible-player"> </a>
+</h2>
+<p>We characterize this relative opportunity with the Value Over Next Possible Player (VONPP).</p>
+<p>If we have the first round first pick, our pool of players is QB1, RB1, WR1, TE1.
+If we are in a 10 team league, then we also need to consider what players are available 19 picks later:
+what is next-QB, next-RB, next-WR, next-TE that we could potentially draft?</p>
+<p>The relative opportunities at each position then become:</p>
+<ul>
+<li>QB1 vs next-QB</li>
+<li>RB1 vs next-RB</li>
+<li>WR1 vs next-WR</li>
+<li>TE1 vs next-TE</li>
+</ul>
+<p>If we compare the fantasy output between these two players, we can quantify the VONPP.</p>
+<h2 id="VONPP-exercise">
+<a class="anchor" href="#VONPP-exercise" aria-hidden="true"><span class="octicon octicon-link"></span></a>VONPP exercise<a class="anchor-link" href="#VONPP-exercise"> </a>
+</h2>
+<p>We can load the following half PPR projections and take a look into the RB position</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">import</span> <span class="nn">re</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+
+<span class="n">POSITIONS</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"QB"</span><span class="p">,</span> <span class="s2">"WR"</span><span class="p">,</span> <span class="s2">"RB"</span><span class="p">,</span> <span class="s2">"TE"</span><span class="p">,</span> <span class="s2">"K"</span><span class="p">,</span> <span class="s2">"D/ST"</span><span class="p">]</span>
+
+<span class="k">def</span> <span class="nf">parse_code</span><span class="p">(</span><span class="n">val</span><span class="p">):</span>
+    <span class="n">match_pattern</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">"([A-Z]*)([0-9]*)"</span>
+    <span class="n">matched</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">match_pattern</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span>
+    <span class="n">parsed</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"Position"</span><span class="p">:</span> <span class="n">matched</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="s2">"Rank"</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">matched</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">2</span><span class="p">))}</span>
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">parsed</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">load_betiq</span><span class="p">():</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"files/2023fantasypointsprojections.csv"</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">"Rank"</span><span class="p">:</span> <span class="s2">"OverallRank"</span><span class="p">})</span>
+    <span class="p">)</span>
+    <span class="n">parsed_codes</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">"Code"</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">parse_code</span><span class="p">)</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">parsed_codes</span><span class="p">,</span> <span class="n">left_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">right_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">df</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">load_betiq</span><span class="p">()</span>
+<span class="n">PROJECTION_COL</span> <span class="o">=</span> <span class="s2">"FantasyPts"</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">subdf</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"Position"</span><span class="p">)</span><span class="o">.</span><span class="n">get_group</span><span class="p">(</span><span class="s2">"RB"</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>In a 10-team league:</p>
+<p>If we draft at 1, we don't draft again until 20.
+We need to understand the next possible player we might draft.
+This could be drafting the 2nd best RB or the 20th best RB.
+To understand the opportunity, we to compare the rank 1 player against a representative player from rank 2-20.</p>
+<p>In this exercise, our representative player has the fantasy output of the average of ranks 2-20.
+Our RB1, McCaffrey, has fantasy output of 247.4, which is 60.8 above our next possible player</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">best_player</span> <span class="o">=</span> <span class="n">subdf</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">count_forward</span> <span class="o">=</span> <span class="mi">20</span>
+<span class="n">avg_next_player</span> <span class="o">=</span> <span class="n">subdf</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="n">count_forward</span><span class="p">][</span><span class="n">PROJECTION_COL</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">best_player</span><span class="p">[</span><span class="s2">"VONPP"</span><span class="p">]</span> <span class="o">=</span> <span class="n">best_player</span><span class="p">[</span><span class="n">PROJECTION_COL</span><span class="p">]</span> <span class="o">-</span> <span class="n">avg_next_player</span>
+<span class="n">best_player</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>/tmp/ipykernel_4163/4158155553.py:4: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  best_player["VONPP"] = best_player[PROJECTION_COL] - avg_next_player
+/tmp/ipykernel_4163/4158155553.py:4: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  best_player["VONPP"] = best_player[PROJECTION_COL] - avg_next_player
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>OverallRank                     19
+Name           Christian McCaffrey
+Code                           RB1
+Team                            SF
+FantasyPts                   247.4
+Position                        RB
+Rank                             1
+VONPP                    60.752632
+Name: 18, dtype: object</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We can extend this VONPP approach to all other positions.</p>
+<p>Again, since we only have to consider the best available player at each position, our draft choices are restricted to 6 players (well really only 4 because D/ST and K are low priority)</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">best_players_per_position</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">pos</span><span class="p">,</span> <span class="n">subdf</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"Position"</span><span class="p">):</span>
+    <span class="n">best_player</span> <span class="o">=</span> <span class="n">subdf</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">count_forward</span> <span class="o">=</span> <span class="mi">20</span>
+    <span class="n">avg_next_player</span> <span class="o">=</span> <span class="n">subdf</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="n">count_forward</span><span class="p">][</span><span class="n">PROJECTION_COL</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+    <span class="n">vonpp</span> <span class="o">=</span> <span class="n">best_player</span><span class="p">[</span><span class="n">PROJECTION_COL</span><span class="p">]</span> <span class="o">-</span> <span class="n">avg_next_player</span>
+    <span class="n">best_players_per_position</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">best_player</span><span class="p">[</span><span class="s2">"Name"</span><span class="p">],</span> <span class="n">best_player</span><span class="p">[</span><span class="s2">"Position"</span><span class="p">],</span> <span class="n">vonpp</span><span class="p">))</span>
+<span class="nb">sorted</span><span class="p">(</span><span class="n">best_players_per_position</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">combo</span><span class="p">:</span> <span class="n">combo</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[('Travis Kelce', 'TE', 114.77368421052631),
+ ('Josh Allen', 'QB', 81.38421052631583),
+ ('Christian McCaffrey', 'RB', 60.75263157894736),
+ ('Justin Jefferson', 'WR', 47.85789473684213),
+ ('Dallas Cowboys', 'DST', 15.515789473684222),
+ ('Justin Tucker', 'K', 8.310526315789502)]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Ranking-the-entire-pool-of-players">
+<a class="anchor" href="#Ranking-the-entire-pool-of-players" aria-hidden="true"><span class="octicon octicon-link"></span></a>Ranking the entire pool of players<a class="anchor-link" href="#Ranking-the-entire-pool-of-players"> </a>
+</h2>
+<p>Building a consolidated ranking of all players based on VONPP.</p>
+<ul>
+<li>Assume our look-ahead period for our next possible player is always the next 20 spots?<ul>
+<li>Can look ahead X spots based on a snake draft. </li>
+<li>Can look ahead a fixed Y spots to keep things simple.</li>
+</ul>
+</li>
+<li>If we're looking at QB/TE, we can look ahead a fewer number of spots (assume no one will draft 2 QBs or 2 TEs probably)</li>
+<li>For each position, compute the VONPP of the best-available player against the next possible player</li>
+<li>To aggregate the different positions, first look at the highest ranking, available player in each position. For example, the rank 1 player for QB/WR/RB/TE. This is the pool of players we may draft from</li>
+<li>With 4 players and their associated VONPPs, we can select the player with the highest VONPP.</li>
+<li>The pool of available players has shrunk by one. More importantly, the one of the best available players will change because he ha been drafted.</li>
+<li>For example, assume a WR gets drafted because he has the highest VONPP.<ul>
+<li>Our subsequent pool of players becomes rank 1 player for QB/RB/TE and rank 2 player for WR.</li>
+</ul>
+</li>
+<li>This can be implemented by using a combination of queues</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">PlayerRanker</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">n_teams</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">draft_ranking</span> <span class="o">=</span> <span class="p">[]</span> <span class="c1"># Store our ranking</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n_teams</span> <span class="o">=</span> <span class="n">n_teams</span>
+
+        <span class="c1"># For each position, create a queue of players</span>
+        <span class="c1"># where the better players are at the top of the queue</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">position_queue</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">pos</span> <span class="ow">in</span> <span class="n">POSITIONS</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">position_queue</span><span class="p">[</span><span class="n">pos</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span>
+                <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">"Position"</span><span class="p">]</span><span class="o">==</span><span class="n">pos</span><span class="p">]</span>
+                <span class="o">.</span><span class="n">to_dict</span><span class="p">(</span><span class="n">orient</span><span class="o">=</span><span class="s2">"index"</span><span class="p">)</span>
+                <span class="o">.</span><span class="n">values</span><span class="p">()</span>
+            <span class="p">)</span>
+        <span class="c1"># Create a 6-pair dictionary summarizing the various available positions</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">best_player_available</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="n">pos</span><span class="p">:</span> <span class="kc">None</span>
+            <span class="k">for</span> <span class="n">pos</span> <span class="ow">in</span> <span class="n">POSITIONS</span>
+        <span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">log</span> <span class="o">=</span> <span class="n">log</span>
+        
+
+    <span class="k">def</span> <span class="nf">find_best_player_available</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">""" Use the position queue to fill the best player available dictionary """</span>
+        <span class="k">for</span> <span class="n">pos</span> <span class="ow">in</span> <span class="n">POSITIONS</span><span class="p">:</span>
+            <span class="k">if</span> <span class="p">(</span>
+                <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">best_player_available</span><span class="p">[</span><span class="n">pos</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">and</span>
+                <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">position_queue</span><span class="p">[</span><span class="n">pos</span><span class="p">])</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">best_player_available</span><span class="p">[</span><span class="n">pos</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">position_queue</span><span class="p">[</span><span class="n">pos</span><span class="p">]</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">position_queue</span><span class="p">[</span><span class="n">pos</span><span class="p">])</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">best_player_available</span><span class="p">[</span><span class="n">pos</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">pass</span>
+                
+    <span class="k">def</span> <span class="nf">compute_vonpp</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">look_ahead_strategy</span><span class="o">=</span><span class="s2">"hybrid"</span><span class="p">,</span> <span class="n">blur</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+        <span class="sd">""" Iteratively select players based on VONPP</span>
+
+<span class="sd">        This means, one-by-one, we try drafting players using the VONPP strategy</span>
+<span class="sd">        and modify the pool of available players as we draft.</span>
+
+<span class="sd">        Understanding that fantasy projections and picking a representative player is not perfect,</span>
+<span class="sd">        we include a `blur` to say we identify the next possible player by taking our lookahead +/- 1,</span>
+<span class="sd">        so we look at 3 players to derive the next possible player</span>
+<span class="sd">        """</span>
+        <span class="k">for</span> <span class="n">pick</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="p">):</span>
+            <span class="c1"># Find the best player available at each position</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">find_best_player_available</span><span class="p">()</span>
+
+            <span class="c1"># Given the pick number, deduece the round and draft position</span>
+            <span class="n">round_number</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="p">((</span><span class="n">pick</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">//</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_teams</span><span class="p">)</span>
+            <span class="n">is_odd_round</span> <span class="o">=</span> <span class="p">(</span><span class="n">round_number</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="n">draft_position</span> <span class="o">=</span> <span class="p">(</span><span class="n">pick</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_teams</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">draft_position</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">draft_position</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_teams</span>
+            
+            <span class="c1"># Derive the "look ahead" (how we identify the next possible player)</span>
+            <span class="k">if</span> <span class="n">look_ahead_strategy</span> <span class="o">==</span> <span class="s2">"simulate"</span><span class="p">:</span>
+                <span class="c1"># If we simulate, then our look ahead is  based on the draft position</span>
+                <span class="c1"># and where we end up next in a snake draft</span>
+                <span class="n">look_ahead</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_teams</span> <span class="o">-</span> <span class="n">draft_position</span><span class="p">))</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">look_ahead_strategy</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+                <span class="c1"># For simplicity, can also hard-sepcify a look ahead integer</span>
+                <span class="n">look_ahead</span> <span class="o">=</span> <span class="n">look_ahead_strategy</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Lookahead strategy </span><span class="si">{</span><span class="n">look_ahead_strategy</span><span class="si">}</span><span class="s2"> invalid"</span><span class="p">)</span>
+            
+            <span class="c1"># Our player pool is a compilation of best availble players</span>
+            <span class="c1"># and associated VONPPs</span>
+            <span class="n">player_pool</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">pos</span> <span class="ow">in</span> <span class="n">POSITIONS</span><span class="p">:</span>
+                <span class="n">best_player_available</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">best_player_available</span><span class="p">[</span><span class="n">pos</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">best_player_available</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="c1"># Modify our lookahead based on the position</span>
+                    <span class="k">if</span> <span class="n">pos</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">"QB"</span><span class="p">,</span> <span class="s2">"TE"</span><span class="p">]:</span>
+                        <span class="n">count_forward</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">look_ahead</span><span class="o">/</span><span class="mi">2</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">count_forward</span> <span class="o">=</span> <span class="n">look_ahead</span>
+                    
+                    <span class="c1"># Determine our next possible player</span>
+                    <span class="c1"># By looking at the players around a certain rank</span>
+                    <span class="n">avg_next_player</span> <span class="o">=</span> <span class="p">(</span>
+                        <span class="n">df</span><span class="p">[</span>
+                            <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">"Position"</span><span class="p">]</span> <span class="o">==</span> <span class="n">pos</span><span class="p">)</span> <span class="o">&amp;</span>
+                            <span class="p">(</span>
+                                <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">"Rank"</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">best_player_available</span><span class="p">[</span><span class="s2">"Rank"</span><span class="p">]</span> <span class="o">+</span> <span class="n">count_forward</span> <span class="o">-</span> <span class="n">blur</span><span class="p">)</span> <span class="o">|</span>
+                                <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">"Rank"</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">best_player_available</span><span class="p">[</span><span class="s2">"Rank"</span><span class="p">]</span> <span class="o">+</span> <span class="n">count_forward</span> <span class="o">+</span> <span class="n">blur</span><span class="p">)</span>
+                            <span class="p">)</span>
+                        <span class="p">]</span>
+                        <span class="p">[</span><span class="n">PROJECTION_COL</span><span class="p">]</span>
+                        <span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+                    <span class="p">)</span>
+
+                    <span class="c1"># Compute VONPP by looking at best available player and </span>
+                    <span class="c1"># next possible player</span>
+                    <span class="n">vonpp</span> <span class="o">=</span> <span class="n">best_player_available</span><span class="p">[</span><span class="n">PROJECTION_COL</span><span class="p">]</span> <span class="o">-</span> <span class="n">avg_next_player</span>
+                    <span class="n">player_pool</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="p">(</span><span class="n">best_player_available</span><span class="p">,</span> <span class="n">vonpp</span><span class="p">,</span> <span class="n">count_forward</span><span class="p">)</span> <span class="p">)</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">:</span>
+                        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Candidate position: </span><span class="si">{</span><span class="n">pos</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+                        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Best player available: </span><span class="si">{</span><span class="n">best_player_available</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+                        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"VONPP: </span><span class="si">{</span><span class="n">vonpp</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+                        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Count forward: </span><span class="si">{</span><span class="n">count_forward</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+                
+            <span class="c1"># From the player pool, find the player with the highest VONPP</span>
+            <span class="n">person_to_draft</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span>
+                <span class="n">player_pool</span><span class="p">,</span>
+                <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">combos</span><span class="p">:</span> <span class="n">combos</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="p">)</span>
+            <span class="c1"># Add to our draft list</span>
+            <span class="n">to_draft</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="n">person_to_draft</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s2">"VONPP"</span><span class="p">:</span> <span class="n">person_to_draft</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s2">"LookAhead"</span><span class="p">:</span> <span class="n">person_to_draft</span><span class="p">[</span><span class="mi">2</span><span class="p">]}</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">draft_ranking</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">to_draft</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">best_player_available</span><span class="p">[</span><span class="n">to_draft</span><span class="p">[</span><span class="s2">"Position"</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
+            
+<span class="c1"># Ranking strategy by simulating a snake draft</span>
+<span class="n">ranker</span> <span class="o">=</span> <span class="n">PlayerRanker</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">n_teams</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">ranker</span><span class="o">.</span><span class="n">compute_vonpp</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span> <span class="n">look_ahead_strategy</span><span class="o">=</span><span class="s2">"simulate"</span><span class="p">)</span>
+<span class="n">simulated_ranking</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">ranker</span><span class="o">.</span><span class="n">draft_ranking</span><span class="p">)</span>
+
+<span class="c1"># Ranking strategy just by looking 10 places ahead (RB1 versus RB11, WR2 versus WR12)</span>
+<span class="n">ranker</span> <span class="o">=</span> <span class="n">PlayerRanker</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">n_teams</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">ranker</span><span class="o">.</span><span class="n">compute_vonpp</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span> <span class="n">look_ahead_strategy</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">lookahead_ranking</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">ranker</span><span class="o">.</span><span class="n">draft_ranking</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Looking-at-the-results-of-our-rankings">
+<a class="anchor" href="#Looking-at-the-results-of-our-rankings" aria-hidden="true"><span class="octicon octicon-link"></span></a>Looking at the results of our rankings<a class="anchor-link" href="#Looking-at-the-results-of-our-rankings"> </a>
+</h2>
+<p>First, we look at our simulated ranking, where we flexibly defined our next possible player based on where we were in our picks.</p>
+<p>This can be a little risky, because our look aheads are variable and might not reflect real draft events, thus the lookaheads are even more incorrect. 
+We assume first round second pick has to look 17 places down the WR/TE/QB list, which is a worst-case estimate if everyone else drafts the same position as you.
+We may have deduced WR1 versus WR18 to have a huge gap (and acted upon that), but perhaps other league managers will draft other positions, so we really should have been comparing WR1 versus WR14 if that came out to be next-best available WR</p>
+<p>Interestingly, we see that RB2 not picked until 1.08. 
+QB1 is picked 1.05, which is extremely early if you ask some veteran fantasy football players.
+TE2 is picked 2.05, which also seems fairly early. 
+The first round appears to focus on WRs over RBs, which somewhat tracks with intuition.</p>
+<p>I think what I am trying to most rationalize is the early QB. 
+It's true that QB quality can quickly fall off after the top3-5 QBs, so there can be a strong opportunity here.</p>
+<p>However, this drafting approach doesn't strongly look into roster compositions, where we generally fill a roster with lots of WR/RB, so we go deep into the wR/RB rankings.</p>
+<p>What I think this helps us obtain is a highly opportunistic, high trade value team. 
+It seems following this ranking system could mean we end up with a lot of QBs.
+While we can't play all of our QBs, we've properly seized on the opportunity to draft them if, at the time, they were the relatively best players available at the time</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">simulated_ranking</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>OverallRank</th>
+      <th>Name</th>
+      <th>Code</th>
+      <th>Team</th>
+      <th>FantasyPts</th>
+      <th>Position</th>
+      <th>Rank</th>
+      <th>VONPP</th>
+      <th>LookAhead</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>31</td>
+      <td>Travis Kelce</td>
+      <td>TE1</td>
+      <td>KC</td>
+      <td>227.9</td>
+      <td>TE</td>
+      <td>1</td>
+      <td>126.002857</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>18</td>
+      <td>Justin Jefferson</td>
+      <td>WR1</td>
+      <td>MIN</td>
+      <td>252.7</td>
+      <td>WR</td>
+      <td>1</td>
+      <td>123.787000</td>
+      <td>17</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>19</td>
+      <td>Christian McCaffrey</td>
+      <td>RB1</td>
+      <td>SF</td>
+      <td>247.4</td>
+      <td>RB</td>
+      <td>1</td>
+      <td>117.314706</td>
+      <td>15</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>20</td>
+      <td>Tyreek Hill</td>
+      <td>WR2</td>
+      <td>MIA</td>
+      <td>245.9</td>
+      <td>WR</td>
+      <td>2</td>
+      <td>116.987000</td>
+      <td>13</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>22</td>
+      <td>Ja'Marr Chase</td>
+      <td>WR3</td>
+      <td>CIN</td>
+      <td>244.0</td>
+      <td>WR</td>
+      <td>3</td>
+      <td>115.087000</td>
+      <td>11</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>1</td>
+      <td>Josh Allen</td>
+      <td>QB1</td>
+      <td>BUF</td>
+      <td>372.5</td>
+      <td>QB</td>
+      <td>1</td>
+      <td>114.706061</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>23</td>
+      <td>Cooper Kupp</td>
+      <td>WR4</td>
+      <td>LAR</td>
+      <td>243.3</td>
+      <td>WR</td>
+      <td>4</td>
+      <td>114.387000</td>
+      <td>7</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>2</td>
+      <td>Jalen Hurts</td>
+      <td>QB2</td>
+      <td>PHI</td>
+      <td>369.0</td>
+      <td>QB</td>
+      <td>2</td>
+      <td>111.206061</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>25</td>
+      <td>Austin Ekeler</td>
+      <td>RB2</td>
+      <td>LAC</td>
+      <td>238.3</td>
+      <td>RB</td>
+      <td>2</td>
+      <td>108.214706</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>3</td>
+      <td>Patrick Mahomes</td>
+      <td>QB3</td>
+      <td>KC</td>
+      <td>361.0</td>
+      <td>QB</td>
+      <td>3</td>
+      <td>103.206061</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>30</td>
+      <td>Stefon Diggs</td>
+      <td>WR5</td>
+      <td>BUF</td>
+      <td>229.6</td>
+      <td>WR</td>
+      <td>5</td>
+      <td>100.687000</td>
+      <td>19</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>31</td>
+      <td>Bijan Robinson</td>
+      <td>RB3</td>
+      <td>ATL</td>
+      <td>227.9</td>
+      <td>RB</td>
+      <td>3</td>
+      <td>97.814706</td>
+      <td>17</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>35</td>
+      <td>A.J. Brown</td>
+      <td>WR6</td>
+      <td>PHI</td>
+      <td>222.1</td>
+      <td>WR</td>
+      <td>6</td>
+      <td>93.187000</td>
+      <td>15</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>37</td>
+      <td>Garrett Wilson</td>
+      <td>WR7</td>
+      <td>NYJ</td>
+      <td>221.2</td>
+      <td>WR</td>
+      <td>7</td>
+      <td>92.287000</td>
+      <td>13</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>38</td>
+      <td>Tony Pollard</td>
+      <td>RB4</td>
+      <td>DAL</td>
+      <td>221.0</td>
+      <td>RB</td>
+      <td>4</td>
+      <td>90.914706</td>
+      <td>11</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>39</td>
+      <td>Nick Chubb</td>
+      <td>RB5</td>
+      <td>CLE</td>
+      <td>219.9</td>
+      <td>RB</td>
+      <td>5</td>
+      <td>89.814706</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>4</td>
+      <td>Joe Burrow</td>
+      <td>QB4</td>
+      <td>CIN</td>
+      <td>345.7</td>
+      <td>QB</td>
+      <td>4</td>
+      <td>87.906061</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>44</td>
+      <td>CeeDee Lamb</td>
+      <td>WR8</td>
+      <td>DAL</td>
+      <td>214.1</td>
+      <td>WR</td>
+      <td>8</td>
+      <td>85.187000</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>45</td>
+      <td>Amon-Ra St. Brown</td>
+      <td>WR9</td>
+      <td>DET</td>
+      <td>213.9</td>
+      <td>WR</td>
+      <td>9</td>
+      <td>84.987000</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>43</td>
+      <td>Derrick Henry</td>
+      <td>RB6</td>
+      <td>TEN</td>
+      <td>214.2</td>
+      <td>RB</td>
+      <td>6</td>
+      <td>84.114706</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>47</td>
+      <td>Davante Adams</td>
+      <td>WR10</td>
+      <td>LV</td>
+      <td>212.9</td>
+      <td>WR</td>
+      <td>10</td>
+      <td>83.987000</td>
+      <td>19</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>46</td>
+      <td>Saquon Barkley</td>
+      <td>RB7</td>
+      <td>NYG</td>
+      <td>213.6</td>
+      <td>RB</td>
+      <td>7</td>
+      <td>83.514706</td>
+      <td>17</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>48</td>
+      <td>Josh Jacobs</td>
+      <td>RB8</td>
+      <td>LV</td>
+      <td>207.5</td>
+      <td>RB</td>
+      <td>8</td>
+      <td>77.414706</td>
+      <td>15</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>49</td>
+      <td>Chris Olave</td>
+      <td>WR11</td>
+      <td>NO</td>
+      <td>202.2</td>
+      <td>WR</td>
+      <td>11</td>
+      <td>73.287000</td>
+      <td>13</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>51</td>
+      <td>Tee Higgins</td>
+      <td>WR12</td>
+      <td>CIN</td>
+      <td>199.5</td>
+      <td>WR</td>
+      <td>12</td>
+      <td>70.587000</td>
+      <td>11</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>61</td>
+      <td>Mark Andrews</td>
+      <td>TE2</td>
+      <td>BAL</td>
+      <td>171.6</td>
+      <td>TE</td>
+      <td>2</td>
+      <td>69.702857</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>5</td>
+      <td>Lamar Jackson</td>
+      <td>QB5</td>
+      <td>BAL</td>
+      <td>325.4</td>
+      <td>QB</td>
+      <td>5</td>
+      <td>67.606061</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>52</td>
+      <td>Jaylen Waddle</td>
+      <td>WR13</td>
+      <td>MIA</td>
+      <td>196.2</td>
+      <td>WR</td>
+      <td>13</td>
+      <td>67.287000</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>53</td>
+      <td>DK Metcalf</td>
+      <td>WR14</td>
+      <td>SEA</td>
+      <td>194.3</td>
+      <td>WR</td>
+      <td>14</td>
+      <td>65.387000</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>54</td>
+      <td>DeVonta Smith</td>
+      <td>WR15</td>
+      <td>PHI</td>
+      <td>188.7</td>
+      <td>WR</td>
+      <td>15</td>
+      <td>59.787000</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>30</th>
+      <td>6</td>
+      <td>Justin Herbert</td>
+      <td>QB6</td>
+      <td>LAC</td>
+      <td>314.0</td>
+      <td>QB</td>
+      <td>6</td>
+      <td>56.206061</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <th>31</th>
+      <td>7</td>
+      <td>Justin Fields</td>
+      <td>QB7</td>
+      <td>CHI</td>
+      <td>311.8</td>
+      <td>QB</td>
+      <td>7</td>
+      <td>54.006061</td>
+      <td>8</td>
+    </tr>
+    <tr>
+      <th>32</th>
+      <td>55</td>
+      <td>Rhamondre Stevenson</td>
+      <td>RB9</td>
+      <td>NE</td>
+      <td>183.9</td>
+      <td>RB</td>
+      <td>9</td>
+      <td>53.814706</td>
+      <td>15</td>
+    </tr>
+    <tr>
+      <th>33</th>
+      <td>56</td>
+      <td>Calvin Ridley</td>
+      <td>WR16</td>
+      <td>JAC</td>
+      <td>181.8</td>
+      <td>WR</td>
+      <td>16</td>
+      <td>52.887000</td>
+      <td>13</td>
+    </tr>
+    <tr>
+      <th>34</th>
+      <td>57</td>
+      <td>Najee Harris</td>
+      <td>RB10</td>
+      <td>PIT</td>
+      <td>178.0</td>
+      <td>RB</td>
+      <td>10</td>
+      <td>47.914706</td>
+      <td>11</td>
+    </tr>
+    <tr>
+      <th>35</th>
+      <td>58</td>
+      <td>Jahmyr Gibbs</td>
+      <td>RB11</td>
+      <td>DET</td>
+      <td>177.2</td>
+      <td>RB</td>
+      <td>11</td>
+      <td>47.114706</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <th>36</th>
+      <td>59</td>
+      <td>Christian Watson</td>
+      <td>WR17</td>
+      <td>GB</td>
+      <td>173.3</td>
+      <td>WR</td>
+      <td>17</td>
+      <td>44.387000</td>
+      <td>7</td>
+    </tr>
+    <tr>
+      <th>37</th>
+      <td>8</td>
+      <td>Trevor Lawrence</td>
+      <td>QB8</td>
+      <td>JAC</td>
+      <td>301.4</td>
+      <td>QB</td>
+      <td>8</td>
+      <td>43.606061</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>38</th>
+      <td>60</td>
+      <td>Breece Hall</td>
+      <td>RB12</td>
+      <td>NYJ</td>
+      <td>172.2</td>
+      <td>RB</td>
+      <td>12</td>
+      <td>42.114706</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>39</th>
+      <td>62</td>
+      <td>Deebo Samuel</td>
+      <td>WR18</td>
+      <td>SF</td>
+      <td>170.2</td>
+      <td>WR</td>
+      <td>18</td>
+      <td>41.287000</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>40</th>
+      <td>99</td>
+      <td>T.J. Hockenson</td>
+      <td>TE3</td>
+      <td>MIN</td>
+      <td>142.6</td>
+      <td>TE</td>
+      <td>3</td>
+      <td>40.702857</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <th>41</th>
+      <td>63</td>
+      <td>Amari Cooper</td>
+      <td>WR19</td>
+      <td>CLE</td>
+      <td>169.6</td>
+      <td>WR</td>
+      <td>19</td>
+      <td>40.687000</td>
+      <td>17</td>
+    </tr>
+    <tr>
+      <th>42</th>
+      <td>64</td>
+      <td>DJ Moore</td>
+      <td>WR20</td>
+      <td>CHI</td>
+      <td>169.2</td>
+      <td>WR</td>
+      <td>20</td>
+      <td>40.287000</td>
+      <td>15</td>
+    </tr>
+    <tr>
+      <th>43</th>
+      <td>65</td>
+      <td>Kenneth Walker III</td>
+      <td>RB13</td>
+      <td>SEA</td>
+      <td>168.9</td>
+      <td>RB</td>
+      <td>13</td>
+      <td>38.814706</td>
+      <td>13</td>
+    </tr>
+    <tr>
+      <th>44</th>
+      <td>107</td>
+      <td>Darren Waller</td>
+      <td>TE4</td>
+      <td>NYG</td>
+      <td>139.2</td>
+      <td>TE</td>
+      <td>4</td>
+      <td>37.302857</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <th>45</th>
+      <td>67</td>
+      <td>Terry McLaurin</td>
+      <td>WR21</td>
+      <td>WAS</td>
+      <td>166.0</td>
+      <td>WR</td>
+      <td>21</td>
+      <td>37.087000</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <th>46</th>
+      <td>69</td>
+      <td>Drake London</td>
+      <td>WR22</td>
+      <td>ATL</td>
+      <td>165.8</td>
+      <td>WR</td>
+      <td>22</td>
+      <td>36.887000</td>
+      <td>7</td>
+    </tr>
+    <tr>
+      <th>47</th>
+      <td>110</td>
+      <td>George Kittle</td>
+      <td>TE5</td>
+      <td>SF</td>
+      <td>137.8</td>
+      <td>TE</td>
+      <td>5</td>
+      <td>35.902857</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>48</th>
+      <td>68</td>
+      <td>Alexander Mattison</td>
+      <td>RB14</td>
+      <td>MIN</td>
+      <td>165.9</td>
+      <td>RB</td>
+      <td>14</td>
+      <td>35.814706</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>49</th>
+      <td>70</td>
+      <td>Joe Mixon</td>
+      <td>RB15</td>
+      <td>CIN</td>
+      <td>165.5</td>
+      <td>RB</td>
+      <td>15</td>
+      <td>35.414706</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The fixed lookahead of 10 positions yields a somewhat similar ranking with all the same 
+observations as the simulated draft.
+This shows at least some resilience in our VONPP approach that shows low sensitivity to how we determine
+the next possible player</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">lookahead_ranking</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>OverallRank</th>
+      <th>Name</th>
+      <th>Code</th>
+      <th>Team</th>
+      <th>FantasyPts</th>
+      <th>Position</th>
+      <th>Rank</th>
+      <th>VONPP</th>
+      <th>LookAhead</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>31</td>
+      <td>Travis Kelce</td>
+      <td>TE1</td>
+      <td>KC</td>
+      <td>227.9</td>
+      <td>TE</td>
+      <td>1</td>
+      <td>126.002857</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>18</td>
+      <td>Justin Jefferson</td>
+      <td>WR1</td>
+      <td>MIN</td>
+      <td>252.7</td>
+      <td>WR</td>
+      <td>1</td>
+      <td>123.787000</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>19</td>
+      <td>Christian McCaffrey</td>
+      <td>RB1</td>
+      <td>SF</td>
+      <td>247.4</td>
+      <td>RB</td>
+      <td>1</td>
+      <td>117.314706</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>20</td>
+      <td>Tyreek Hill</td>
+      <td>WR2</td>
+      <td>MIA</td>
+      <td>245.9</td>
+      <td>WR</td>
+      <td>2</td>
+      <td>116.987000</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>22</td>
+      <td>Ja'Marr Chase</td>
+      <td>WR3</td>
+      <td>CIN</td>
+      <td>244.0</td>
+      <td>WR</td>
+      <td>3</td>
+      <td>115.087000</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>1</td>
+      <td>Josh Allen</td>
+      <td>QB1</td>
+      <td>BUF</td>
+      <td>372.5</td>
+      <td>QB</td>
+      <td>1</td>
+      <td>114.706061</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>23</td>
+      <td>Cooper Kupp</td>
+      <td>WR4</td>
+      <td>LAR</td>
+      <td>243.3</td>
+      <td>WR</td>
+      <td>4</td>
+      <td>114.387000</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>2</td>
+      <td>Jalen Hurts</td>
+      <td>QB2</td>
+      <td>PHI</td>
+      <td>369.0</td>
+      <td>QB</td>
+      <td>2</td>
+      <td>111.206061</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>25</td>
+      <td>Austin Ekeler</td>
+      <td>RB2</td>
+      <td>LAC</td>
+      <td>238.3</td>
+      <td>RB</td>
+      <td>2</td>
+      <td>108.214706</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>3</td>
+      <td>Patrick Mahomes</td>
+      <td>QB3</td>
+      <td>KC</td>
+      <td>361.0</td>
+      <td>QB</td>
+      <td>3</td>
+      <td>103.206061</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>30</td>
+      <td>Stefon Diggs</td>
+      <td>WR5</td>
+      <td>BUF</td>
+      <td>229.6</td>
+      <td>WR</td>
+      <td>5</td>
+      <td>100.687000</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>31</td>
+      <td>Bijan Robinson</td>
+      <td>RB3</td>
+      <td>ATL</td>
+      <td>227.9</td>
+      <td>RB</td>
+      <td>3</td>
+      <td>97.814706</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>35</td>
+      <td>A.J. Brown</td>
+      <td>WR6</td>
+      <td>PHI</td>
+      <td>222.1</td>
+      <td>WR</td>
+      <td>6</td>
+      <td>93.187000</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>37</td>
+      <td>Garrett Wilson</td>
+      <td>WR7</td>
+      <td>NYJ</td>
+      <td>221.2</td>
+      <td>WR</td>
+      <td>7</td>
+      <td>92.287000</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>38</td>
+      <td>Tony Pollard</td>
+      <td>RB4</td>
+      <td>DAL</td>
+      <td>221.0</td>
+      <td>RB</td>
+      <td>4</td>
+      <td>90.914706</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>39</td>
+      <td>Nick Chubb</td>
+      <td>RB5</td>
+      <td>CLE</td>
+      <td>219.9</td>
+      <td>RB</td>
+      <td>5</td>
+      <td>89.814706</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>4</td>
+      <td>Joe Burrow</td>
+      <td>QB4</td>
+      <td>CIN</td>
+      <td>345.7</td>
+      <td>QB</td>
+      <td>4</td>
+      <td>87.906061</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>44</td>
+      <td>CeeDee Lamb</td>
+      <td>WR8</td>
+      <td>DAL</td>
+      <td>214.1</td>
+      <td>WR</td>
+      <td>8</td>
+      <td>85.187000</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>45</td>
+      <td>Amon-Ra St. Brown</td>
+      <td>WR9</td>
+      <td>DET</td>
+      <td>213.9</td>
+      <td>WR</td>
+      <td>9</td>
+      <td>84.987000</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>43</td>
+      <td>Derrick Henry</td>
+      <td>RB6</td>
+      <td>TEN</td>
+      <td>214.2</td>
+      <td>RB</td>
+      <td>6</td>
+      <td>84.114706</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>47</td>
+      <td>Davante Adams</td>
+      <td>WR10</td>
+      <td>LV</td>
+      <td>212.9</td>
+      <td>WR</td>
+      <td>10</td>
+      <td>83.987000</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>46</td>
+      <td>Saquon Barkley</td>
+      <td>RB7</td>
+      <td>NYG</td>
+      <td>213.6</td>
+      <td>RB</td>
+      <td>7</td>
+      <td>83.514706</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>48</td>
+      <td>Josh Jacobs</td>
+      <td>RB8</td>
+      <td>LV</td>
+      <td>207.5</td>
+      <td>RB</td>
+      <td>8</td>
+      <td>77.414706</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>49</td>
+      <td>Chris Olave</td>
+      <td>WR11</td>
+      <td>NO</td>
+      <td>202.2</td>
+      <td>WR</td>
+      <td>11</td>
+      <td>73.287000</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>51</td>
+      <td>Tee Higgins</td>
+      <td>WR12</td>
+      <td>CIN</td>
+      <td>199.5</td>
+      <td>WR</td>
+      <td>12</td>
+      <td>70.587000</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>61</td>
+      <td>Mark Andrews</td>
+      <td>TE2</td>
+      <td>BAL</td>
+      <td>171.6</td>
+      <td>TE</td>
+      <td>2</td>
+      <td>69.702857</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>5</td>
+      <td>Lamar Jackson</td>
+      <td>QB5</td>
+      <td>BAL</td>
+      <td>325.4</td>
+      <td>QB</td>
+      <td>5</td>
+      <td>67.606061</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>52</td>
+      <td>Jaylen Waddle</td>
+      <td>WR13</td>
+      <td>MIA</td>
+      <td>196.2</td>
+      <td>WR</td>
+      <td>13</td>
+      <td>67.287000</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>53</td>
+      <td>DK Metcalf</td>
+      <td>WR14</td>
+      <td>SEA</td>
+      <td>194.3</td>
+      <td>WR</td>
+      <td>14</td>
+      <td>65.387000</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>54</td>
+      <td>DeVonta Smith</td>
+      <td>WR15</td>
+      <td>PHI</td>
+      <td>188.7</td>
+      <td>WR</td>
+      <td>15</td>
+      <td>59.787000</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <th>30</th>
+      <td>6</td>
+      <td>Justin Herbert</td>
+      <td>QB6</td>
+      <td>LAC</td>
+      <td>314.0</td>
+      <td>QB</td>
+      <td>6</td>
+      <td>56.206061</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>31</th>
+      <td>7</td>
+      <td>Justin Fields</td>
+      <td>QB7</td>
+      <td>CHI</td>
+      <td>311.8</td>
+      <td>QB</td>
+      <td>7</td>
+      <td>54.006061</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>32</th>
+      <td>55</td>
+      <td>Rhamondre Stevenson</td>
+      <td>RB9</td>
+      <td>NE</td>
+      <td>183.9</td>
+      <td>RB</td>
+      <td>9</td>
+      <td>53.814706</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <th>33</th>
+      <td>56</td>
+      <td>Calvin Ridley</td>
+      <td>WR16</td>
+      <td>JAC</td>
+      <td>181.8</td>
+      <td>WR</td>
+      <td>16</td>
+      <td>52.887000</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <th>34</th>
+      <td>57</td>
+      <td>Najee Harris</td>
+      <td>RB10</td>
+      <td>PIT</td>
+      <td>178.0</td>
+      <td>RB</td>
+      <td>10</td>
+      <td>47.914706</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <th>35</th>
+      <td>58</td>
+      <td>Jahmyr Gibbs</td>
+      <td>RB11</td>
+      <td>DET</td>
+      <td>177.2</td>
+      <td>RB</td>
+      <td>11</td>
+      <td>47.114706</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <th>36</th>
+      <td>59</td>
+      <td>Christian Watson</td>
+      <td>WR17</td>
+      <td>GB</td>
+      <td>173.3</td>
+      <td>WR</td>
+      <td>17</td>
+      <td>44.387000</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <th>37</th>
+      <td>8</td>
+      <td>Trevor Lawrence</td>
+      <td>QB8</td>
+      <td>JAC</td>
+      <td>301.4</td>
+      <td>QB</td>
+      <td>8</td>
+      <td>43.606061</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>38</th>
+      <td>60</td>
+      <td>Breece Hall</td>
+      <td>RB12</td>
+      <td>NYJ</td>
+      <td>172.2</td>
+      <td>RB</td>
+      <td>12</td>
+      <td>42.114706</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <th>39</th>
+      <td>62</td>
+      <td>Deebo Samuel</td>
+      <td>WR18</td>
+      <td>SF</td>
+      <td>170.2</td>
+      <td>WR</td>
+      <td>18</td>
+      <td>41.287000</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <th>40</th>
+      <td>99</td>
+      <td>T.J. Hockenson</td>
+      <td>TE3</td>
+      <td>MIN</td>
+      <td>142.6</td>
+      <td>TE</td>
+      <td>3</td>
+      <td>40.702857</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>41</th>
+      <td>63</td>
+      <td>Amari Cooper</td>
+      <td>WR19</td>
+      <td>CLE</td>
+      <td>169.6</td>
+      <td>WR</td>
+      <td>19</td>
+      <td>40.687000</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <th>42</th>
+      <td>64</td>
+      <td>DJ Moore</td>
+      <td>WR20</td>
+      <td>CHI</td>
+      <td>169.2</td>
+      <td>WR</td>
+      <td>20</td>
+      <td>40.287000</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <th>43</th>
+      <td>65</td>
+      <td>Kenneth Walker III</td>
+      <td>RB13</td>
+      <td>SEA</td>
+      <td>168.9</td>
+      <td>RB</td>
+      <td>13</td>
+      <td>38.814706</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <th>44</th>
+      <td>107</td>
+      <td>Darren Waller</td>
+      <td>TE4</td>
+      <td>NYG</td>
+      <td>139.2</td>
+      <td>TE</td>
+      <td>4</td>
+      <td>37.302857</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>45</th>
+      <td>67</td>
+      <td>Terry McLaurin</td>
+      <td>WR21</td>
+      <td>WAS</td>
+      <td>166.0</td>
+      <td>WR</td>
+      <td>21</td>
+      <td>37.087000</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <th>46</th>
+      <td>69</td>
+      <td>Drake London</td>
+      <td>WR22</td>
+      <td>ATL</td>
+      <td>165.8</td>
+      <td>WR</td>
+      <td>22</td>
+      <td>36.887000</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <th>47</th>
+      <td>110</td>
+      <td>George Kittle</td>
+      <td>TE5</td>
+      <td>SF</td>
+      <td>137.8</td>
+      <td>TE</td>
+      <td>5</td>
+      <td>35.902857</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>48</th>
+      <td>68</td>
+      <td>Alexander Mattison</td>
+      <td>RB14</td>
+      <td>MIN</td>
+      <td>165.9</td>
+      <td>RB</td>
+      <td>14</td>
+      <td>35.814706</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <th>49</th>
+      <td>70</td>
+      <td>Joe Mixon</td>
+      <td>RB15</td>
+      <td>CIN</td>
+      <td>165.5</td>
+      <td>RB</td>
+      <td>15</td>
+      <td>35.414706</td>
+      <td>10</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+</div>
+
+
+
+  </div><a class="u-url" href="/fastpayges/personal/data%20science/football/2023/08/30/fantasyfootballdraftstrategy.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/fastpayges/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="https://ahy3nz.github.io/fastpayges/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/fastpayges/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>Fastpages-based website</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li>
+  <a rel="me" href="https://github.com/ahy3nz" target="_blank" title="github">
+    <svg class="svg-icon grey">
+      <use xlink:href="/fastpayges/assets/minima-social-icons.svg#github"></use>
+    </svg>
+  </a>
+</li>
+</ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
