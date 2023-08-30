@@ -1,0 +1,4618 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Fantasy basketball, building a roster around relative stats | fastpayges</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Fantasy basketball, building a roster around relative stats" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Fastpages-based website" />
+<meta property="og:description" content="Fastpages-based website" />
+<link rel="canonical" href="https://ahy3nz.github.io/fastpayges/personal/data%20science/basketball/2023/08/29/fantasybasketball-zscores.html" />
+<meta property="og:url" content="https://ahy3nz.github.io/fastpayges/personal/data%20science/basketball/2023/08/29/fantasybasketball-zscores.html" />
+<meta property="og:site_name" content="fastpayges" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2023-08-29T00:00:00-05:00" />
+<script type="application/ld+json">
+{"mainEntityOfPage":{"@type":"WebPage","@id":"https://ahy3nz.github.io/fastpayges/personal/data%20science/basketball/2023/08/29/fantasybasketball-zscores.html"},"url":"https://ahy3nz.github.io/fastpayges/personal/data%20science/basketball/2023/08/29/fantasybasketball-zscores.html","@type":"BlogPosting","headline":"Fantasy basketball, building a roster around relative stats","dateModified":"2023-08-29T00:00:00-05:00","datePublished":"2023-08-29T00:00:00-05:00","description":"Fastpages-based website","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/fastpayges/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://ahy3nz.github.io/fastpayges/feed.xml" title="fastpayges" /><link rel="shortcut icon" type="image/x-icon" href="/fastpayges/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.css" integrity="sha512-h7nl+xz8wgDlNM4NqKEM4F1NkIRS17M9+uJwIGwuo8vGqIl4BhuCKdxjWEINm+xyrUjNCnK5dCrhM0sj+wTIXw==" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.js" integrity="sha512-/CMIhXiDA3m2c9kzRyd97MTb3MC6OVnx4TElQ7fkkoRghwDf6gi41gaT1PwF270W6+J60uTmwgeRpNpJdRV6sg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/contrib/auto-render.min.js" integrity="sha512-Do7uJAaHZm5OLrIv/yN4w0iG1dbu01kzdMNnFfu/mAqgUk6Nniv2JYHcwH+cNwjqgLcqcuBBk+JRvprLVI8azg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha512-0doc9hKxR3PYwso42RD1p5ySZpzzuDiOwMrdCEh2WdJZCjcmFKc/wEnL+z8fBQrnHoiNWbo+3fiGkOYXBdQp4A==" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/fastpayges/">fastpayges</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/fastpayges/about/">About Me</a><a class="page-link" href="/fastpayges/credits/">Credits</a><a class="page-link" href="/fastpayges/search/">Search</a><a class="page-link" href="/fastpayges/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Fantasy basketball, building a roster around relative stats</h1><p class="post-meta post-meta-title"><time class="dt-published" datetime="2023-08-29T00:00:00-05:00" itemprop="datePublished">
+        Aug 29, 2023
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      30 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/fastpayges/categories/#personal">personal</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/fastpayges/categories/#data science">data science</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/fastpayges/categories/#basketball">basketball</a>
+        
+      
+      </p>
+    
+
+    
+      
+        <div class="pb-5 d-flex flex-wrap flex-justify-end">
+          <div class="px-2">
+
+    <a href="https://github.com/ahy3nz/fastpayges/tree/master/_notebooks/2023-08-29-fantasybasketball-zscores.ipynb" role="button" target="_blank">
+<img class="notebook-badge-image" src="/fastpayges/assets/badges/github.svg" alt="View On GitHub">
+    </a>
+</div>
+
+          
+          
+        </div>
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/2023-08-29-fantasybasketball-zscores.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Overview">Overview<a class="anchor-link" href="#Overview"> </a></h2><p>Fantasy basketball comes in 2 genres: points and categories leagues.
+In points leagues, a player's counting stats combine to yield a fantasy points value (via scoring settings) that contributes to your fantasy team's success.
+In category leagues, a player's counting stats are considered separately: you count how many rebounds your team obtained, how many points, how many assists, etc.</p>
+<p>In both leagues, there are generally some roster criteria. 
+For example, you can play 1 PG, 1 SG, 1 SF, 1 PF, 1 C, 1 G, 1 F, and 2-3 UTIL players each day.
+This only introduces a mild positional complexity to fantasy basketball.
+I say mild because, on any given day, only a few of your players will be playing, so you are likely not constrained by available positions you can play.
+This is unlike fantasy football, where all your players play once a week, so positional constraints are strong.
+At the very least, however, there are some positional curveballs in fantasy basketball leagues.
+One such curveball is some leagues only allow up to 4 Cs per team.</p>
+<p>In points leagues, evaluating players is somewhat 1-dimensional: who is projected to score more fantasy points as a function of their projected box score stats and league scoring settings?</p>
+<p>In category leagues, scoring is 9-dimensional (for 9 categories): you can try to optimize on all 9 dimensions, or you can try to admit defeat and "punt" on a couple categories such that you can more easily succeed in the remaining categories.</p>
+<p>This post will focus on category leagues, aiming to discuss a quantitative approach to punting and leveraging positional superiority.</p>
+<h2 id="Data-exercise">Data exercise<a class="anchor-link" href="#Data-exercise"> </a></h2><p>NBA player projections are pulled from <a href="https://hashtagbasketball.com/fantasy-basketball-projections">hashtagbasketball</a>.
+In fact, for this exercise, you could pull NBA stats from anywhere you want and anyone you trust -- we just need to have some box score stats per NBA player.
+These hashtag basketball projections include average draft pick (ADP) from some common fantasy basketball platforms as well.</p>
+<p>Data cleaning aside, we can see the top 10 players are led by two centers, a couple of wings, but a lot of guards. 
+We can also see a bunch of numbers for each box score, but they become hard to interpret and compare due to scale:</p>
+<ul>
+<li>Is 6 AST a lot or a little?</li>
+<li>10 REB seems like a lot for a center, but to what extent?</li>
+<li>How do we juxtapose that against 9 AST from a guard?</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">zscore</span>
+
+<span class="n">STAT_COLS</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;FG%&quot;</span><span class="p">,</span> <span class="s2">&quot;FT%&quot;</span><span class="p">,</span> <span class="s2">&quot;3pm&quot;</span><span class="p">,</span> <span class="s2">&quot;PTS&quot;</span><span class="p">,</span> <span class="s2">&quot;TREB&quot;</span><span class="p">,</span> <span class="s2">&quot;AST&quot;</span><span class="p">,</span> <span class="s2">&quot;STL&quot;</span><span class="p">,</span> <span class="s2">&quot;BLK&quot;</span><span class="p">,</span> <span class="s2">&quot;TO&quot;</span><span class="p">]</span>
+<span class="n">POSITIONS</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;PG&quot;</span><span class="p">,</span> <span class="s2">&quot;SG&quot;</span><span class="p">,</span> <span class="s2">&quot;SF&quot;</span><span class="p">,</span> <span class="s2">&quot;PF&quot;</span><span class="p">,</span> <span class="s2">&quot;C&quot;</span><span class="p">]</span>
+
+<span class="k">def</span> <span class="nf">format_percentages</span><span class="p">(</span><span class="n">val</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; String formatting on the percentages columns &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="s2">&quot;(&quot;</span> <span class="ow">in</span> <span class="n">val</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">val</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">val</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s1">&#39;(&#39;</span><span class="p">)])</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+    
+<span class="k">def</span> <span class="nf">encode_positions</span><span class="p">(</span><span class="n">val</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Split comma-joined list of positions into separate columns &quot;&quot;&quot;</span>
+    <span class="n">positions</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">pos</span><span class="p">:</span> <span class="kc">False</span>
+        <span class="k">for</span> <span class="n">pos</span> <span class="ow">in</span> <span class="n">POSITIONS</span>
+    <span class="p">}</span>
+    <span class="k">for</span> <span class="n">code</span> <span class="ow">in</span> <span class="n">val</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">):</span>
+        <span class="n">positions</span><span class="p">[</span><span class="n">code</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">positions</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">clean_df</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Clean and format data &quot;&quot;&quot;</span>
+    <span class="n">df</span><span class="p">[</span><span class="s2">&quot;FG%&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;FG%&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">format_percentages</span><span class="p">)</span>
+    <span class="n">df</span><span class="p">[</span><span class="s2">&quot;FT%&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;FT%&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">format_percentages</span><span class="p">)</span>   
+    <span class="n">positions</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;POS&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">encode_positions</span><span class="p">)</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">positions</span><span class="p">,</span> <span class="n">left_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">right_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">df</span>
+    
+<span class="n">df</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;files/2023hashtagbasketballprojections.csv&quot;</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">&quot;ADP&quot;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">pipe</span><span class="p">(</span><span class="n">clean_df</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;PG&quot;</span><span class="p">,</span> <span class="s2">&quot;SG&quot;</span><span class="p">,</span> <span class="s2">&quot;SF&quot;</span><span class="p">,</span> <span class="s2">&quot;PF&quot;</span><span class="p">,</span> <span class="s2">&quot;C&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>R#</th>
+      <th>ADP</th>
+      <th>POS</th>
+      <th>TEAM</th>
+      <th>GP</th>
+      <th>MPG</th>
+      <th>FG%</th>
+      <th>FT%</th>
+      <th>3pm</th>
+      <th>PTS</th>
+      <th>TREB</th>
+      <th>AST</th>
+      <th>STL</th>
+      <th>BLK</th>
+      <th>TO</th>
+      <th>TOTAL</th>
+    </tr>
+    <tr>
+      <th>PLAYER</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Nikola Jokic</th>
+      <td>1</td>
+      <td>1.1</td>
+      <td>C</td>
+      <td>DEN</td>
+      <td>72</td>
+      <td>33.6</td>
+      <td>0.624</td>
+      <td>0.821</td>
+      <td>1.0</td>
+      <td>24.5</td>
+      <td>11.7</td>
+      <td>9.7</td>
+      <td>1.4</td>
+      <td>0.7</td>
+      <td>3.7</td>
+      <td>14.56</td>
+    </tr>
+    <tr>
+      <th>Joel Embiid</th>
+      <td>2</td>
+      <td>2.6</td>
+      <td>C</td>
+      <td>PHI</td>
+      <td>67</td>
+      <td>34.2</td>
+      <td>0.537</td>
+      <td>0.836</td>
+      <td>1.2</td>
+      <td>32.6</td>
+      <td>10.2</td>
+      <td>4.2</td>
+      <td>1.1</td>
+      <td>1.6</td>
+      <td>3.3</td>
+      <td>13.62</td>
+    </tr>
+    <tr>
+      <th>Luka Doncic</th>
+      <td>6</td>
+      <td>3.2</td>
+      <td>PG</td>
+      <td>DAL</td>
+      <td>66</td>
+      <td>35.8</td>
+      <td>0.492</td>
+      <td>0.761</td>
+      <td>3.0</td>
+      <td>32.7</td>
+      <td>8.8</td>
+      <td>8.1</td>
+      <td>1.3</td>
+      <td>0.5</td>
+      <td>3.6</td>
+      <td>9.78</td>
+    </tr>
+    <tr>
+      <th>Jayson Tatum</th>
+      <td>5</td>
+      <td>4.5</td>
+      <td>SF,PF</td>
+      <td>BOS</td>
+      <td>75</td>
+      <td>36.5</td>
+      <td>0.466</td>
+      <td>0.858</td>
+      <td>3.3</td>
+      <td>29.5</td>
+      <td>8.2</td>
+      <td>4.8</td>
+      <td>1.1</td>
+      <td>0.7</td>
+      <td>3.0</td>
+      <td>9.82</td>
+    </tr>
+    <tr>
+      <th>Tyrese Haliburton</th>
+      <td>4</td>
+      <td>5.7</td>
+      <td>PG,SG</td>
+      <td>IND</td>
+      <td>73</td>
+      <td>34.7</td>
+      <td>0.488</td>
+      <td>0.857</td>
+      <td>2.8</td>
+      <td>23.3</td>
+      <td>4.0</td>
+      <td>10.5</td>
+      <td>1.7</td>
+      <td>0.4</td>
+      <td>2.6</td>
+      <td>9.92</td>
+    </tr>
+    <tr>
+      <th>Stephen Curry</th>
+      <td>7</td>
+      <td>6.6</td>
+      <td>PG</td>
+      <td>GS</td>
+      <td>65</td>
+      <td>34.6</td>
+      <td>0.476</td>
+      <td>0.914</td>
+      <td>4.7</td>
+      <td>28.0</td>
+      <td>5.6</td>
+      <td>5.6</td>
+      <td>0.9</td>
+      <td>0.3</td>
+      <td>3.3</td>
+      <td>9.69</td>
+    </tr>
+    <tr>
+      <th>Shai Gilgeous-Alexander</th>
+      <td>3</td>
+      <td>6.8</td>
+      <td>PG,SG</td>
+      <td>OKC</td>
+      <td>67</td>
+      <td>35.5</td>
+      <td>0.486</td>
+      <td>0.884</td>
+      <td>1.0</td>
+      <td>29.6</td>
+      <td>5.0</td>
+      <td>5.6</td>
+      <td>1.5</td>
+      <td>0.9</td>
+      <td>2.9</td>
+      <td>11.03</td>
+    </tr>
+    <tr>
+      <th>Damian Lillard</th>
+      <td>8</td>
+      <td>9.6</td>
+      <td>PG</td>
+      <td>POR</td>
+      <td>65</td>
+      <td>36.3</td>
+      <td>0.456</td>
+      <td>0.906</td>
+      <td>3.8</td>
+      <td>29.2</td>
+      <td>4.0</td>
+      <td>7.1</td>
+      <td>0.8</td>
+      <td>0.3</td>
+      <td>3.1</td>
+      <td>9.54</td>
+    </tr>
+    <tr>
+      <th>Giannis Antetokounmpo</th>
+      <td>37</td>
+      <td>10.1</td>
+      <td>PF,C</td>
+      <td>MIL</td>
+      <td>65</td>
+      <td>32.0</td>
+      <td>0.553</td>
+      <td>0.683</td>
+      <td>0.9</td>
+      <td>30.3</td>
+      <td>11.6</td>
+      <td>5.7</td>
+      <td>0.9</td>
+      <td>1.0</td>
+      <td>3.6</td>
+      <td>5.08</td>
+    </tr>
+    <tr>
+      <th>Kevin Durant</th>
+      <td>10</td>
+      <td>10.8</td>
+      <td>SF,PF</td>
+      <td>PHO</td>
+      <td>60</td>
+      <td>34.2</td>
+      <td>0.522</td>
+      <td>0.900</td>
+      <td>1.9</td>
+      <td>25.3</td>
+      <td>6.5</td>
+      <td>5.0</td>
+      <td>0.7</td>
+      <td>1.0</td>
+      <td>3.1</td>
+      <td>9.46</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Z-scores-to-normalize-and-compare-stats">Z-scores to normalize and compare stats<a class="anchor-link" href="#Z-scores-to-normalize-and-compare-stats"> </a></h2><p>The <a href="https://en.wikipedia.org/wiki/Standard_score">Z-score</a> is a statistical technique to scale data into more "common sense" ranges.
+Specifically, when you normalize a range of data, the average shifts to 0 and a "standard deviation" becomes +/-1 .
+This is a useful tool to better understand how much better certain players are relative to other players.</p>
+<p>Note: for the picky ones, the appication of the z-score does not require your data follow a normal distribution.
+While standardizing data that <em>do</em> follow a normal distribution, you get the added benefit of <a href="https://en.wikipedia.org/wiki/68%E2%80%9395%E2%80%9399.7_rule">heuristics of the top 95/99th percentiles</a>.
+NBA counting stats don't strongly follow a normal distribution, so we can't say that a player with an AST z-score of 2 is in the 95th percentile.
+If we did a deeper investigation into these distributions, we could identify these cumulative distribution properties, but that's for another time.</p>
+<p>Continuing, we can take the example of Nikola Jokic. 
+His REB z-score is 2.5, AST z-score of 2.99, and PTS z-score of 1.4.
+This corroborates the general consensus: not an outstanding scorer (but still gets points), but really a great passer and rebounder.
+On the other hand, Joel Embiid has a PTS z-score of 2.8 (we intuitively know Embiid is a stronger scorer than Jokic)</p>
+<p>Looking at the top fantasy players, it becomes easy to pick out which players are crazy good in certain categories (roughly, those with z-scores &gt; 2):</p>
+<ul>
+<li>AST: Jokic, Doncic, Haliburton, Ball, Harden, Young</li>
+<li>REB: Jokic, Embiid, Giannis, Davis</li>
+<li>3PM: Tatum, Curry, Lillard, Ball, Mitchell</li>
+</ul>
+<p>By doing this exercise, we can identify which players may be associated with certain punts and focuses for roster composition</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="p">(</span>
+    <span class="n">df</span><span class="p">[</span><span class="n">STAT_COLS</span><span class="p">]</span>
+    <span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">zscore</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">assign</span><span class="p">(</span>
+        <span class="n">ADP</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;ADP&quot;</span><span class="p">],</span>
+        <span class="n">total_z</span><span class="o">=</span><span class="k">lambda</span> <span class="n">df_</span><span class="p">:</span> <span class="n">df_</span><span class="p">[</span><span class="n">STAT_COLS</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span>
+    <span class="p">[[</span><span class="s2">&quot;ADP&quot;</span><span class="p">,</span> <span class="o">*</span><span class="n">STAT_COLS</span><span class="p">,</span> <span class="s2">&quot;total_z&quot;</span><span class="p">]]</span>
+<span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>ADP</th>
+      <th>FG%</th>
+      <th>FT%</th>
+      <th>3pm</th>
+      <th>PTS</th>
+      <th>TREB</th>
+      <th>AST</th>
+      <th>STL</th>
+      <th>BLK</th>
+      <th>TO</th>
+      <th>total_z</th>
+    </tr>
+    <tr>
+      <th>PLAYER</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Nikola Jokic</th>
+      <td>1.1</td>
+      <td>1.880130</td>
+      <td>0.457226</td>
+      <td>-0.563614</td>
+      <td>1.427499</td>
+      <td>2.534388</td>
+      <td>2.994016</td>
+      <td>1.470340</td>
+      <td>0.113336</td>
+      <td>2.320597</td>
+      <td>12.633918</td>
+    </tr>
+    <tr>
+      <th>Joel Embiid</th>
+      <td>2.6</td>
+      <td>0.641376</td>
+      <td>0.632632</td>
+      <td>-0.360875</td>
+      <td>2.755406</td>
+      <td>1.901424</td>
+      <td>0.336963</td>
+      <td>0.512464</td>
+      <td>1.856959</td>
+      <td>1.821946</td>
+      <td>10.098294</td>
+    </tr>
+    <tr>
+      <th>Luka Doncic</th>
+      <td>3.2</td>
+      <td>0.000641</td>
+      <td>-0.244399</td>
+      <td>1.463774</td>
+      <td>2.771800</td>
+      <td>1.310658</td>
+      <td>2.221055</td>
+      <td>1.151048</td>
+      <td>-0.274136</td>
+      <td>2.195934</td>
+      <td>10.596374</td>
+    </tr>
+    <tr>
+      <th>Jayson Tatum</th>
+      <td>4.5</td>
+      <td>-0.369562</td>
+      <td>0.889895</td>
+      <td>1.767883</td>
+      <td>2.247195</td>
+      <td>1.057472</td>
+      <td>0.626823</td>
+      <td>0.512464</td>
+      <td>0.113336</td>
+      <td>1.447958</td>
+      <td>8.293463</td>
+    </tr>
+    <tr>
+      <th>Tyrese Haliburton</th>
+      <td>5.7</td>
+      <td>-0.056313</td>
+      <td>0.878201</td>
+      <td>1.261036</td>
+      <td>1.230773</td>
+      <td>-0.714827</td>
+      <td>3.380496</td>
+      <td>2.428216</td>
+      <td>-0.467872</td>
+      <td>0.949307</td>
+      <td>8.889015</td>
+    </tr>
+    <tr>
+      <th>Stephen Curry</th>
+      <td>6.6</td>
+      <td>-0.227176</td>
+      <td>1.544745</td>
+      <td>3.187055</td>
+      <td>2.001286</td>
+      <td>-0.039666</td>
+      <td>1.013303</td>
+      <td>-0.126120</td>
+      <td>-0.661608</td>
+      <td>1.821946</td>
+      <td>8.513764</td>
+    </tr>
+    <tr>
+      <th>Shai Gilgeous-Alexander</th>
+      <td>6.8</td>
+      <td>-0.084791</td>
+      <td>1.193932</td>
+      <td>-0.563614</td>
+      <td>2.263589</td>
+      <td>-0.292851</td>
+      <td>1.013303</td>
+      <td>1.789632</td>
+      <td>0.500807</td>
+      <td>1.323295</td>
+      <td>7.143303</td>
+    </tr>
+    <tr>
+      <th>Damian Lillard</th>
+      <td>9.6</td>
+      <td>-0.511947</td>
+      <td>1.451195</td>
+      <td>2.274730</td>
+      <td>2.198013</td>
+      <td>-0.714827</td>
+      <td>1.737954</td>
+      <td>-0.445412</td>
+      <td>-0.661608</td>
+      <td>1.572620</td>
+      <td>6.900717</td>
+    </tr>
+    <tr>
+      <th>Giannis Antetokounmpo</th>
+      <td>10.1</td>
+      <td>0.869193</td>
+      <td>-1.156512</td>
+      <td>-0.664983</td>
+      <td>2.378346</td>
+      <td>2.492191</td>
+      <td>1.061614</td>
+      <td>-0.126120</td>
+      <td>0.694543</td>
+      <td>2.195934</td>
+      <td>7.744204</td>
+    </tr>
+    <tr>
+      <th>Kevin Durant</th>
+      <td>10.8</td>
+      <td>0.427797</td>
+      <td>1.381032</td>
+      <td>0.348711</td>
+      <td>1.558651</td>
+      <td>0.340113</td>
+      <td>0.723443</td>
+      <td>-0.764705</td>
+      <td>0.694543</td>
+      <td>1.572620</td>
+      <td>6.282206</td>
+    </tr>
+    <tr>
+      <th>Anthony Davis</th>
+      <td>11.6</td>
+      <td>0.826477</td>
+      <td>-0.267787</td>
+      <td>-1.273200</td>
+      <td>1.476681</td>
+      <td>2.407796</td>
+      <td>-0.339378</td>
+      <td>0.512464</td>
+      <td>2.825639</td>
+      <td>0.325993</td>
+      <td>6.494684</td>
+    </tr>
+    <tr>
+      <th>LaMelo Ball</th>
+      <td>12.6</td>
+      <td>-0.882150</td>
+      <td>0.913282</td>
+      <td>2.173360</td>
+      <td>1.247166</td>
+      <td>0.551101</td>
+      <td>2.462605</td>
+      <td>2.108924</td>
+      <td>-0.467872</td>
+      <td>2.195934</td>
+      <td>10.302352</td>
+    </tr>
+    <tr>
+      <th>Anthony Edwards</th>
+      <td>14.6</td>
+      <td>-0.398039</td>
+      <td>-0.150849</td>
+      <td>1.565144</td>
+      <td>1.738984</td>
+      <td>0.044729</td>
+      <td>0.675133</td>
+      <td>2.428216</td>
+      <td>0.307072</td>
+      <td>1.821946</td>
+      <td>8.032336</td>
+    </tr>
+    <tr>
+      <th>Jaren Jackson Jr.</th>
+      <td>15.0</td>
+      <td>-0.184460</td>
+      <td>0.153188</td>
+      <td>0.145972</td>
+      <td>0.624198</td>
+      <td>0.593298</td>
+      <td>-1.112339</td>
+      <td>0.193172</td>
+      <td>4.569263</td>
+      <td>0.201330</td>
+      <td>5.183622</td>
+    </tr>
+    <tr>
+      <th>Kyrie Irving</th>
+      <td>15.2</td>
+      <td>-0.084791</td>
+      <td>1.474583</td>
+      <td>1.666513</td>
+      <td>1.788165</td>
+      <td>-0.377247</td>
+      <td>0.964993</td>
+      <td>0.831756</td>
+      <td>0.113336</td>
+      <td>0.450656</td>
+      <td>6.827965</td>
+    </tr>
+    <tr>
+      <th>Devin Booker</th>
+      <td>17.0</td>
+      <td>-0.070552</td>
+      <td>0.924976</td>
+      <td>0.754189</td>
+      <td>1.870135</td>
+      <td>-0.335049</td>
+      <td>1.351474</td>
+      <td>0.512464</td>
+      <td>-0.467872</td>
+      <td>0.949307</td>
+      <td>5.489070</td>
+    </tr>
+    <tr>
+      <th>Mikal Bridges</th>
+      <td>19.1</td>
+      <td>-0.241415</td>
+      <td>1.147157</td>
+      <td>0.855558</td>
+      <td>1.575045</td>
+      <td>-0.461642</td>
+      <td>-0.049518</td>
+      <td>0.512464</td>
+      <td>-0.080400</td>
+      <td>-0.047995</td>
+      <td>3.209254</td>
+    </tr>
+    <tr>
+      <th>Donovan Mitchell</th>
+      <td>19.7</td>
+      <td>-0.155983</td>
+      <td>0.913282</td>
+      <td>2.173360</td>
+      <td>1.968498</td>
+      <td>-0.546037</td>
+      <td>0.433583</td>
+      <td>1.789632</td>
+      <td>-0.661608</td>
+      <td>1.073969</td>
+      <td>6.988697</td>
+    </tr>
+    <tr>
+      <th>Desmond Bane</th>
+      <td>20.4</td>
+      <td>-0.312607</td>
+      <td>1.264095</td>
+      <td>1.869252</td>
+      <td>1.116015</td>
+      <td>-0.124061</td>
+      <td>0.240343</td>
+      <td>0.831756</td>
+      <td>-0.467872</td>
+      <td>0.450656</td>
+      <td>4.867576</td>
+    </tr>
+    <tr>
+      <th>Fred VanVleet</th>
+      <td>21.0</td>
+      <td>-1.309306</td>
+      <td>1.240707</td>
+      <td>1.565144</td>
+      <td>0.427471</td>
+      <td>-0.757025</td>
+      <td>1.399784</td>
+      <td>2.108924</td>
+      <td>-0.274136</td>
+      <td>0.325993</td>
+      <td>4.727556</td>
+    </tr>
+    <tr>
+      <th>Domantas Sabonis</th>
+      <td>21.4</td>
+      <td>1.652313</td>
+      <td>-0.454887</td>
+      <td>-1.070461</td>
+      <td>0.607804</td>
+      <td>2.829772</td>
+      <td>1.834575</td>
+      <td>-0.126120</td>
+      <td>-0.274136</td>
+      <td>1.447958</td>
+      <td>6.446816</td>
+    </tr>
+    <tr>
+      <th>James Harden</th>
+      <td>22.4</td>
+      <td>-0.867911</td>
+      <td>1.076995</td>
+      <td>0.855558</td>
+      <td>0.788137</td>
+      <td>0.382310</td>
+      <td>3.428806</td>
+      <td>0.831756</td>
+      <td>-0.274136</td>
+      <td>2.320597</td>
+      <td>8.542112</td>
+    </tr>
+    <tr>
+      <th>Trae Young</th>
+      <td>23.5</td>
+      <td>-0.825195</td>
+      <td>1.322564</td>
+      <td>0.652819</td>
+      <td>1.853741</td>
+      <td>-0.968013</td>
+      <td>3.138946</td>
+      <td>0.193172</td>
+      <td>-1.049080</td>
+      <td>2.819247</td>
+      <td>7.138200</td>
+    </tr>
+    <tr>
+      <th>Lauri Markkanen</th>
+      <td>25.4</td>
+      <td>-0.042075</td>
+      <td>1.030220</td>
+      <td>1.362405</td>
+      <td>1.329136</td>
+      <td>0.973077</td>
+      <td>-0.774169</td>
+      <td>-0.764705</td>
+      <td>-0.080400</td>
+      <td>0.076668</td>
+      <td>3.110157</td>
+    </tr>
+    <tr>
+      <th>LeBron James</th>
+      <td>25.5</td>
+      <td>0.128788</td>
+      <td>-0.244399</td>
+      <td>0.754189</td>
+      <td>1.788165</td>
+      <td>0.804286</td>
+      <td>1.206544</td>
+      <td>-0.445412</td>
+      <td>-0.274136</td>
+      <td>1.572620</td>
+      <td>5.290644</td>
+    </tr>
+    <tr>
+      <th>Kawhi Leonard</th>
+      <td>26.6</td>
+      <td>0.171503</td>
+      <td>0.948364</td>
+      <td>0.348711</td>
+      <td>1.214379</td>
+      <td>0.213520</td>
+      <td>0.095412</td>
+      <td>1.151048</td>
+      <td>-0.274136</td>
+      <td>-0.172658</td>
+      <td>3.696142</td>
+    </tr>
+    <tr>
+      <th>Jimmy Butler</th>
+      <td>26.8</td>
+      <td>0.271173</td>
+      <td>0.901589</td>
+      <td>-1.070461</td>
+      <td>0.902894</td>
+      <td>0.002532</td>
+      <td>0.723443</td>
+      <td>2.108924</td>
+      <td>-0.467872</td>
+      <td>-0.047995</td>
+      <td>3.324227</td>
+    </tr>
+    <tr>
+      <th>Karl-Anthony Towns</th>
+      <td>27.8</td>
+      <td>0.171503</td>
+      <td>0.597551</td>
+      <td>0.551450</td>
+      <td>0.968470</td>
+      <td>1.184065</td>
+      <td>0.530203</td>
+      <td>-0.764705</td>
+      <td>0.113336</td>
+      <td>1.198632</td>
+      <td>4.550505</td>
+    </tr>
+    <tr>
+      <th>Victor Wembanyama</th>
+      <td>30.1</td>
+      <td>-0.540424</td>
+      <td>-0.033912</td>
+      <td>-0.563614</td>
+      <td>0.247138</td>
+      <td>1.057472</td>
+      <td>-0.822479</td>
+      <td>-0.764705</td>
+      <td>3.213111</td>
+      <td>-0.047995</td>
+      <td>1.744593</td>
+    </tr>
+    <tr>
+      <th>Paul George</th>
+      <td>30.3</td>
+      <td>-0.697048</td>
+      <td>0.995139</td>
+      <td>1.261036</td>
+      <td>1.181591</td>
+      <td>0.171322</td>
+      <td>0.723443</td>
+      <td>1.789632</td>
+      <td>-0.467872</td>
+      <td>1.821946</td>
+      <td>6.779188</td>
+    </tr>
+    <tr>
+      <th>Pascal Siakam</th>
+      <td>30.6</td>
+      <td>-0.198699</td>
+      <td>-0.221012</td>
+      <td>-0.360875</td>
+      <td>1.034046</td>
+      <td>0.888682</td>
+      <td>0.868373</td>
+      <td>0.193172</td>
+      <td>-0.274136</td>
+      <td>0.699981</td>
+      <td>2.629531</td>
+    </tr>
+    <tr>
+      <th>Jalen Brunson</th>
+      <td>32.2</td>
+      <td>0.000641</td>
+      <td>0.585857</td>
+      <td>0.450080</td>
+      <td>1.378318</td>
+      <td>-0.841420</td>
+      <td>1.448094</td>
+      <td>0.193172</td>
+      <td>-0.855344</td>
+      <td>0.450656</td>
+      <td>2.810053</td>
+    </tr>
+    <tr>
+      <th>Dejounte Murray</th>
+      <td>33.1</td>
+      <td>-0.412277</td>
+      <td>0.468920</td>
+      <td>0.044603</td>
+      <td>0.804531</td>
+      <td>0.340113</td>
+      <td>1.399784</td>
+      <td>2.108924</td>
+      <td>-0.661608</td>
+      <td>0.450656</td>
+      <td>4.543644</td>
+    </tr>
+    <tr>
+      <th>Myles Turner</th>
+      <td>34.4</td>
+      <td>0.598660</td>
+      <td>-0.092381</td>
+      <td>-0.056767</td>
+      <td>0.050411</td>
+      <td>0.719891</td>
+      <td>-1.064029</td>
+      <td>-1.083997</td>
+      <td>3.600583</td>
+      <td>-0.421983</td>
+      <td>2.250389</td>
+    </tr>
+    <tr>
+      <th>Bam Adebayo</th>
+      <td>35.6</td>
+      <td>0.783761</td>
+      <td>0.001169</td>
+      <td>-1.577308</td>
+      <td>0.722561</td>
+      <td>1.732634</td>
+      <td>-0.049518</td>
+      <td>1.151048</td>
+      <td>0.307072</td>
+      <td>0.949307</td>
+      <td>4.020726</td>
+    </tr>
+    <tr>
+      <th>Nikola Vucevic</th>
+      <td>35.7</td>
+      <td>-0.027836</td>
+      <td>0.281819</td>
+      <td>-0.056767</td>
+      <td>0.263532</td>
+      <td>2.239005</td>
+      <td>-0.146138</td>
+      <td>-0.764705</td>
+      <td>0.113336</td>
+      <td>-0.047995</td>
+      <td>1.854251</td>
+    </tr>
+    <tr>
+      <th>Jrue Holiday</th>
+      <td>38.2</td>
+      <td>-0.127506</td>
+      <td>0.305207</td>
+      <td>0.652819</td>
+      <td>0.460259</td>
+      <td>-0.377247</td>
+      <td>1.737954</td>
+      <td>1.470340</td>
+      <td>-0.467872</td>
+      <td>1.198632</td>
+      <td>4.852586</td>
+    </tr>
+    <tr>
+      <th>De'Aaron Fox</th>
+      <td>40.7</td>
+      <td>0.057595</td>
+      <td>-0.092381</td>
+      <td>0.044603</td>
+      <td>1.525863</td>
+      <td>-0.630432</td>
+      <td>1.254854</td>
+      <td>0.831756</td>
+      <td>-0.467872</td>
+      <td>1.073969</td>
+      <td>3.597954</td>
+    </tr>
+    <tr>
+      <th>Jaylen Brown</th>
+      <td>40.9</td>
+      <td>0.029118</td>
+      <td>-0.150849</td>
+      <td>1.058297</td>
+      <td>1.738984</td>
+      <td>0.424508</td>
+      <td>0.047102</td>
+      <td>0.512464</td>
+      <td>-0.661608</td>
+      <td>1.323295</td>
+      <td>4.321309</td>
+    </tr>
+    <tr>
+      <th>Darius Garland</th>
+      <td>41.3</td>
+      <td>-0.426516</td>
+      <td>1.112076</td>
+      <td>0.956927</td>
+      <td>0.984864</td>
+      <td>-1.136804</td>
+      <td>2.076125</td>
+      <td>0.831756</td>
+      <td>-1.049080</td>
+      <td>1.447958</td>
+      <td>4.797306</td>
+    </tr>
+    <tr>
+      <th>Kristaps Porzingis</th>
+      <td>41.4</td>
+      <td>-0.198699</td>
+      <td>0.831426</td>
+      <td>0.247341</td>
+      <td>0.525835</td>
+      <td>0.973077</td>
+      <td>-0.580928</td>
+      <td>-0.445412</td>
+      <td>1.663223</td>
+      <td>-0.047995</td>
+      <td>2.967867</td>
+    </tr>
+    <tr>
+      <th>Walker Kessler</th>
+      <td>41.9</td>
+      <td>3.232792</td>
+      <td>-3.109369</td>
+      <td>-1.577308</td>
+      <td>-0.638133</td>
+      <td>2.196808</td>
+      <td>-1.112339</td>
+      <td>-1.403289</td>
+      <td>4.375527</td>
+      <td>-1.045297</td>
+      <td>0.919392</td>
+    </tr>
+    <tr>
+      <th>Chet Holmgren</th>
+      <td>42.6</td>
+      <td>-0.170222</td>
+      <td>-0.349643</td>
+      <td>-0.259506</td>
+      <td>-0.244679</td>
+      <td>1.479448</td>
+      <td>-0.919099</td>
+      <td>-1.403289</td>
+      <td>2.631903</td>
+      <td>-0.795971</td>
+      <td>-0.031058</td>
+    </tr>
+    <tr>
+      <th>Jamal Murray</th>
+      <td>43.4</td>
+      <td>-0.369562</td>
+      <td>0.597551</td>
+      <td>1.159666</td>
+      <td>0.853713</td>
+      <td>-0.672630</td>
+      <td>1.351474</td>
+      <td>0.193172</td>
+      <td>-0.661608</td>
+      <td>0.575318</td>
+      <td>3.027094</td>
+    </tr>
+    <tr>
+      <th>Cade Cunningham</th>
+      <td>43.7</td>
+      <td>-1.010297</td>
+      <td>0.632632</td>
+      <td>0.145972</td>
+      <td>0.771743</td>
+      <td>0.297915</td>
+      <td>1.448094</td>
+      <td>1.151048</td>
+      <td>0.113336</td>
+      <td>1.697283</td>
+      <td>5.247726</td>
+    </tr>
+    <tr>
+      <th>Evan Mobley</th>
+      <td>45.2</td>
+      <td>0.840715</td>
+      <td>-1.168206</td>
+      <td>-1.273200</td>
+      <td>0.230744</td>
+      <td>1.521646</td>
+      <td>-0.291068</td>
+      <td>-0.126120</td>
+      <td>2.050695</td>
+      <td>0.076668</td>
+      <td>1.861874</td>
+    </tr>
+    <tr>
+      <th>OG Anunoby</th>
+      <td>47.8</td>
+      <td>-0.440754</td>
+      <td>0.258432</td>
+      <td>0.551450</td>
+      <td>0.050411</td>
+      <td>-0.335049</td>
+      <td>-0.677549</td>
+      <td>2.108924</td>
+      <td>-0.080400</td>
+      <td>-0.047995</td>
+      <td>1.387470</td>
+    </tr>
+    <tr>
+      <th>DeMar DeRozan</th>
+      <td>48.7</td>
+      <td>0.171503</td>
+      <td>1.030220</td>
+      <td>-0.969092</td>
+      <td>1.460287</td>
+      <td>-0.461642</td>
+      <td>0.675133</td>
+      <td>0.193172</td>
+      <td>-0.467872</td>
+      <td>0.325993</td>
+      <td>1.957702</td>
+    </tr>
+    <tr>
+      <th>Nicolas Claxton</th>
+      <td>49.7</td>
+      <td>2.905306</td>
+      <td>-2.349275</td>
+      <td>-1.577308</td>
+      <td>-0.408618</td>
+      <td>1.732634</td>
+      <td>-0.822479</td>
+      <td>-0.126120</td>
+      <td>3.600583</td>
+      <td>-0.671309</td>
+      <td>2.283413</td>
+    </tr>
+    <tr>
+      <th>Brandon Ingram</th>
+      <td>50.8</td>
+      <td>-0.284130</td>
+      <td>0.819732</td>
+      <td>-0.158136</td>
+      <td>1.197985</td>
+      <td>-0.081863</td>
+      <td>1.013303</td>
+      <td>-0.764705</td>
+      <td>-0.467872</td>
+      <td>1.323295</td>
+      <td>2.597608</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Choosing-the-set-of-data-to-compute-z-scores">Choosing the set of data to compute z-scores<a class="anchor-link" href="#Choosing-the-set-of-data-to-compute-z-scores"> </a></h2><p>One key characteristic of the z-score is it adjusts the range of input data that are provided.
+It becomes extremely versatile if you carefully choose what your input data are.</p>
+<p>In the above example, we looked at the pool of all available players.
+This is certainly useful to understand the "landscape" of counting stats, but as top tier players get drafted, the remaining players all begin to appear muted and unimpressive with z-scores all close to 0.</p>
+<p>We can remove players from our pool as they get drafted and re-tabulate z-scores to continually adjust and re-scale our data.
+For example, if we neglected Jokic and Embiid from the dataset, the overall average REB goes down but still gets standardized to 0 (data below).
+Anyone who stands out relative to this new average REB will show up with z-scores above 1 or 2.</p>
+<p>Admittedly, this re-scaling does nothing more than slide numbers up and down, but will not change the ultimate, qualitative trend of who produces more AST.
+In reality, you could do this z-score calculation over all players once, and work off that.
+Re-scaling simply helps to make numbers pop out more easily.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="p">(</span>
+    <span class="n">df</span><span class="p">[</span><span class="n">STAT_COLS</span><span class="p">]</span>
+    <span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Nikola Jokic&quot;</span><span class="p">,</span> <span class="s2">&quot;Joel Embiid&quot;</span><span class="p">])</span>
+    <span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">zscore</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">assign</span><span class="p">(</span>
+        <span class="n">ADP</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;ADP&quot;</span><span class="p">],</span>
+        <span class="n">total_z</span><span class="o">=</span><span class="k">lambda</span> <span class="n">df_</span><span class="p">:</span> <span class="n">df_</span><span class="p">[</span><span class="n">STAT_COLS</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span>
+    <span class="p">[[</span><span class="s2">&quot;ADP&quot;</span><span class="p">,</span> <span class="o">*</span><span class="n">STAT_COLS</span><span class="p">,</span> <span class="s2">&quot;total_z&quot;</span><span class="p">]]</span>
+<span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>ADP</th>
+      <th>FG%</th>
+      <th>FT%</th>
+      <th>3pm</th>
+      <th>PTS</th>
+      <th>TREB</th>
+      <th>AST</th>
+      <th>STL</th>
+      <th>BLK</th>
+      <th>TO</th>
+      <th>total_z</th>
+    </tr>
+    <tr>
+      <th>PLAYER</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Luka Doncic</th>
+      <td>3.2</td>
+      <td>0.013443</td>
+      <td>-0.238064</td>
+      <td>1.453436</td>
+      <td>2.849007</td>
+      <td>1.361330</td>
+      <td>2.279315</td>
+      <td>1.162367</td>
+      <td>-0.265179</td>
+      <td>2.255881</td>
+      <td>10.871537</td>
+    </tr>
+    <tr>
+      <th>Jayson Tatum</th>
+      <td>4.5</td>
+      <td>-0.358623</td>
+      <td>0.892284</td>
+      <td>1.756362</td>
+      <td>2.313868</td>
+      <td>1.102775</td>
+      <td>0.655564</td>
+      <td>0.523065</td>
+      <td>0.123750</td>
+      <td>1.494738</td>
+      <td>8.503784</td>
+    </tr>
+    <tr>
+      <th>Tyrese Haliburton</th>
+      <td>5.7</td>
+      <td>-0.043798</td>
+      <td>0.880631</td>
+      <td>1.251485</td>
+      <td>1.277036</td>
+      <td>-0.707108</td>
+      <td>3.460225</td>
+      <td>2.440971</td>
+      <td>-0.459643</td>
+      <td>0.987308</td>
+      <td>9.087108</td>
+    </tr>
+    <tr>
+      <th>Stephen Curry</th>
+      <td>6.6</td>
+      <td>-0.215521</td>
+      <td>1.544857</td>
+      <td>3.170019</td>
+      <td>2.063022</td>
+      <td>-0.017629</td>
+      <td>1.049201</td>
+      <td>-0.116237</td>
+      <td>-0.654108</td>
+      <td>1.875309</td>
+      <td>8.698914</td>
+    </tr>
+    <tr>
+      <th>Shai Gilgeous-Alexander</th>
+      <td>6.8</td>
+      <td>-0.072418</td>
+      <td>1.195264</td>
+      <td>-0.566075</td>
+      <td>2.330591</td>
+      <td>-0.276184</td>
+      <td>1.049201</td>
+      <td>1.801669</td>
+      <td>0.512679</td>
+      <td>1.367880</td>
+      <td>7.342608</td>
+    </tr>
+    <tr>
+      <th>Damian Lillard</th>
+      <td>9.6</td>
+      <td>-0.501725</td>
+      <td>1.451632</td>
+      <td>2.261240</td>
+      <td>2.263699</td>
+      <td>-0.707108</td>
+      <td>1.787269</td>
+      <td>-0.435888</td>
+      <td>-0.654108</td>
+      <td>1.621595</td>
+      <td>7.086606</td>
+    </tr>
+    <tr>
+      <th>Giannis Antetokounmpo</th>
+      <td>10.1</td>
+      <td>0.886367</td>
+      <td>-1.147004</td>
+      <td>-0.667050</td>
+      <td>2.447653</td>
+      <td>2.567919</td>
+      <td>1.098405</td>
+      <td>-0.116237</td>
+      <td>0.707144</td>
+      <td>2.255881</td>
+      <td>8.033077</td>
+    </tr>
+    <tr>
+      <th>Kevin Durant</th>
+      <td>10.8</td>
+      <td>0.442750</td>
+      <td>1.381714</td>
+      <td>0.342705</td>
+      <td>1.611498</td>
+      <td>0.370203</td>
+      <td>0.753973</td>
+      <td>-0.755539</td>
+      <td>0.707144</td>
+      <td>1.621595</td>
+      <td>6.476043</td>
+    </tr>
+    <tr>
+      <th>Anthony Davis</th>
+      <td>11.6</td>
+      <td>0.843436</td>
+      <td>-0.261370</td>
+      <td>-1.272904</td>
+      <td>1.527883</td>
+      <td>2.481734</td>
+      <td>-0.328528</td>
+      <td>0.523065</td>
+      <td>2.846253</td>
+      <td>0.353022</td>
+      <td>6.712592</td>
+    </tr>
+    <tr>
+      <th>LaMelo Ball</th>
+      <td>12.6</td>
+      <td>-0.873791</td>
+      <td>0.915591</td>
+      <td>2.160264</td>
+      <td>1.293759</td>
+      <td>0.585666</td>
+      <td>2.525338</td>
+      <td>2.121320</td>
+      <td>-0.459643</td>
+      <td>2.255881</td>
+      <td>10.524385</td>
+    </tr>
+    <tr>
+      <th>Anthony Edwards</th>
+      <td>14.6</td>
+      <td>-0.387243</td>
+      <td>-0.144840</td>
+      <td>1.554411</td>
+      <td>1.795452</td>
+      <td>0.068556</td>
+      <td>0.704769</td>
+      <td>2.440971</td>
+      <td>0.318215</td>
+      <td>1.875309</td>
+      <td>8.225601</td>
+    </tr>
+    <tr>
+      <th>Jaren Jackson Jr.</th>
+      <td>15.0</td>
+      <td>-0.172590</td>
+      <td>0.158141</td>
+      <td>0.140754</td>
+      <td>0.658282</td>
+      <td>0.628758</td>
+      <td>-1.115801</td>
+      <td>0.203414</td>
+      <td>4.596433</td>
+      <td>0.226165</td>
+      <td>5.323556</td>
+    </tr>
+    <tr>
+      <th>Kyrie Irving</th>
+      <td>15.2</td>
+      <td>-0.072418</td>
+      <td>1.474938</td>
+      <td>1.655387</td>
+      <td>1.845621</td>
+      <td>-0.362368</td>
+      <td>0.999996</td>
+      <td>0.842716</td>
+      <td>0.123750</td>
+      <td>0.479879</td>
+      <td>6.987501</td>
+    </tr>
+    <tr>
+      <th>Devin Booker</th>
+      <td>17.0</td>
+      <td>-0.058108</td>
+      <td>0.927244</td>
+      <td>0.746607</td>
+      <td>1.929237</td>
+      <td>-0.319276</td>
+      <td>1.393633</td>
+      <td>0.523065</td>
+      <td>-0.459643</td>
+      <td>0.987308</td>
+      <td>5.670067</td>
+    </tr>
+    <tr>
+      <th>Mikal Bridges</th>
+      <td>19.1</td>
+      <td>-0.229831</td>
+      <td>1.148652</td>
+      <td>0.847582</td>
+      <td>1.628221</td>
+      <td>-0.448553</td>
+      <td>-0.033300</td>
+      <td>0.523065</td>
+      <td>-0.070714</td>
+      <td>-0.027550</td>
+      <td>3.337573</td>
+    </tr>
+    <tr>
+      <th>Donovan Mitchell</th>
+      <td>19.7</td>
+      <td>-0.143970</td>
+      <td>0.915591</td>
+      <td>2.160264</td>
+      <td>2.029576</td>
+      <td>-0.534738</td>
+      <td>0.458746</td>
+      <td>1.801669</td>
+      <td>-0.654108</td>
+      <td>1.114166</td>
+      <td>7.147195</td>
+    </tr>
+    <tr>
+      <th>Desmond Bane</th>
+      <td>20.4</td>
+      <td>-0.301382</td>
+      <td>1.265183</td>
+      <td>1.857338</td>
+      <td>1.159975</td>
+      <td>-0.103814</td>
+      <td>0.261927</td>
+      <td>0.842716</td>
+      <td>-0.459643</td>
+      <td>0.479879</td>
+      <td>5.002179</td>
+    </tr>
+    <tr>
+      <th>Fred VanVleet</th>
+      <td>21.0</td>
+      <td>-1.303098</td>
+      <td>1.241877</td>
+      <td>1.554411</td>
+      <td>0.457605</td>
+      <td>-0.750201</td>
+      <td>1.442837</td>
+      <td>2.121320</td>
+      <td>-0.265179</td>
+      <td>0.353022</td>
+      <td>4.852595</td>
+    </tr>
+    <tr>
+      <th>Domantas Sabonis</th>
+      <td>21.4</td>
+      <td>1.673429</td>
+      <td>-0.447820</td>
+      <td>-1.070953</td>
+      <td>0.641559</td>
+      <td>2.912659</td>
+      <td>1.885679</td>
+      <td>-0.116237</td>
+      <td>-0.265179</td>
+      <td>1.494738</td>
+      <td>6.707875</td>
+    </tr>
+    <tr>
+      <th>James Harden</th>
+      <td>22.4</td>
+      <td>-0.859481</td>
+      <td>1.078734</td>
+      <td>0.847582</td>
+      <td>0.825513</td>
+      <td>0.413296</td>
+      <td>3.509430</td>
+      <td>0.842716</td>
+      <td>-0.265179</td>
+      <td>2.382739</td>
+      <td>8.775350</td>
+    </tr>
+    <tr>
+      <th>Trae Young</th>
+      <td>23.5</td>
+      <td>-0.816550</td>
+      <td>1.323448</td>
+      <td>0.645631</td>
+      <td>1.912514</td>
+      <td>-0.965663</td>
+      <td>3.214202</td>
+      <td>0.203414</td>
+      <td>-1.043037</td>
+      <td>2.890168</td>
+      <td>7.364128</td>
+    </tr>
+    <tr>
+      <th>Lauri Markkanen</th>
+      <td>25.4</td>
+      <td>-0.029488</td>
+      <td>1.032121</td>
+      <td>1.352460</td>
+      <td>1.377375</td>
+      <td>1.016590</td>
+      <td>-0.771369</td>
+      <td>-0.755539</td>
+      <td>-0.070714</td>
+      <td>0.099307</td>
+      <td>3.250744</td>
+    </tr>
+    <tr>
+      <th>LeBron James</th>
+      <td>25.5</td>
+      <td>0.142235</td>
+      <td>-0.238064</td>
+      <td>0.746607</td>
+      <td>1.845621</td>
+      <td>0.844221</td>
+      <td>1.246019</td>
+      <td>-0.435888</td>
+      <td>-0.265179</td>
+      <td>1.621595</td>
+      <td>5.507167</td>
+    </tr>
+    <tr>
+      <th>Kawhi Leonard</th>
+      <td>26.6</td>
+      <td>0.185166</td>
+      <td>0.950550</td>
+      <td>0.342705</td>
+      <td>1.260313</td>
+      <td>0.240926</td>
+      <td>0.114314</td>
+      <td>1.162367</td>
+      <td>-0.265179</td>
+      <td>-0.154407</td>
+      <td>3.836755</td>
+    </tr>
+    <tr>
+      <th>Jimmy Butler</th>
+      <td>26.8</td>
+      <td>0.285337</td>
+      <td>0.903937</td>
+      <td>-1.070953</td>
+      <td>0.942574</td>
+      <td>0.025464</td>
+      <td>0.753973</td>
+      <td>2.121320</td>
+      <td>-0.459643</td>
+      <td>-0.027550</td>
+      <td>3.474461</td>
+    </tr>
+    <tr>
+      <th>Karl-Anthony Towns</th>
+      <td>27.8</td>
+      <td>0.185166</td>
+      <td>0.600957</td>
+      <td>0.544656</td>
+      <td>1.009467</td>
+      <td>1.232053</td>
+      <td>0.557155</td>
+      <td>-0.755539</td>
+      <td>0.123750</td>
+      <td>1.241023</td>
+      <td>4.738688</td>
+    </tr>
+    <tr>
+      <th>Victor Wembanyama</th>
+      <td>30.1</td>
+      <td>-0.530346</td>
+      <td>-0.028309</td>
+      <td>-0.566075</td>
+      <td>0.273651</td>
+      <td>1.102775</td>
+      <td>-0.820573</td>
+      <td>-0.755539</td>
+      <td>3.235182</td>
+      <td>-0.027550</td>
+      <td>1.883217</td>
+    </tr>
+    <tr>
+      <th>Paul George</th>
+      <td>30.3</td>
+      <td>-0.687758</td>
+      <td>0.997162</td>
+      <td>1.251485</td>
+      <td>1.226867</td>
+      <td>0.197834</td>
+      <td>0.753973</td>
+      <td>1.801669</td>
+      <td>-0.459643</td>
+      <td>1.875309</td>
+      <td>6.956898</td>
+    </tr>
+    <tr>
+      <th>Pascal Siakam</th>
+      <td>30.6</td>
+      <td>-0.186900</td>
+      <td>-0.214758</td>
+      <td>-0.364124</td>
+      <td>1.076359</td>
+      <td>0.930405</td>
+      <td>0.901587</td>
+      <td>0.203414</td>
+      <td>-0.265179</td>
+      <td>0.733594</td>
+      <td>2.814399</td>
+    </tr>
+    <tr>
+      <th>Jalen Brunson</th>
+      <td>32.2</td>
+      <td>0.013443</td>
+      <td>0.589304</td>
+      <td>0.443680</td>
+      <td>1.427544</td>
+      <td>-0.836386</td>
+      <td>1.492042</td>
+      <td>0.203414</td>
+      <td>-0.848572</td>
+      <td>0.479879</td>
+      <td>2.964350</td>
+    </tr>
+    <tr>
+      <th>Dejounte Murray</th>
+      <td>33.1</td>
+      <td>-0.401554</td>
+      <td>0.472774</td>
+      <td>0.039778</td>
+      <td>0.842236</td>
+      <td>0.370203</td>
+      <td>1.442837</td>
+      <td>2.121320</td>
+      <td>-0.654108</td>
+      <td>0.479879</td>
+      <td>4.713367</td>
+    </tr>
+    <tr>
+      <th>Myles Turner</th>
+      <td>34.4</td>
+      <td>0.614472</td>
+      <td>-0.086574</td>
+      <td>-0.061197</td>
+      <td>0.072974</td>
+      <td>0.758036</td>
+      <td>-1.066596</td>
+      <td>-1.075190</td>
+      <td>3.624111</td>
+      <td>-0.408122</td>
+      <td>2.371913</td>
+    </tr>
+    <tr>
+      <th>Bam Adebayo</th>
+      <td>35.6</td>
+      <td>0.800505</td>
+      <td>0.006650</td>
+      <td>-1.575830</td>
+      <td>0.758620</td>
+      <td>1.792255</td>
+      <td>-0.033300</td>
+      <td>1.162367</td>
+      <td>0.318215</td>
+      <td>0.987308</td>
+      <td>4.216791</td>
+    </tr>
+    <tr>
+      <th>Nikola Vucevic</th>
+      <td>35.7</td>
+      <td>-0.015178</td>
+      <td>0.286324</td>
+      <td>-0.061197</td>
+      <td>0.290374</td>
+      <td>2.309364</td>
+      <td>-0.131709</td>
+      <td>-0.755539</td>
+      <td>0.123750</td>
+      <td>-0.027550</td>
+      <td>2.018640</td>
+    </tr>
+    <tr>
+      <th>Jrue Holiday</th>
+      <td>38.2</td>
+      <td>-0.115349</td>
+      <td>0.309631</td>
+      <td>0.645631</td>
+      <td>0.491051</td>
+      <td>-0.362368</td>
+      <td>1.787269</td>
+      <td>1.482018</td>
+      <td>-0.459643</td>
+      <td>1.241023</td>
+      <td>5.019263</td>
+    </tr>
+    <tr>
+      <th>De'Aaron Fox</th>
+      <td>40.7</td>
+      <td>0.070684</td>
+      <td>-0.086574</td>
+      <td>0.039778</td>
+      <td>1.578052</td>
+      <td>-0.620923</td>
+      <td>1.295224</td>
+      <td>0.842716</td>
+      <td>-0.459643</td>
+      <td>1.114166</td>
+      <td>3.773479</td>
+    </tr>
+    <tr>
+      <th>Jaylen Brown</th>
+      <td>40.9</td>
+      <td>0.042063</td>
+      <td>-0.144840</td>
+      <td>1.049533</td>
+      <td>1.795452</td>
+      <td>0.456388</td>
+      <td>0.065109</td>
+      <td>0.523065</td>
+      <td>-0.654108</td>
+      <td>1.367880</td>
+      <td>4.500545</td>
+    </tr>
+    <tr>
+      <th>Darius Garland</th>
+      <td>41.3</td>
+      <td>-0.415864</td>
+      <td>1.113693</td>
+      <td>0.948558</td>
+      <td>1.026190</td>
+      <td>-1.138033</td>
+      <td>2.131702</td>
+      <td>0.842716</td>
+      <td>-1.043037</td>
+      <td>1.494738</td>
+      <td>4.960663</td>
+    </tr>
+    <tr>
+      <th>Kristaps Porzingis</th>
+      <td>41.4</td>
+      <td>-0.186900</td>
+      <td>0.834019</td>
+      <td>0.241729</td>
+      <td>0.557943</td>
+      <td>1.016590</td>
+      <td>-0.574550</td>
+      <td>-0.435888</td>
+      <td>1.679466</td>
+      <td>-0.027550</td>
+      <td>3.104860</td>
+    </tr>
+    <tr>
+      <th>Walker Kessler</th>
+      <td>41.9</td>
+      <td>3.261864</td>
+      <td>-3.093068</td>
+      <td>-1.575830</td>
+      <td>-0.629396</td>
+      <td>2.266272</td>
+      <td>-1.115801</td>
+      <td>-1.394841</td>
+      <td>4.401969</td>
+      <td>-1.042408</td>
+      <td>1.078760</td>
+    </tr>
+    <tr>
+      <th>Chet Holmgren</th>
+      <td>42.6</td>
+      <td>-0.158280</td>
+      <td>-0.342942</td>
+      <td>-0.263148</td>
+      <td>-0.228042</td>
+      <td>1.533700</td>
+      <td>-0.918983</td>
+      <td>-1.394841</td>
+      <td>2.651789</td>
+      <td>-0.788694</td>
+      <td>0.090559</td>
+    </tr>
+    <tr>
+      <th>Jamal Murray</th>
+      <td>43.4</td>
+      <td>-0.358623</td>
+      <td>0.600957</td>
+      <td>1.150509</td>
+      <td>0.892405</td>
+      <td>-0.664016</td>
+      <td>1.393633</td>
+      <td>0.203414</td>
+      <td>-0.654108</td>
+      <td>0.606737</td>
+      <td>3.170909</td>
+    </tr>
+    <tr>
+      <th>Cade Cunningham</th>
+      <td>43.7</td>
+      <td>-1.002583</td>
+      <td>0.635917</td>
+      <td>0.140754</td>
+      <td>0.808790</td>
+      <td>0.327111</td>
+      <td>1.492042</td>
+      <td>1.162367</td>
+      <td>0.123750</td>
+      <td>1.748452</td>
+      <td>5.436600</td>
+    </tr>
+    <tr>
+      <th>Evan Mobley</th>
+      <td>45.2</td>
+      <td>0.857746</td>
+      <td>-1.158657</td>
+      <td>-1.272904</td>
+      <td>0.256928</td>
+      <td>1.576792</td>
+      <td>-0.279323</td>
+      <td>-0.116237</td>
+      <td>2.068395</td>
+      <td>0.099307</td>
+      <td>2.032048</td>
+    </tr>
+    <tr>
+      <th>OG Anunoby</th>
+      <td>47.8</td>
+      <td>-0.430174</td>
+      <td>0.263018</td>
+      <td>0.544656</td>
+      <td>0.072974</td>
+      <td>-0.319276</td>
+      <td>-0.672960</td>
+      <td>2.121320</td>
+      <td>-0.070714</td>
+      <td>-0.027550</td>
+      <td>1.481294</td>
+    </tr>
+    <tr>
+      <th>DeMar DeRozan</th>
+      <td>48.7</td>
+      <td>0.185166</td>
+      <td>1.032121</td>
+      <td>-0.969977</td>
+      <td>1.511160</td>
+      <td>-0.448553</td>
+      <td>0.704769</td>
+      <td>0.203414</td>
+      <td>-0.459643</td>
+      <td>0.353022</td>
+      <td>2.111478</td>
+    </tr>
+    <tr>
+      <th>Nicolas Claxton</th>
+      <td>49.7</td>
+      <td>2.932729</td>
+      <td>-2.335618</td>
+      <td>-1.575830</td>
+      <td>-0.395273</td>
+      <td>1.792255</td>
+      <td>-0.820573</td>
+      <td>-0.116237</td>
+      <td>3.624111</td>
+      <td>-0.661836</td>
+      <td>2.443727</td>
+    </tr>
+    <tr>
+      <th>Brandon Ingram</th>
+      <td>50.8</td>
+      <td>-0.272762</td>
+      <td>0.822366</td>
+      <td>-0.162173</td>
+      <td>1.243590</td>
+      <td>-0.060721</td>
+      <td>1.049201</td>
+      <td>-0.755539</td>
+      <td>-0.459643</td>
+      <td>1.367880</td>
+      <td>2.772199</td>
+    </tr>
+    <tr>
+      <th>Zach LaVine</th>
+      <td>52.8</td>
+      <td>-0.143970</td>
+      <td>0.799060</td>
+      <td>1.251485</td>
+      <td>1.561329</td>
+      <td>-0.448553</td>
+      <td>0.507950</td>
+      <td>-0.435888</td>
+      <td>-0.654108</td>
+      <td>0.987308</td>
+      <td>3.424614</td>
+    </tr>
+    <tr>
+      <th>Deandre Ayton</th>
+      <td>53.4</td>
+      <td>1.759290</td>
+      <td>-0.307983</td>
+      <td>-1.474855</td>
+      <td>0.089697</td>
+      <td>2.050809</td>
+      <td>-0.918983</td>
+      <td>-1.075190</td>
+      <td>0.318215</td>
+      <td>-0.154407</td>
+      <td>0.286594</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Positional-z-score-comparisons">Positional z-score comparisons<a class="anchor-link" href="#Positional-z-score-comparisons"> </a></h2><p>The other consideration in fantasy drafting is position.
+If you decided you want to build a team that focuses on REB and BLK and are willing to give up something like 3PM, you'd probably want to draft a bunch of Cs.
+However, due to positional constraints, you will inevitably have to draft some PGs/SGs.</p>
+<p>We can, again, apply z-scores to compare players.
+In this situation, however, we restrict our input data to just players among PGs (or another position).
+This way, we are asking ourselves "among PGs, who gets rebounds really well"?
+Below, we have 5 tables comparing z-scores for each position.</p>
+<p>Again, this ultimately doesn't change qualitative trends (we know Luka gets more rebounds than Steph), but in the world of PGs, we can see this gap is huge.</p>
+<p>When searching for a good rebounding PG, you might observe someone like Cade fits the role well, but he's somewhat far down in the draft (mid ADP).
+Unless you are extremely confident in someone like Cade to outperform his stats or fit your team composition extremely well, it's not a good idea to "reach" and try to draft him super early as your rebounding PG; 
+there are likely some better options out there that could still fit your build.
+With an ADP of 43.7, perhaps it may be reasonable to pick him 5-10 spots early based on role-fit.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">positions_zscores</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">pos</span> <span class="ow">in</span> <span class="n">POSITIONS</span><span class="p">:</span>
+    <span class="n">positions_zscores</span><span class="p">[</span><span class="n">pos</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="n">pos</span><span class="p">],</span> <span class="n">STAT_COLS</span><span class="p">]</span>
+        <span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">zscore</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">assign</span><span class="p">(</span>
+            <span class="n">ADP</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="n">pos</span><span class="p">],</span> <span class="s2">&quot;ADP&quot;</span><span class="p">],</span>
+            <span class="n">total_z</span><span class="o">=</span><span class="k">lambda</span> <span class="n">df_</span><span class="p">:</span> <span class="n">df_</span><span class="p">[</span><span class="n">STAT_COLS</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+
+
+<span class="k">for</span> <span class="n">pos</span><span class="p">,</span> <span class="n">subdf</span> <span class="ow">in</span> <span class="n">positions_zscores</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="n">subdf</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">pos</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">display</span><span class="p">(</span><span class="n">subdf</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">20</span><span class="p">)[[</span><span class="s2">&quot;ADP&quot;</span><span class="p">,</span> <span class="o">*</span><span class="n">STAT_COLS</span><span class="p">,</span> <span class="s2">&quot;total_z&quot;</span><span class="p">]])</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;--&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>ADP</th>
+      <th>FG%</th>
+      <th>FT%</th>
+      <th>3pm</th>
+      <th>PTS</th>
+      <th>TREB</th>
+      <th>AST</th>
+      <th>STL</th>
+      <th>BLK</th>
+      <th>TO</th>
+      <th>total_z</th>
+    </tr>
+    <tr>
+      <th>PG</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Luka Doncic</th>
+      <td>3.2</td>
+      <td>1.035558</td>
+      <td>-0.746131</td>
+      <td>1.078940</td>
+      <td>2.376326</td>
+      <td>3.695595</td>
+      <td>1.433339</td>
+      <td>0.650081</td>
+      <td>0.763193</td>
+      <td>1.677393</td>
+      <td>11.964294</td>
+    </tr>
+    <tr>
+      <th>Tyrese Haliburton</th>
+      <td>5.7</td>
+      <td>0.926413</td>
+      <td>0.529644</td>
+      <td>0.866240</td>
+      <td>0.947392</td>
+      <td>-0.094236</td>
+      <td>2.655579</td>
+      <td>2.016353</td>
+      <td>0.254398</td>
+      <td>0.483382</td>
+      <td>8.585163</td>
+    </tr>
+    <tr>
+      <th>Stephen Curry</th>
+      <td>6.6</td>
+      <td>0.598978</td>
+      <td>1.287135</td>
+      <td>2.886894</td>
+      <td>1.661859</td>
+      <td>1.169041</td>
+      <td>0.160173</td>
+      <td>-0.716191</td>
+      <td>-0.254398</td>
+      <td>1.319190</td>
+      <td>8.112681</td>
+    </tr>
+    <tr>
+      <th>Shai Gilgeous-Alexander</th>
+      <td>6.8</td>
+      <td>0.871840</td>
+      <td>0.888456</td>
+      <td>-1.048064</td>
+      <td>1.905082</td>
+      <td>0.695312</td>
+      <td>0.160173</td>
+      <td>1.333217</td>
+      <td>2.798374</td>
+      <td>0.841585</td>
+      <td>8.445974</td>
+    </tr>
+    <tr>
+      <th>Damian Lillard</th>
+      <td>9.6</td>
+      <td>0.053252</td>
+      <td>1.180821</td>
+      <td>1.929742</td>
+      <td>1.844276</td>
+      <td>-0.094236</td>
+      <td>0.924072</td>
+      <td>-1.057759</td>
+      <td>-0.254398</td>
+      <td>1.080388</td>
+      <td>5.606158</td>
+    </tr>
+    <tr>
+      <th>LaMelo Ball</th>
+      <td>12.6</td>
+      <td>-0.656191</td>
+      <td>0.569512</td>
+      <td>1.823392</td>
+      <td>0.962593</td>
+      <td>2.274408</td>
+      <td>1.687972</td>
+      <td>1.674785</td>
+      <td>0.254398</td>
+      <td>1.677393</td>
+      <td>10.268263</td>
+    </tr>
+    <tr>
+      <th>Kyrie Irving</th>
+      <td>15.2</td>
+      <td>0.871840</td>
+      <td>1.207399</td>
+      <td>1.291641</td>
+      <td>1.464240</td>
+      <td>0.537402</td>
+      <td>0.109246</td>
+      <td>0.308513</td>
+      <td>1.780784</td>
+      <td>0.005777</td>
+      <td>7.576843</td>
+    </tr>
+    <tr>
+      <th>Donovan Mitchell</th>
+      <td>19.7</td>
+      <td>0.735409</td>
+      <td>0.569512</td>
+      <td>1.823392</td>
+      <td>1.631456</td>
+      <td>0.221583</td>
+      <td>-0.450947</td>
+      <td>1.333217</td>
+      <td>-0.254398</td>
+      <td>0.602783</td>
+      <td>6.212007</td>
+    </tr>
+    <tr>
+      <th>Fred VanVleet</th>
+      <td>21.0</td>
+      <td>-1.474779</td>
+      <td>0.941613</td>
+      <td>1.185291</td>
+      <td>0.202522</td>
+      <td>-0.173191</td>
+      <td>0.567586</td>
+      <td>1.674785</td>
+      <td>0.763193</td>
+      <td>-0.113624</td>
+      <td>3.573396</td>
+    </tr>
+    <tr>
+      <th>James Harden</th>
+      <td>22.4</td>
+      <td>-0.628904</td>
+      <td>0.755562</td>
+      <td>0.440839</td>
+      <td>0.536954</td>
+      <td>1.958589</td>
+      <td>2.706505</td>
+      <td>0.308513</td>
+      <td>0.763193</td>
+      <td>1.796794</td>
+      <td>8.638045</td>
+    </tr>
+    <tr>
+      <th>Trae Young</th>
+      <td>23.5</td>
+      <td>-0.547046</td>
+      <td>1.034638</td>
+      <td>0.228138</td>
+      <td>1.525046</td>
+      <td>-0.567965</td>
+      <td>2.400945</td>
+      <td>-0.374623</td>
+      <td>-1.271988</td>
+      <td>2.274399</td>
+      <td>4.701545</td>
+    </tr>
+    <tr>
+      <th>Jalen Brunson</th>
+      <td>32.2</td>
+      <td>1.035558</td>
+      <td>0.197411</td>
+      <td>0.015438</td>
+      <td>1.084205</td>
+      <td>-0.331101</td>
+      <td>0.618512</td>
+      <td>-0.374623</td>
+      <td>-0.763193</td>
+      <td>0.005777</td>
+      <td>1.487984</td>
+    </tr>
+    <tr>
+      <th>Dejounte Murray</th>
+      <td>33.1</td>
+      <td>0.244256</td>
+      <td>0.064518</td>
+      <td>-0.409963</td>
+      <td>0.552155</td>
+      <td>1.879634</td>
+      <td>0.567586</td>
+      <td>1.674785</td>
+      <td>-0.254398</td>
+      <td>0.005777</td>
+      <td>4.324350</td>
+    </tr>
+    <tr>
+      <th>Jrue Holiday</th>
+      <td>38.2</td>
+      <td>0.789981</td>
+      <td>-0.121533</td>
+      <td>0.228138</td>
+      <td>0.232925</td>
+      <td>0.537402</td>
+      <td>0.924072</td>
+      <td>0.991649</td>
+      <td>0.254398</td>
+      <td>0.722184</td>
+      <td>4.559217</td>
+    </tr>
+    <tr>
+      <th>De'Aaron Fox</th>
+      <td>40.7</td>
+      <td>1.144703</td>
+      <td>-0.573370</td>
+      <td>-0.409963</td>
+      <td>1.221018</td>
+      <td>0.063673</td>
+      <td>0.414806</td>
+      <td>0.308513</td>
+      <td>0.254398</td>
+      <td>0.602783</td>
+      <td>3.026560</td>
+    </tr>
+    <tr>
+      <th>Darius Garland</th>
+      <td>41.3</td>
+      <td>0.216970</td>
+      <td>0.795430</td>
+      <td>0.547189</td>
+      <td>0.719371</td>
+      <td>-0.883785</td>
+      <td>1.280559</td>
+      <td>0.308513</td>
+      <td>-1.271988</td>
+      <td>0.960986</td>
+      <td>2.673245</td>
+    </tr>
+    <tr>
+      <th>Jamal Murray</th>
+      <td>43.4</td>
+      <td>0.326115</td>
+      <td>0.210700</td>
+      <td>0.759890</td>
+      <td>0.597759</td>
+      <td>-0.015282</td>
+      <td>0.516659</td>
+      <td>-0.374623</td>
+      <td>-0.254398</td>
+      <td>0.125179</td>
+      <td>1.891999</td>
+    </tr>
+    <tr>
+      <th>Cade Cunningham</th>
+      <td>43.7</td>
+      <td>-0.901767</td>
+      <td>0.250568</td>
+      <td>-0.303613</td>
+      <td>0.521752</td>
+      <td>1.800679</td>
+      <td>0.618512</td>
+      <td>0.650081</td>
+      <td>1.780784</td>
+      <td>1.199789</td>
+      <td>5.616785</td>
+    </tr>
+    <tr>
+      <th>Jordan Poole</th>
+      <td>53.5</td>
+      <td>-0.410614</td>
+      <td>0.981481</td>
+      <td>1.078940</td>
+      <td>0.749773</td>
+      <td>-0.489011</td>
+      <td>-0.247241</td>
+      <td>-0.716191</td>
+      <td>-0.254398</td>
+      <td>1.080388</td>
+      <td>1.773128</td>
+    </tr>
+    <tr>
+      <th>Tyrese Maxey</th>
+      <td>57.8</td>
+      <td>0.844554</td>
+      <td>0.503065</td>
+      <td>0.972590</td>
+      <td>0.552155</td>
+      <td>-0.725875</td>
+      <td>-0.501874</td>
+      <td>-1.057759</td>
+      <td>-0.254398</td>
+      <td>-1.068833</td>
+      <td>-0.736374</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>--
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>ADP</th>
+      <th>FG%</th>
+      <th>FT%</th>
+      <th>3pm</th>
+      <th>PTS</th>
+      <th>TREB</th>
+      <th>AST</th>
+      <th>STL</th>
+      <th>BLK</th>
+      <th>TO</th>
+      <th>total_z</th>
+    </tr>
+    <tr>
+      <th>SG</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Tyrese Haliburton</th>
+      <td>5.7</td>
+      <td>0.758798</td>
+      <td>0.603462</td>
+      <td>0.944849</td>
+      <td>1.158943</td>
+      <td>-0.223524</td>
+      <td>3.498986</td>
+      <td>1.990494</td>
+      <td>0.075512</td>
+      <td>0.925970</td>
+      <td>9.733489</td>
+    </tr>
+    <tr>
+      <th>Shai Gilgeous-Alexander</th>
+      <td>6.8</td>
+      <td>0.702515</td>
+      <td>1.006429</td>
+      <td>-1.233553</td>
+      <td>2.244790</td>
+      <td>0.597382</td>
+      <td>0.899831</td>
+      <td>1.381982</td>
+      <td>2.686970</td>
+      <td>1.323498</td>
+      <td>9.609842</td>
+    </tr>
+    <tr>
+      <th>LaMelo Ball</th>
+      <td>12.6</td>
+      <td>-0.873397</td>
+      <td>0.648236</td>
+      <td>2.034051</td>
+      <td>1.176178</td>
+      <td>2.239193</td>
+      <td>2.491150</td>
+      <td>1.686238</td>
+      <td>0.075512</td>
+      <td>2.251064</td>
+      <td>11.728224</td>
+    </tr>
+    <tr>
+      <th>Anthony Edwards</th>
+      <td>14.6</td>
+      <td>0.083407</td>
+      <td>-0.709912</td>
+      <td>1.307917</td>
+      <td>1.693248</td>
+      <td>1.254106</td>
+      <td>0.528523</td>
+      <td>1.990494</td>
+      <td>2.164678</td>
+      <td>1.853536</td>
+      <td>10.165996</td>
+    </tr>
+    <tr>
+      <th>Kyrie Irving</th>
+      <td>15.2</td>
+      <td>0.702515</td>
+      <td>1.364621</td>
+      <td>1.428939</td>
+      <td>1.744955</td>
+      <td>0.433201</td>
+      <td>0.846787</td>
+      <td>0.469214</td>
+      <td>1.642387</td>
+      <td>0.395932</td>
+      <td>9.028551</td>
+    </tr>
+    <tr>
+      <th>Devin Booker</th>
+      <td>17.0</td>
+      <td>0.730657</td>
+      <td>0.663160</td>
+      <td>0.339738</td>
+      <td>1.831134</td>
+      <td>0.515291</td>
+      <td>1.271139</td>
+      <td>0.164958</td>
+      <td>0.075512</td>
+      <td>0.925970</td>
+      <td>6.517558</td>
+    </tr>
+    <tr>
+      <th>Mikal Bridges</th>
+      <td>19.1</td>
+      <td>0.392961</td>
+      <td>0.946730</td>
+      <td>0.460760</td>
+      <td>1.520892</td>
+      <td>0.269020</td>
+      <td>-0.267137</td>
+      <td>0.164958</td>
+      <td>1.120095</td>
+      <td>-0.134106</td>
+      <td>4.474172</td>
+    </tr>
+    <tr>
+      <th>Donovan Mitchell</th>
+      <td>19.7</td>
+      <td>0.561809</td>
+      <td>0.648236</td>
+      <td>2.034051</td>
+      <td>1.934548</td>
+      <td>0.104839</td>
+      <td>0.263303</td>
+      <td>1.381982</td>
+      <td>-0.446780</td>
+      <td>1.058479</td>
+      <td>7.540465</td>
+    </tr>
+    <tr>
+      <th>Desmond Bane</th>
+      <td>20.4</td>
+      <td>0.252255</td>
+      <td>1.095977</td>
+      <td>1.670984</td>
+      <td>1.038293</td>
+      <td>0.925744</td>
+      <td>0.051127</td>
+      <td>0.469214</td>
+      <td>0.075512</td>
+      <td>0.395932</td>
+      <td>5.975037</td>
+    </tr>
+    <tr>
+      <th>James Harden</th>
+      <td>22.4</td>
+      <td>-0.845256</td>
+      <td>0.857182</td>
+      <td>0.460760</td>
+      <td>0.693580</td>
+      <td>1.910831</td>
+      <td>3.552030</td>
+      <td>0.469214</td>
+      <td>0.597804</td>
+      <td>2.383573</td>
+      <td>10.079717</td>
+    </tr>
+    <tr>
+      <th>Kawhi Leonard</th>
+      <td>26.6</td>
+      <td>1.209059</td>
+      <td>0.693010</td>
+      <td>-0.144352</td>
+      <td>1.141707</td>
+      <td>1.582468</td>
+      <td>-0.108005</td>
+      <td>0.773470</td>
+      <td>0.597804</td>
+      <td>-0.266615</td>
+      <td>5.478545</td>
+    </tr>
+    <tr>
+      <th>Paul George</th>
+      <td>30.3</td>
+      <td>-0.507561</td>
+      <td>0.752709</td>
+      <td>0.944849</td>
+      <td>1.107236</td>
+      <td>1.500378</td>
+      <td>0.581567</td>
+      <td>1.381982</td>
+      <td>0.075512</td>
+      <td>1.853536</td>
+      <td>7.690207</td>
+    </tr>
+    <tr>
+      <th>Dejounte Murray</th>
+      <td>33.1</td>
+      <td>0.055265</td>
+      <td>0.081097</td>
+      <td>-0.507419</td>
+      <td>0.710815</td>
+      <td>1.828740</td>
+      <td>1.324183</td>
+      <td>1.686238</td>
+      <td>-0.446780</td>
+      <td>0.395932</td>
+      <td>5.128071</td>
+    </tr>
+    <tr>
+      <th>Jrue Holiday</th>
+      <td>38.2</td>
+      <td>0.618091</td>
+      <td>-0.127849</td>
+      <td>0.218715</td>
+      <td>0.348866</td>
+      <td>0.433201</td>
+      <td>1.695490</td>
+      <td>1.077726</td>
+      <td>0.075512</td>
+      <td>1.190988</td>
+      <td>5.530742</td>
+    </tr>
+    <tr>
+      <th>Jaylen Brown</th>
+      <td>40.9</td>
+      <td>0.927646</td>
+      <td>-0.709912</td>
+      <td>0.702805</td>
+      <td>1.693248</td>
+      <td>1.992921</td>
+      <td>-0.161049</td>
+      <td>0.164958</td>
+      <td>-0.446780</td>
+      <td>1.323498</td>
+      <td>5.487334</td>
+    </tr>
+    <tr>
+      <th>Jamal Murray</th>
+      <td>43.4</td>
+      <td>0.139689</td>
+      <td>0.245269</td>
+      <td>0.823827</td>
+      <td>0.762522</td>
+      <td>-0.141433</td>
+      <td>1.271139</td>
+      <td>-0.139298</td>
+      <td>-0.446780</td>
+      <td>0.528441</td>
+      <td>3.043377</td>
+    </tr>
+    <tr>
+      <th>Cade Cunningham</th>
+      <td>43.7</td>
+      <td>-1.126669</td>
+      <td>0.290043</td>
+      <td>-0.386397</td>
+      <td>0.676344</td>
+      <td>1.746650</td>
+      <td>1.377227</td>
+      <td>0.773470</td>
+      <td>1.642387</td>
+      <td>1.721026</td>
+      <td>6.714080</td>
+    </tr>
+    <tr>
+      <th>OG Anunoby</th>
+      <td>47.8</td>
+      <td>-0.001017</td>
+      <td>-0.187548</td>
+      <td>0.097693</td>
+      <td>-0.082025</td>
+      <td>0.515291</td>
+      <td>-0.956709</td>
+      <td>1.686238</td>
+      <td>1.120095</td>
+      <td>-0.134106</td>
+      <td>2.057912</td>
+    </tr>
+    <tr>
+      <th>DeMar DeRozan</th>
+      <td>48.7</td>
+      <td>1.209059</td>
+      <td>0.797483</td>
+      <td>-1.717643</td>
+      <td>1.400242</td>
+      <td>0.269020</td>
+      <td>0.528523</td>
+      <td>-0.139298</td>
+      <td>0.075512</td>
+      <td>0.263422</td>
+      <td>2.686319</td>
+    </tr>
+    <tr>
+      <th>Brandon Ingram</th>
+      <td>50.8</td>
+      <td>0.308537</td>
+      <td>0.528838</td>
+      <td>-0.749464</td>
+      <td>1.124471</td>
+      <td>1.007835</td>
+      <td>0.899831</td>
+      <td>-1.052066</td>
+      <td>0.075512</td>
+      <td>1.323498</td>
+      <td>3.466992</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>--
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>ADP</th>
+      <th>FG%</th>
+      <th>FT%</th>
+      <th>3pm</th>
+      <th>PTS</th>
+      <th>TREB</th>
+      <th>AST</th>
+      <th>STL</th>
+      <th>BLK</th>
+      <th>TO</th>
+      <th>total_z</th>
+    </tr>
+    <tr>
+      <th>SF</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Jayson Tatum</th>
+      <td>4.5</td>
+      <td>-0.037308</td>
+      <td>0.886156</td>
+      <td>1.781118</td>
+      <td>2.374858</td>
+      <td>2.338643</td>
+      <td>1.346554</td>
+      <td>0.408842</td>
+      <td>1.098730</td>
+      <td>1.858725</td>
+      <td>12.056318</td>
+    </tr>
+    <tr>
+      <th>Kevin Durant</th>
+      <td>10.8</td>
+      <td>1.667714</td>
+      <td>1.566866</td>
+      <td>-0.051627</td>
+      <td>1.623311</td>
+      <td>1.116148</td>
+      <td>1.493413</td>
+      <td>-0.895778</td>
+      <td>2.467324</td>
+      <td>1.999567</td>
+      <td>10.986939</td>
+    </tr>
+    <tr>
+      <th>Anthony Edwards</th>
+      <td>14.6</td>
+      <td>-0.098202</td>
+      <td>-0.556301</td>
+      <td>1.519297</td>
+      <td>1.820145</td>
+      <td>0.612767</td>
+      <td>1.419984</td>
+      <td>2.365773</td>
+      <td>1.554928</td>
+      <td>2.281252</td>
+      <td>10.919643</td>
+    </tr>
+    <tr>
+      <th>Devin Booker</th>
+      <td>17.0</td>
+      <td>0.602075</td>
+      <td>0.934778</td>
+      <td>0.472015</td>
+      <td>1.963297</td>
+      <td>-0.034436</td>
+      <td>2.447998</td>
+      <td>0.408842</td>
+      <td>-0.269864</td>
+      <td>1.295354</td>
+      <td>7.820059</td>
+    </tr>
+    <tr>
+      <th>Mikal Bridges</th>
+      <td>19.1</td>
+      <td>0.236713</td>
+      <td>1.242718</td>
+      <td>0.602925</td>
+      <td>1.641205</td>
+      <td>-0.250171</td>
+      <td>0.318540</td>
+      <td>0.408842</td>
+      <td>0.642532</td>
+      <td>0.168614</td>
+      <td>5.011919</td>
+    </tr>
+    <tr>
+      <th>Desmond Bane</th>
+      <td>20.4</td>
+      <td>0.084479</td>
+      <td>1.404792</td>
+      <td>1.912028</td>
+      <td>1.140174</td>
+      <td>0.325121</td>
+      <td>0.759117</td>
+      <td>0.734997</td>
+      <td>-0.269864</td>
+      <td>0.731984</td>
+      <td>6.822830</td>
+    </tr>
+    <tr>
+      <th>Lauri Markkanen</th>
+      <td>25.4</td>
+      <td>0.662969</td>
+      <td>1.080644</td>
+      <td>1.257477</td>
+      <td>1.372795</td>
+      <td>2.194820</td>
+      <td>-0.782904</td>
+      <td>-0.895778</td>
+      <td>0.642532</td>
+      <td>0.309457</td>
+      <td>5.842012</td>
+    </tr>
+    <tr>
+      <th>LeBron James</th>
+      <td>25.5</td>
+      <td>1.028331</td>
+      <td>-0.685960</td>
+      <td>0.472015</td>
+      <td>1.873827</td>
+      <td>1.907174</td>
+      <td>2.227709</td>
+      <td>-0.569623</td>
+      <td>0.186334</td>
+      <td>1.999567</td>
+      <td>8.439373</td>
+    </tr>
+    <tr>
+      <th>Kawhi Leonard</th>
+      <td>26.6</td>
+      <td>1.119671</td>
+      <td>0.967193</td>
+      <td>-0.051627</td>
+      <td>1.247538</td>
+      <td>0.900413</td>
+      <td>0.538828</td>
+      <td>1.061152</td>
+      <td>0.186334</td>
+      <td>0.027772</td>
+      <td>5.997275</td>
+    </tr>
+    <tr>
+      <th>Jimmy Butler</th>
+      <td>26.8</td>
+      <td>1.332799</td>
+      <td>0.902363</td>
+      <td>-1.884371</td>
+      <td>0.907552</td>
+      <td>0.540856</td>
+      <td>1.493413</td>
+      <td>2.039618</td>
+      <td>-0.269864</td>
+      <td>0.168614</td>
+      <td>5.230980</td>
+    </tr>
+    <tr>
+      <th>Paul George</th>
+      <td>30.3</td>
+      <td>-0.737585</td>
+      <td>1.032022</td>
+      <td>1.126566</td>
+      <td>1.211750</td>
+      <td>0.828502</td>
+      <td>1.493413</td>
+      <td>1.713463</td>
+      <td>-0.269864</td>
+      <td>2.281252</td>
+      <td>8.679519</td>
+    </tr>
+    <tr>
+      <th>Jaylen Brown</th>
+      <td>40.9</td>
+      <td>0.815203</td>
+      <td>-0.556301</td>
+      <td>0.864746</td>
+      <td>1.820145</td>
+      <td>1.259971</td>
+      <td>0.465399</td>
+      <td>0.408842</td>
+      <td>-0.726062</td>
+      <td>1.717882</td>
+      <td>6.069824</td>
+    </tr>
+    <tr>
+      <th>OG Anunoby</th>
+      <td>47.8</td>
+      <td>-0.189542</td>
+      <td>0.010957</td>
+      <td>0.210194</td>
+      <td>-0.022935</td>
+      <td>-0.034436</td>
+      <td>-0.636045</td>
+      <td>2.039618</td>
+      <td>0.642532</td>
+      <td>0.168614</td>
+      <td>2.188957</td>
+    </tr>
+    <tr>
+      <th>Brandon Ingram</th>
+      <td>50.8</td>
+      <td>0.145373</td>
+      <td>0.788912</td>
+      <td>-0.706178</td>
+      <td>1.229644</td>
+      <td>0.397033</td>
+      <td>1.933991</td>
+      <td>-0.895778</td>
+      <td>-0.269864</td>
+      <td>1.717882</td>
+      <td>4.341013</td>
+    </tr>
+    <tr>
+      <th>Zach LaVine</th>
+      <td>52.8</td>
+      <td>0.419394</td>
+      <td>0.756497</td>
+      <td>1.126566</td>
+      <td>1.569629</td>
+      <td>-0.250171</td>
+      <td>1.126265</td>
+      <td>-0.569623</td>
+      <td>-0.726062</td>
+      <td>1.295354</td>
+      <td>4.747851</td>
+    </tr>
+    <tr>
+      <th>Scottie Barnes</th>
+      <td>55.3</td>
+      <td>0.175820</td>
+      <td>-0.442850</td>
+      <td>-1.491640</td>
+      <td>-0.219768</td>
+      <td>1.403794</td>
+      <td>1.566843</td>
+      <td>0.408842</td>
+      <td>1.554928</td>
+      <td>0.309457</td>
+      <td>3.265425</td>
+    </tr>
+    <tr>
+      <th>Paolo Banchero</th>
+      <td>58.7</td>
+      <td>-0.737585</td>
+      <td>-0.831827</td>
+      <td>-0.837089</td>
+      <td>0.943340</td>
+      <td>1.835263</td>
+      <td>0.759117</td>
+      <td>0.082687</td>
+      <td>1.098730</td>
+      <td>1.577040</td>
+      <td>3.889676</td>
+    </tr>
+    <tr>
+      <th>Jalen Williams</th>
+      <td>61.6</td>
+      <td>1.637267</td>
+      <td>0.124409</td>
+      <td>-1.229820</td>
+      <td>-0.219768</td>
+      <td>-0.106348</td>
+      <td>0.391969</td>
+      <td>1.713463</td>
+      <td>0.186334</td>
+      <td>0.027772</td>
+      <td>2.525278</td>
+    </tr>
+    <tr>
+      <th>Cameron Johnson</th>
+      <td>63.2</td>
+      <td>-0.098202</td>
+      <td>0.740289</td>
+      <td>1.388387</td>
+      <td>-0.005041</td>
+      <td>0.037475</td>
+      <td>-0.709475</td>
+      <td>1.061152</td>
+      <td>-0.726062</td>
+      <td>-1.098968</td>
+      <td>0.589557</td>
+    </tr>
+    <tr>
+      <th>Josh Giddey</th>
+      <td>64.0</td>
+      <td>0.328054</td>
+      <td>-1.301841</td>
+      <td>-1.098909</td>
+      <td>0.191793</td>
+      <td>2.266732</td>
+      <td>2.594857</td>
+      <td>-0.243468</td>
+      <td>-0.269864</td>
+      <td>1.858725</td>
+      <td>4.326078</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>--
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>ADP</th>
+      <th>FG%</th>
+      <th>FT%</th>
+      <th>3pm</th>
+      <th>PTS</th>
+      <th>TREB</th>
+      <th>AST</th>
+      <th>STL</th>
+      <th>BLK</th>
+      <th>TO</th>
+      <th>total_z</th>
+    </tr>
+    <tr>
+      <th>PF</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Jayson Tatum</th>
+      <td>4.5</td>
+      <td>-0.544238</td>
+      <td>1.199380</td>
+      <td>2.372760</td>
+      <td>2.387777</td>
+      <td>0.864325</td>
+      <td>1.152265</td>
+      <td>0.897050</td>
+      <td>-0.181540</td>
+      <td>1.551945</td>
+      <td>9.699723</td>
+    </tr>
+    <tr>
+      <th>Giannis Antetokounmpo</th>
+      <td>10.1</td>
+      <td>0.962311</td>
+      <td>-1.021022</td>
+      <td>-0.515817</td>
+      <td>2.521639</td>
+      <td>2.609102</td>
+      <td>1.682526</td>
+      <td>0.175286</td>
+      <td>0.414138</td>
+      <td>2.285973</td>
+      <td>9.114136</td>
+    </tr>
+    <tr>
+      <th>Kevin Durant</th>
+      <td>10.8</td>
+      <td>0.425495</td>
+      <td>1.732276</td>
+      <td>0.687756</td>
+      <td>1.684997</td>
+      <td>-0.008064</td>
+      <td>1.270101</td>
+      <td>-0.546479</td>
+      <td>0.414138</td>
+      <td>1.674283</td>
+      <td>7.334503</td>
+    </tr>
+    <tr>
+      <th>Anthony Davis</th>
+      <td>11.6</td>
+      <td>0.910361</td>
+      <td>-0.056734</td>
+      <td>-1.237962</td>
+      <td>1.601333</td>
+      <td>2.506468</td>
+      <td>-0.026092</td>
+      <td>0.897050</td>
+      <td>2.598291</td>
+      <td>0.450903</td>
+      <td>7.643620</td>
+    </tr>
+    <tr>
+      <th>Jaren Jackson Jr.</th>
+      <td>15.0</td>
+      <td>-0.319121</td>
+      <td>0.400035</td>
+      <td>0.447042</td>
+      <td>0.731225</td>
+      <td>0.299838</td>
+      <td>-0.968778</td>
+      <td>0.536168</td>
+      <td>4.385326</td>
+      <td>0.328565</td>
+      <td>5.840299</td>
+    </tr>
+    <tr>
+      <th>Domantas Sabonis</th>
+      <td>21.4</td>
+      <td>1.914727</td>
+      <td>-0.259742</td>
+      <td>-0.997247</td>
+      <td>0.714492</td>
+      <td>3.019638</td>
+      <td>2.625212</td>
+      <td>0.175286</td>
+      <td>-0.578659</td>
+      <td>1.551945</td>
+      <td>8.165653</td>
+    </tr>
+    <tr>
+      <th>Lauri Markkanen</th>
+      <td>25.4</td>
+      <td>-0.145955</td>
+      <td>1.351636</td>
+      <td>1.891330</td>
+      <td>1.450737</td>
+      <td>0.761691</td>
+      <td>-0.556353</td>
+      <td>-0.546479</td>
+      <td>-0.380099</td>
+      <td>0.206227</td>
+      <td>4.032735</td>
+    </tr>
+    <tr>
+      <th>LeBron James</th>
+      <td>25.5</td>
+      <td>0.061845</td>
+      <td>-0.031358</td>
+      <td>1.169186</td>
+      <td>1.919257</td>
+      <td>0.556423</td>
+      <td>1.859279</td>
+      <td>-0.185597</td>
+      <td>-0.578659</td>
+      <td>1.674283</td>
+      <td>6.444660</td>
+    </tr>
+    <tr>
+      <th>Jimmy Butler</th>
+      <td>26.8</td>
+      <td>0.235012</td>
+      <td>1.212068</td>
+      <td>-0.997247</td>
+      <td>1.015684</td>
+      <td>-0.418600</td>
+      <td>1.270101</td>
+      <td>2.701462</td>
+      <td>-0.777218</td>
+      <td>0.083889</td>
+      <td>4.325149</td>
+    </tr>
+    <tr>
+      <th>Karl-Anthony Towns</th>
+      <td>27.8</td>
+      <td>0.113795</td>
+      <td>0.882179</td>
+      <td>0.928471</td>
+      <td>1.082615</td>
+      <td>1.018276</td>
+      <td>1.034429</td>
+      <td>-0.546479</td>
+      <td>-0.181540</td>
+      <td>1.307269</td>
+      <td>5.639015</td>
+    </tr>
+    <tr>
+      <th>Victor Wembanyama</th>
+      <td>30.1</td>
+      <td>-0.752038</td>
+      <td>0.197027</td>
+      <td>-0.395460</td>
+      <td>0.346370</td>
+      <td>0.864325</td>
+      <td>-0.615271</td>
+      <td>-0.546479</td>
+      <td>2.995410</td>
+      <td>0.083889</td>
+      <td>2.177773</td>
+    </tr>
+    <tr>
+      <th>Paul George</th>
+      <td>30.3</td>
+      <td>-0.942521</td>
+      <td>1.313572</td>
+      <td>1.770973</td>
+      <td>1.300142</td>
+      <td>-0.213332</td>
+      <td>1.270101</td>
+      <td>2.340579</td>
+      <td>-0.777218</td>
+      <td>1.918959</td>
+      <td>7.981254</td>
+    </tr>
+    <tr>
+      <th>Pascal Siakam</th>
+      <td>30.6</td>
+      <td>-0.336438</td>
+      <td>-0.005981</td>
+      <td>-0.154745</td>
+      <td>1.149546</td>
+      <td>0.659057</td>
+      <td>1.446854</td>
+      <td>0.536168</td>
+      <td>-0.578659</td>
+      <td>0.817917</td>
+      <td>3.533719</td>
+    </tr>
+    <tr>
+      <th>Kristaps Porzingis</th>
+      <td>41.4</td>
+      <td>-0.336438</td>
+      <td>1.135939</td>
+      <td>0.567399</td>
+      <td>0.630828</td>
+      <td>0.761691</td>
+      <td>-0.320682</td>
+      <td>-0.185597</td>
+      <td>1.406935</td>
+      <td>0.083889</td>
+      <td>3.743965</td>
+    </tr>
+    <tr>
+      <th>Chet Holmgren</th>
+      <td>42.6</td>
+      <td>-0.301805</td>
+      <td>-0.145550</td>
+      <td>-0.034388</td>
+      <td>-0.155615</td>
+      <td>1.377495</td>
+      <td>-0.733107</td>
+      <td>-1.268243</td>
+      <td>2.399732</td>
+      <td>-0.650139</td>
+      <td>0.488380</td>
+    </tr>
+    <tr>
+      <th>Evan Mobley</th>
+      <td>45.2</td>
+      <td>0.927678</td>
+      <td>-1.033710</td>
+      <td>-1.237962</td>
+      <td>0.329637</td>
+      <td>1.428812</td>
+      <td>0.032826</td>
+      <td>0.175286</td>
+      <td>1.804054</td>
+      <td>0.206227</td>
+      <td>2.632847</td>
+    </tr>
+    <tr>
+      <th>Brandon Ingram</th>
+      <td>50.8</td>
+      <td>-0.440338</td>
+      <td>1.123251</td>
+      <td>0.085970</td>
+      <td>1.316875</td>
+      <td>-0.521234</td>
+      <td>1.623608</td>
+      <td>-0.546479</td>
+      <td>-0.777218</td>
+      <td>1.429607</td>
+      <td>3.294042</td>
+    </tr>
+    <tr>
+      <th>Scottie Barnes</th>
+      <td>55.3</td>
+      <td>-0.423021</td>
+      <td>0.158963</td>
+      <td>-0.636175</td>
+      <td>-0.038486</td>
+      <td>0.197204</td>
+      <td>1.329019</td>
+      <td>0.897050</td>
+      <td>0.017019</td>
+      <td>0.206227</td>
+      <td>1.707800</td>
+    </tr>
+    <tr>
+      <th>Julius Randle</th>
+      <td>57.0</td>
+      <td>-0.786671</td>
+      <td>-0.094798</td>
+      <td>1.169186</td>
+      <td>1.283409</td>
+      <td>1.788030</td>
+      <td>1.093347</td>
+      <td>-0.546479</td>
+      <td>-0.777218</td>
+      <td>1.674283</td>
+      <td>4.803090</td>
+    </tr>
+    <tr>
+      <th>Paolo Banchero</th>
+      <td>58.7</td>
+      <td>-0.942521</td>
+      <td>-0.145550</td>
+      <td>-0.034388</td>
+      <td>1.049149</td>
+      <td>0.505106</td>
+      <td>0.680922</td>
+      <td>0.536168</td>
+      <td>-0.181540</td>
+      <td>1.307269</td>
+      <td>2.774616</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>--
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>ADP</th>
+      <th>FG%</th>
+      <th>FT%</th>
+      <th>3pm</th>
+      <th>PTS</th>
+      <th>TREB</th>
+      <th>AST</th>
+      <th>STL</th>
+      <th>BLK</th>
+      <th>TO</th>
+      <th>total_z</th>
+    </tr>
+    <tr>
+      <th>C</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Nikola Jokic</th>
+      <td>1.1</td>
+      <td>0.739002</td>
+      <td>1.212933</td>
+      <td>0.549929</td>
+      <td>1.754116</td>
+      <td>1.554789</td>
+      <td>4.055070</td>
+      <td>2.766862</td>
+      <td>-0.780403</td>
+      <td>2.522974</td>
+      <td>14.375272</td>
+    </tr>
+    <tr>
+      <th>Joel Embiid</th>
+      <td>2.6</td>
+      <td>-0.365621</td>
+      <td>1.384186</td>
+      <td>0.859264</td>
+      <td>3.119817</td>
+      <td>0.854356</td>
+      <td>1.002204</td>
+      <td>1.497084</td>
+      <td>0.634805</td>
+      <td>2.019312</td>
+      <td>11.005406</td>
+    </tr>
+    <tr>
+      <th>Giannis Antetokounmpo</th>
+      <td>10.1</td>
+      <td>-0.162472</td>
+      <td>-0.362590</td>
+      <td>0.395261</td>
+      <td>2.732026</td>
+      <td>1.508093</td>
+      <td>1.834804</td>
+      <td>0.650565</td>
+      <td>-0.308667</td>
+      <td>2.397059</td>
+      <td>8.684078</td>
+    </tr>
+    <tr>
+      <th>Anthony Davis</th>
+      <td>11.6</td>
+      <td>-0.200563</td>
+      <td>0.505089</td>
+      <td>-0.532744</td>
+      <td>1.804698</td>
+      <td>1.414702</td>
+      <td>0.225110</td>
+      <td>1.497084</td>
+      <td>1.421032</td>
+      <td>0.508326</td>
+      <td>6.642736</td>
+    </tr>
+    <tr>
+      <th>Jaren Jackson Jr.</th>
+      <td>15.0</td>
+      <td>-1.102036</td>
+      <td>0.916095</td>
+      <td>1.632601</td>
+      <td>0.927952</td>
+      <td>-0.593206</td>
+      <td>-0.662996</td>
+      <td>1.073825</td>
+      <td>2.836241</td>
+      <td>0.382410</td>
+      <td>5.410885</td>
+    </tr>
+    <tr>
+      <th>Domantas Sabonis</th>
+      <td>21.4</td>
+      <td>0.535853</td>
+      <td>0.322420</td>
+      <td>-0.223409</td>
+      <td>0.911091</td>
+      <td>1.881657</td>
+      <td>2.722910</td>
+      <td>0.650565</td>
+      <td>-1.094894</td>
+      <td>1.641565</td>
+      <td>7.347760</td>
+    </tr>
+    <tr>
+      <th>Karl-Anthony Towns</th>
+      <td>27.8</td>
+      <td>-0.784616</td>
+      <td>1.349935</td>
+      <td>2.251271</td>
+      <td>1.282022</td>
+      <td>0.060531</td>
+      <td>1.224230</td>
+      <td>-0.195953</td>
+      <td>-0.780403</td>
+      <td>1.389734</td>
+      <td>5.796752</td>
+    </tr>
+    <tr>
+      <th>Victor Wembanyama</th>
+      <td>30.1</td>
+      <td>-1.419457</td>
+      <td>0.733426</td>
+      <td>0.549929</td>
+      <td>0.540160</td>
+      <td>-0.079555</td>
+      <td>-0.329956</td>
+      <td>-0.195953</td>
+      <td>1.735523</td>
+      <td>0.130579</td>
+      <td>1.664696</td>
+    </tr>
+    <tr>
+      <th>Pascal Siakam</th>
+      <td>30.6</td>
+      <td>-1.114733</td>
+      <td>0.550757</td>
+      <td>0.859264</td>
+      <td>1.349464</td>
+      <td>-0.266338</td>
+      <td>1.612777</td>
+      <td>1.073825</td>
+      <td>-1.094894</td>
+      <td>0.886072</td>
+      <td>3.856194</td>
+    </tr>
+    <tr>
+      <th>Myles Turner</th>
+      <td>34.4</td>
+      <td>-0.403712</td>
+      <td>0.676342</td>
+      <td>1.323266</td>
+      <td>0.337834</td>
+      <td>-0.453120</td>
+      <td>-0.607490</td>
+      <td>-0.619213</td>
+      <td>2.050014</td>
+      <td>-0.247168</td>
+      <td>2.056755</td>
+    </tr>
+    <tr>
+      <th>Bam Adebayo</th>
+      <td>35.6</td>
+      <td>-0.238653</td>
+      <td>0.767677</td>
+      <td>-0.996746</td>
+      <td>1.029115</td>
+      <td>0.667573</td>
+      <td>0.558150</td>
+      <td>2.343603</td>
+      <td>-0.623158</td>
+      <td>1.137903</td>
+      <td>4.645465</td>
+    </tr>
+    <tr>
+      <th>Nikola Vucevic</th>
+      <td>35.7</td>
+      <td>-0.962371</td>
+      <td>1.041681</td>
+      <td>1.323266</td>
+      <td>0.557021</td>
+      <td>1.227920</td>
+      <td>0.447137</td>
+      <td>-0.195953</td>
+      <td>-0.780403</td>
+      <td>0.130579</td>
+      <td>2.788876</td>
+    </tr>
+    <tr>
+      <th>Kristaps Porzingis</th>
+      <td>41.4</td>
+      <td>-1.114733</td>
+      <td>1.578272</td>
+      <td>1.787269</td>
+      <td>0.826789</td>
+      <td>-0.172946</td>
+      <td>-0.052423</td>
+      <td>0.227306</td>
+      <td>0.477560</td>
+      <td>0.130579</td>
+      <td>3.687672</td>
+    </tr>
+    <tr>
+      <th>Walker Kessler</th>
+      <td>41.9</td>
+      <td>1.945199</td>
+      <td>-2.269202</td>
+      <td>-0.996746</td>
+      <td>-0.370307</td>
+      <td>1.181224</td>
+      <td>-0.662996</td>
+      <td>-1.042472</td>
+      <td>2.678996</td>
+      <td>-0.876745</td>
+      <td>-0.413049</td>
+    </tr>
+    <tr>
+      <th>Chet Holmgren</th>
+      <td>42.6</td>
+      <td>-1.089340</td>
+      <td>0.425171</td>
+      <td>1.013931</td>
+      <td>0.034345</td>
+      <td>0.387400</td>
+      <td>-0.440970</td>
+      <td>-1.042472</td>
+      <td>1.263787</td>
+      <td>-0.624914</td>
+      <td>-0.073060</td>
+    </tr>
+    <tr>
+      <th>Evan Mobley</th>
+      <td>45.2</td>
+      <td>-0.187866</td>
+      <td>-0.374007</td>
+      <td>-0.532744</td>
+      <td>0.523300</td>
+      <td>0.434096</td>
+      <td>0.280617</td>
+      <td>0.650565</td>
+      <td>0.792051</td>
+      <td>0.256495</td>
+      <td>1.842507</td>
+    </tr>
+    <tr>
+      <th>Nicolas Claxton</th>
+      <td>49.7</td>
+      <td>1.653172</td>
+      <td>-1.527108</td>
+      <td>-0.996746</td>
+      <td>-0.134260</td>
+      <td>0.667573</td>
+      <td>-0.329956</td>
+      <td>0.650565</td>
+      <td>2.050014</td>
+      <td>-0.498999</td>
+      <td>1.534257</td>
+    </tr>
+    <tr>
+      <th>Deandre Ayton</th>
+      <td>53.4</td>
+      <td>0.612033</td>
+      <td>0.459422</td>
+      <td>-0.842079</td>
+      <td>0.354695</td>
+      <td>0.947747</td>
+      <td>-0.440970</td>
+      <td>-0.619213</td>
+      <td>-0.623158</td>
+      <td>0.004664</td>
+      <td>-0.146858</td>
+    </tr>
+    <tr>
+      <th>Brook Lopez</th>
+      <td>57.5</td>
+      <td>-0.619557</td>
+      <td>0.904679</td>
+      <td>1.477934</td>
+      <td>0.034345</td>
+      <td>-1.153553</td>
+      <td>-0.718503</td>
+      <td>-1.042472</td>
+      <td>1.578278</td>
+      <td>-0.624914</td>
+      <td>-0.163764</td>
+    </tr>
+    <tr>
+      <th>Jarrett Allen</th>
+      <td>59.5</td>
+      <td>1.183390</td>
+      <td>0.048416</td>
+      <td>-0.996746</td>
+      <td>0.000624</td>
+      <td>0.620878</td>
+      <td>-0.496476</td>
+      <td>-0.195953</td>
+      <td>0.005824</td>
+      <td>-0.373083</td>
+      <td>-0.203127</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>--
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Holistically-comparing-players-and-re-ranking-players-according-to-punts">Holistically comparing players and re-ranking players according to punts<a class="anchor-link" href="#Holistically-comparing-players-and-re-ranking-players-according-to-punts"> </a></h2><p>In the data tables presented so far, I've included a <code>total_z</code> column.
+Roughly speaking, if you wanted to find the most-general "best" player, you'd want the player with 
+the highest z-score across the board.
+This can be simply evaluated by summing up a player's zscores.
+Revisiting the data, we can see that higher z-score does not directly correlate to higher ADP.
+ADP will generally factor in things like player availability (injuries) and season outlook, for which our z-score has not accounted.</p>
+<p>As a team is constructed through the draft, perhaps you begin to identify (perhaps by using z-scores) certain categories you want to punt.
+If you want to commit to the punt, you can re-evaluate the remaining players solely based on the categories on which you're focusing.
+For example, the table below examines a scenario where we focus on PTS, REB, AST, STL, and FT%.
+In this case, we pretend the other 4 categories don't exist and only examine these 5;
+compute the z-scores and sum across these 5 categories.
+By neglecting certain categories, the new "best" players can shift around and this may help prioritze players for the punt.</p>
+<p>As a counterpoint, some leagues might be more amenable to drafting the best player available. 
+In this situation, you do not draft based on your team build, but instead try to draft the best players to maximize the amount
+of "draft capital" you have throughout the season.
+Drafting the best player available means the player will likely have good value to both you <em>and</em> opposing league managers.
+The team you draft might not have any notably strong or weak categories, but you have a lot of valuable trade pieces
+for which you can then re-construct your team (if your league trades a lot).
+If you draft based on your punt, your valuation of the player <em>will noticeably differ</em> from another manager's valuation of a player.
+For example, our PTS, REB, AST, STL, FT% focus says Trae Young is the 8th best player in the league even though his ADP is 23.5. 
+Spending your first round pick on Trae Young means you likely miss out on some players that would be highly valued by your competition (like missing out on Embiid or Giannis).
+In my experience, the fact that there's no objective valuation for a player is what makes fantasy basketball trades so interesting and complex.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">FOCUS_COLS</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;PTS&quot;</span><span class="p">,</span> <span class="s2">&quot;TREB&quot;</span><span class="p">,</span> <span class="s2">&quot;AST&quot;</span><span class="p">,</span> <span class="s2">&quot;STL&quot;</span><span class="p">,</span> <span class="s2">&quot;FT%&quot;</span><span class="p">]</span>
+<span class="p">(</span>
+    <span class="n">df</span><span class="p">[</span><span class="n">FOCUS_COLS</span><span class="p">]</span>
+    <span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">zscore</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">assign</span><span class="p">(</span>
+        <span class="n">ADP</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;ADP&quot;</span><span class="p">],</span>
+        <span class="n">total_z</span><span class="o">=</span><span class="k">lambda</span> <span class="n">df_</span><span class="p">:</span> <span class="n">df_</span><span class="p">[</span><span class="n">FOCUS_COLS</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+        <span class="n">new_rank</span><span class="o">=</span><span class="k">lambda</span> <span class="n">df_</span><span class="p">:</span> <span class="n">df_</span><span class="p">[</span><span class="s2">&quot;total_z&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">rank</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">&quot;total_z&quot;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span>
+    <span class="p">[[</span><span class="s2">&quot;ADP&quot;</span><span class="p">,</span> <span class="s2">&quot;new_rank&quot;</span><span class="p">,</span> <span class="o">*</span><span class="n">FOCUS_COLS</span><span class="p">,</span> <span class="s2">&quot;total_z&quot;</span><span class="p">]]</span>
+<span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>ADP</th>
+      <th>new_rank</th>
+      <th>PTS</th>
+      <th>TREB</th>
+      <th>AST</th>
+      <th>STL</th>
+      <th>FT%</th>
+      <th>total_z</th>
+    </tr>
+    <tr>
+      <th>PLAYER</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Nikola Jokic</th>
+      <td>1.1</td>
+      <td>1.0</td>
+      <td>1.427499</td>
+      <td>2.534388</td>
+      <td>2.994016</td>
+      <td>1.470340</td>
+      <td>0.457226</td>
+      <td>8.883470</td>
+    </tr>
+    <tr>
+      <th>LaMelo Ball</th>
+      <td>12.6</td>
+      <td>2.0</td>
+      <td>1.247166</td>
+      <td>0.551101</td>
+      <td>2.462605</td>
+      <td>2.108924</td>
+      <td>0.913282</td>
+      <td>7.283079</td>
+    </tr>
+    <tr>
+      <th>Luka Doncic</th>
+      <td>3.2</td>
+      <td>3.0</td>
+      <td>2.771800</td>
+      <td>1.310658</td>
+      <td>2.221055</td>
+      <td>1.151048</td>
+      <td>-0.244399</td>
+      <td>7.210161</td>
+    </tr>
+    <tr>
+      <th>Tyrese Haliburton</th>
+      <td>5.7</td>
+      <td>4.0</td>
+      <td>1.230773</td>
+      <td>-0.714827</td>
+      <td>3.380496</td>
+      <td>2.428216</td>
+      <td>0.878201</td>
+      <td>7.202859</td>
+    </tr>
+    <tr>
+      <th>James Harden</th>
+      <td>22.4</td>
+      <td>5.0</td>
+      <td>0.788137</td>
+      <td>0.382310</td>
+      <td>3.428806</td>
+      <td>0.831756</td>
+      <td>1.076995</td>
+      <td>6.508005</td>
+    </tr>
+    <tr>
+      <th>Joel Embiid</th>
+      <td>2.6</td>
+      <td>6.0</td>
+      <td>2.755406</td>
+      <td>1.901424</td>
+      <td>0.336963</td>
+      <td>0.512464</td>
+      <td>0.632632</td>
+      <td>6.138889</td>
+    </tr>
+    <tr>
+      <th>Shai Gilgeous-Alexander</th>
+      <td>6.8</td>
+      <td>7.0</td>
+      <td>2.263589</td>
+      <td>-0.292851</td>
+      <td>1.013303</td>
+      <td>1.789632</td>
+      <td>1.193932</td>
+      <td>5.967605</td>
+    </tr>
+    <tr>
+      <th>Trae Young</th>
+      <td>23.5</td>
+      <td>8.0</td>
+      <td>1.853741</td>
+      <td>-0.968013</td>
+      <td>3.138946</td>
+      <td>0.193172</td>
+      <td>1.322564</td>
+      <td>5.540409</td>
+    </tr>
+    <tr>
+      <th>Jayson Tatum</th>
+      <td>4.5</td>
+      <td>9.0</td>
+      <td>2.247195</td>
+      <td>1.057472</td>
+      <td>0.626823</td>
+      <td>0.512464</td>
+      <td>0.889895</td>
+      <td>5.333848</td>
+    </tr>
+    <tr>
+      <th>Dejounte Murray</th>
+      <td>33.1</td>
+      <td>10.0</td>
+      <td>0.804531</td>
+      <td>0.340113</td>
+      <td>1.399784</td>
+      <td>2.108924</td>
+      <td>0.468920</td>
+      <td>5.122272</td>
+    </tr>
+    <tr>
+      <th>Paul George</th>
+      <td>30.3</td>
+      <td>11.0</td>
+      <td>1.181591</td>
+      <td>0.171322</td>
+      <td>0.723443</td>
+      <td>1.789632</td>
+      <td>0.995139</td>
+      <td>4.861127</td>
+    </tr>
+    <tr>
+      <th>Anthony Edwards</th>
+      <td>14.6</td>
+      <td>12.0</td>
+      <td>1.738984</td>
+      <td>0.044729</td>
+      <td>0.675133</td>
+      <td>2.428216</td>
+      <td>-0.150849</td>
+      <td>4.736213</td>
+    </tr>
+    <tr>
+      <th>Domantas Sabonis</th>
+      <td>21.4</td>
+      <td>13.0</td>
+      <td>0.607804</td>
+      <td>2.829772</td>
+      <td>1.834575</td>
+      <td>-0.126120</td>
+      <td>-0.454887</td>
+      <td>4.691143</td>
+    </tr>
+    <tr>
+      <th>Kyrie Irving</th>
+      <td>15.2</td>
+      <td>14.0</td>
+      <td>1.788165</td>
+      <td>-0.377247</td>
+      <td>0.964993</td>
+      <td>0.831756</td>
+      <td>1.474583</td>
+      <td>4.682251</td>
+    </tr>
+    <tr>
+      <th>Giannis Antetokounmpo</th>
+      <td>10.1</td>
+      <td>15.0</td>
+      <td>2.378346</td>
+      <td>2.492191</td>
+      <td>1.061614</td>
+      <td>-0.126120</td>
+      <td>-1.156512</td>
+      <td>4.649518</td>
+    </tr>
+    <tr>
+      <th>Jimmy Butler</th>
+      <td>26.8</td>
+      <td>16.0</td>
+      <td>0.902894</td>
+      <td>0.002532</td>
+      <td>0.723443</td>
+      <td>2.108924</td>
+      <td>0.901589</td>
+      <td>4.639382</td>
+    </tr>
+    <tr>
+      <th>Donovan Mitchell</th>
+      <td>19.7</td>
+      <td>17.0</td>
+      <td>1.968498</td>
+      <td>-0.546037</td>
+      <td>0.433583</td>
+      <td>1.789632</td>
+      <td>0.913282</td>
+      <td>4.558959</td>
+    </tr>
+    <tr>
+      <th>Fred VanVleet</th>
+      <td>21.0</td>
+      <td>18.0</td>
+      <td>0.427471</td>
+      <td>-0.757025</td>
+      <td>1.399784</td>
+      <td>2.108924</td>
+      <td>1.240707</td>
+      <td>4.419862</td>
+    </tr>
+    <tr>
+      <th>Stephen Curry</th>
+      <td>6.6</td>
+      <td>19.0</td>
+      <td>2.001286</td>
+      <td>-0.039666</td>
+      <td>1.013303</td>
+      <td>-0.126120</td>
+      <td>1.544745</td>
+      <td>4.393549</td>
+    </tr>
+    <tr>
+      <th>Devin Booker</th>
+      <td>17.0</td>
+      <td>20.0</td>
+      <td>1.870135</td>
+      <td>-0.335049</td>
+      <td>1.351474</td>
+      <td>0.512464</td>
+      <td>0.924976</td>
+      <td>4.324000</td>
+    </tr>
+    <tr>
+      <th>Cade Cunningham</th>
+      <td>43.7</td>
+      <td>21.0</td>
+      <td>0.771743</td>
+      <td>0.297915</td>
+      <td>1.448094</td>
+      <td>1.151048</td>
+      <td>0.632632</td>
+      <td>4.301433</td>
+    </tr>
+    <tr>
+      <th>Damian Lillard</th>
+      <td>9.6</td>
+      <td>22.0</td>
+      <td>2.198013</td>
+      <td>-0.714827</td>
+      <td>1.737954</td>
+      <td>-0.445412</td>
+      <td>1.451195</td>
+      <td>4.226922</td>
+    </tr>
+    <tr>
+      <th>Darius Garland</th>
+      <td>41.3</td>
+      <td>23.0</td>
+      <td>0.984864</td>
+      <td>-1.136804</td>
+      <td>2.076125</td>
+      <td>0.831756</td>
+      <td>1.112076</td>
+      <td>3.868017</td>
+    </tr>
+    <tr>
+      <th>Anthony Davis</th>
+      <td>11.6</td>
+      <td>24.0</td>
+      <td>1.476681</td>
+      <td>2.407796</td>
+      <td>-0.339378</td>
+      <td>0.512464</td>
+      <td>-0.267787</td>
+      <td>3.789775</td>
+    </tr>
+    <tr>
+      <th>Ja Morant</th>
+      <td>75.4</td>
+      <td>25.0</td>
+      <td>1.755378</td>
+      <td>0.044729</td>
+      <td>1.737954</td>
+      <td>0.512464</td>
+      <td>-0.326256</td>
+      <td>3.724269</td>
+    </tr>
+    <tr>
+      <th>Kawhi Leonard</th>
+      <td>26.6</td>
+      <td>26.0</td>
+      <td>1.214379</td>
+      <td>0.213520</td>
+      <td>0.095412</td>
+      <td>1.151048</td>
+      <td>0.948364</td>
+      <td>3.622722</td>
+    </tr>
+    <tr>
+      <th>Jrue Holiday</th>
+      <td>38.2</td>
+      <td>27.0</td>
+      <td>0.460259</td>
+      <td>-0.377247</td>
+      <td>1.737954</td>
+      <td>1.470340</td>
+      <td>0.305207</td>
+      <td>3.596514</td>
+    </tr>
+    <tr>
+      <th>Bam Adebayo</th>
+      <td>35.6</td>
+      <td>28.0</td>
+      <td>0.722561</td>
+      <td>1.732634</td>
+      <td>-0.049518</td>
+      <td>1.151048</td>
+      <td>0.001169</td>
+      <td>3.557895</td>
+    </tr>
+    <tr>
+      <th>Desmond Bane</th>
+      <td>20.4</td>
+      <td>29.0</td>
+      <td>1.116015</td>
+      <td>-0.124061</td>
+      <td>0.240343</td>
+      <td>0.831756</td>
+      <td>1.264095</td>
+      <td>3.328148</td>
+    </tr>
+    <tr>
+      <th>Kevin Durant</th>
+      <td>10.8</td>
+      <td>30.0</td>
+      <td>1.558651</td>
+      <td>0.340113</td>
+      <td>0.723443</td>
+      <td>-0.764705</td>
+      <td>1.381032</td>
+      <td>3.238534</td>
+    </tr>
+    <tr>
+      <th>LeBron James</th>
+      <td>25.5</td>
+      <td>31.0</td>
+      <td>1.788165</td>
+      <td>0.804286</td>
+      <td>1.206544</td>
+      <td>-0.445412</td>
+      <td>-0.244399</td>
+      <td>3.109184</td>
+    </tr>
+    <tr>
+      <th>DeMar DeRozan</th>
+      <td>48.7</td>
+      <td>32.0</td>
+      <td>1.460287</td>
+      <td>-0.461642</td>
+      <td>0.675133</td>
+      <td>0.193172</td>
+      <td>1.030220</td>
+      <td>2.897170</td>
+    </tr>
+    <tr>
+      <th>De'Aaron Fox</th>
+      <td>40.7</td>
+      <td>33.0</td>
+      <td>1.525863</td>
+      <td>-0.630432</td>
+      <td>1.254854</td>
+      <td>0.831756</td>
+      <td>-0.092381</td>
+      <td>2.889660</td>
+    </tr>
+    <tr>
+      <th>Jalen Brunson</th>
+      <td>32.2</td>
+      <td>34.0</td>
+      <td>1.378318</td>
+      <td>-0.841420</td>
+      <td>1.448094</td>
+      <td>0.193172</td>
+      <td>0.585857</td>
+      <td>2.764020</td>
+    </tr>
+    <tr>
+      <th>Pascal Siakam</th>
+      <td>30.6</td>
+      <td>35.0</td>
+      <td>1.034046</td>
+      <td>0.888682</td>
+      <td>0.868373</td>
+      <td>0.193172</td>
+      <td>-0.221012</td>
+      <td>2.763260</td>
+    </tr>
+    <tr>
+      <th>Mikal Bridges</th>
+      <td>19.1</td>
+      <td>36.0</td>
+      <td>1.575045</td>
+      <td>-0.461642</td>
+      <td>-0.049518</td>
+      <td>0.512464</td>
+      <td>1.147157</td>
+      <td>2.723506</td>
+    </tr>
+    <tr>
+      <th>Khris Middleton</th>
+      <td>87.4</td>
+      <td>37.0</td>
+      <td>0.493047</td>
+      <td>-0.250654</td>
+      <td>0.916683</td>
+      <td>0.193172</td>
+      <td>1.275789</td>
+      <td>2.628037</td>
+    </tr>
+    <tr>
+      <th>Jaylen Brown</th>
+      <td>40.9</td>
+      <td>38.0</td>
+      <td>1.738984</td>
+      <td>0.424508</td>
+      <td>0.047102</td>
+      <td>0.512464</td>
+      <td>-0.150849</td>
+      <td>2.572208</td>
+    </tr>
+    <tr>
+      <th>Karl-Anthony Towns</th>
+      <td>27.8</td>
+      <td>39.0</td>
+      <td>0.968470</td>
+      <td>1.184065</td>
+      <td>0.530203</td>
+      <td>-0.764705</td>
+      <td>0.597551</td>
+      <td>2.515584</td>
+    </tr>
+    <tr>
+      <th>Julius Randle</th>
+      <td>57.0</td>
+      <td>40.0</td>
+      <td>1.165197</td>
+      <td>1.817029</td>
+      <td>0.578513</td>
+      <td>-0.764705</td>
+      <td>-0.302868</td>
+      <td>2.493166</td>
+    </tr>
+    <tr>
+      <th>Jamal Murray</th>
+      <td>43.4</td>
+      <td>41.0</td>
+      <td>0.853713</td>
+      <td>-0.672630</td>
+      <td>1.351474</td>
+      <td>0.193172</td>
+      <td>0.597551</td>
+      <td>2.323279</td>
+    </tr>
+    <tr>
+      <th>Zion Williamson</th>
+      <td>70.1</td>
+      <td>42.0</td>
+      <td>1.591438</td>
+      <td>0.466706</td>
+      <td>0.481893</td>
+      <td>0.512464</td>
+      <td>-0.794006</td>
+      <td>2.258495</td>
+    </tr>
+    <tr>
+      <th>Markelle Fultz</th>
+      <td>94.0</td>
+      <td>43.0</td>
+      <td>-0.228285</td>
+      <td>-0.714827</td>
+      <td>1.303164</td>
+      <td>1.789632</td>
+      <td>0.094719</td>
+      <td>2.244403</td>
+    </tr>
+    <tr>
+      <th>Brandon Ingram</th>
+      <td>50.8</td>
+      <td>44.0</td>
+      <td>1.197985</td>
+      <td>-0.081863</td>
+      <td>1.013303</td>
+      <td>-0.764705</td>
+      <td>0.819732</td>
+      <td>2.184452</td>
+    </tr>
+    <tr>
+      <th>Josh Giddey</th>
+      <td>64.0</td>
+      <td>45.0</td>
+      <td>0.247138</td>
+      <td>1.015274</td>
+      <td>1.448094</td>
+      <td>-0.126120</td>
+      <td>-0.688762</td>
+      <td>1.895624</td>
+    </tr>
+    <tr>
+      <th>Zach LaVine</th>
+      <td>52.8</td>
+      <td>46.0</td>
+      <td>1.509469</td>
+      <td>-0.461642</td>
+      <td>0.481893</td>
+      <td>-0.445412</td>
+      <td>0.796345</td>
+      <td>1.880652</td>
+    </tr>
+    <tr>
+      <th>Nikola Vucevic</th>
+      <td>35.7</td>
+      <td>47.0</td>
+      <td>0.263532</td>
+      <td>2.239005</td>
+      <td>-0.146138</td>
+      <td>-0.764705</td>
+      <td>0.281819</td>
+      <td>1.873514</td>
+    </tr>
+    <tr>
+      <th>Jordan Poole</th>
+      <td>53.5</td>
+      <td>48.0</td>
+      <td>1.017652</td>
+      <td>-0.925816</td>
+      <td>0.626823</td>
+      <td>-0.126120</td>
+      <td>1.275789</td>
+      <td>1.868328</td>
+    </tr>
+    <tr>
+      <th>Terry Rozier</th>
+      <td>83.4</td>
+      <td>49.0</td>
+      <td>0.624198</td>
+      <td>-0.672630</td>
+      <td>0.530203</td>
+      <td>0.831756</td>
+      <td>0.527388</td>
+      <td>1.840915</td>
+    </tr>
+    <tr>
+      <th>Chris Paul</th>
+      <td>68.4</td>
+      <td>50.0</td>
+      <td>-0.687315</td>
+      <td>-0.883618</td>
+      <td>1.931195</td>
+      <td>0.831756</td>
+      <td>0.620938</td>
+      <td>1.812957</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="A-framework-or-starting-point-for-evaluating-trades">A framework or starting point for evaluating trades<a class="anchor-link" href="#A-framework-or-starting-point-for-evaluating-trades"> </a></h2><p>Even though I just said there's no objective valuation for fantasy basketball players, we can still try to establish some princples when it comes to conducting fair trades.</p>
+<p>When trading, people quickly react with "X got fleeced". 
+However, if it was so easy to identify X got fleeced, why would X have made the trade in the first place?
+It ultimately comes down to the values each player has on the new team.</p>
+<p>For example, having notoriously-inefficient shooter like Fred Vanvleet is bad if you need to keep a high FG%, but great if you're looking for AST and STL.
+If you're looking to add FVV to your AST/STL focus, his "value" comes from how many z-scores of AST/STL by which he could increase your team. 
+If you don't care about FG%, you don't need to look into his abysmal FG% z-score.</p>
+<p>Conversely, if you're trying to build a reasonable trade offer for FVV, it helps to understand the team composition of your trade counterpart.
+If your trade counterpart is looking to optimize on something like BLK and PTS, then examine who on your roster can add as many BLK/PTS z-scores as FVV adds AST/STL z-scores.
+In summary, valuations of players for trades comes down to the dimensions/categories that are relevant for you (and then any personal opinions/availability outlook/player news that could affect projections).</p>
+<p>Or, yes, you could try to fleece your opponent and trade a player with "value 10" for an unequivocally player with "value 15", but this is probably not the best way to conduct fantasy basketball trades.
+If you are successful, then this is certainly one way to try and increase the "net worth" of your team without any considerations for winning categories.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Building-an-interactive-tool">Building an interactive tool<a class="anchor-link" href="#Building-an-interactive-tool"> </a></h2><p>I've updated the <a href="https://ahy3nz-catsketball-catsketballapp-aif99i.streamlit.app/">streamlit fantasy basketball dashboard</a> to apply these ideas <a href="https://github.com/ahy3nz/catsketball">github repo here</a></p>
+
+</div>
+</div>
+</div>
+</div>
+
+
+
+  </div><a class="u-url" href="/fastpayges/personal/data%20science/basketball/2023/08/29/fantasybasketball-zscores.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/fastpayges/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="https://ahy3nz.github.io/fastpayges/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/fastpayges/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>Fastpages-based website</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li>
+  <a rel="me" href="https://github.com/ahy3nz" target="_blank" title="github">
+    <svg class="svg-icon grey">
+      <use xlink:href="/fastpayges/assets/minima-social-icons.svg#github"></use>
+    </svg>
+  </a>
+</li>
+</ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
