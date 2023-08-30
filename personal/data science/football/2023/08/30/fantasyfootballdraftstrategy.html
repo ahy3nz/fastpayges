@@ -303,12 +303,12 @@ Our RB1, McCaffrey, has fantasy output of 247.4, which is 60.8 above our next po
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stderr output_text">
-<pre>/tmp/ipykernel_4163/4158155553.py:4: SettingWithCopyWarning: 
+<pre>/tmp/ipykernel_6649/4158155553.py:4: SettingWithCopyWarning: 
 A value is trying to be set on a copy of a slice from a DataFrame
 
 See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
   best_player["VONPP"] = best_player[PROJECTION_COL] - avg_next_player
-/tmp/ipykernel_4163/4158155553.py:4: SettingWithCopyWarning: 
+/tmp/ipykernel_6649/4158155553.py:4: SettingWithCopyWarning: 
 A value is trying to be set on a copy of a slice from a DataFrame
 
 See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
@@ -515,7 +515,7 @@ Name: 18, dtype: object</pre>
                         <span class="n">df</span><span class="p">[</span>
                             <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">"Position"</span><span class="p">]</span> <span class="o">==</span> <span class="n">pos</span><span class="p">)</span> <span class="o">&amp;</span>
                             <span class="p">(</span>
-                                <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">"Rank"</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">best_player_available</span><span class="p">[</span><span class="s2">"Rank"</span><span class="p">]</span> <span class="o">+</span> <span class="n">count_forward</span> <span class="o">-</span> <span class="n">blur</span><span class="p">)</span> <span class="o">|</span>
+                                <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">"Rank"</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">best_player_available</span><span class="p">[</span><span class="s2">"Rank"</span><span class="p">]</span> <span class="o">+</span> <span class="n">count_forward</span> <span class="o">-</span> <span class="n">blur</span><span class="p">)</span> <span class="o">&amp;</span>
                                 <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">"Rank"</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">best_player_available</span><span class="p">[</span><span class="s2">"Rank"</span><span class="p">]</span> <span class="o">+</span> <span class="n">count_forward</span> <span class="o">+</span> <span class="n">blur</span><span class="p">)</span>
                             <span class="p">)</span>
                         <span class="p">]</span>
@@ -571,10 +571,8 @@ Name: 18, dtype: object</pre>
 <p>This can be a little risky, because our look aheads are variable and might not reflect real draft events, thus the lookaheads are even more incorrect. 
 We assume first round second pick has to look 17 places down the WR/TE/QB list, which is a worst-case estimate if everyone else drafts the same position as you.
 We may have deduced WR1 versus WR18 to have a huge gap (and acted upon that), but perhaps other league managers will draft other positions, so we really should have been comparing WR1 versus WR14 if that came out to be next-best available WR</p>
-<p>Interestingly, we see that RB2 not picked until 1.08. 
-QB1 is picked 1.05, which is extremely early if you ask some veteran fantasy football players.
-TE2 is picked 2.05, which also seems fairly early. 
-The first round appears to focus on WRs over RBs, which somewhat tracks with intuition.</p>
+<p>Interestingly, we see WR1 is not drafted until 2.01.
+Lots of QBs drafted in the first round, and even TE2 drafted first round.</p>
 <p>I think what I am trying to most rationalize is the early QB. 
 It's true that QB quality can quickly fall off after the top3-5 QBs, so there can be a strong opportunity here.</p>
 <p>However, this drafting approach doesn't strongly look into roster compositions, where we generally fill a roster with lots of WR/RB, so we go deep into the wR/RB rankings.</p>
@@ -645,23 +643,11 @@ While we can't play all of our QBs, we've properly seized on the opportunity to 
       <td>227.9</td>
       <td>TE</td>
       <td>1</td>
-      <td>126.002857</td>
+      <td>122.866667</td>
       <td>10</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>18</td>
-      <td>Justin Jefferson</td>
-      <td>WR1</td>
-      <td>MIN</td>
-      <td>252.7</td>
-      <td>WR</td>
-      <td>1</td>
-      <td>123.787000</td>
-      <td>17</td>
-    </tr>
-    <tr>
-      <th>2</th>
       <td>19</td>
       <td>Christian McCaffrey</td>
       <td>RB1</td>
@@ -669,35 +655,11 @@ While we can't play all of our QBs, we've properly seized on the opportunity to 
       <td>247.4</td>
       <td>RB</td>
       <td>1</td>
-      <td>117.314706</td>
-      <td>15</td>
+      <td>88.000000</td>
+      <td>17</td>
     </tr>
     <tr>
-      <th>3</th>
-      <td>20</td>
-      <td>Tyreek Hill</td>
-      <td>WR2</td>
-      <td>MIA</td>
-      <td>245.9</td>
-      <td>WR</td>
-      <td>2</td>
-      <td>116.987000</td>
-      <td>13</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>22</td>
-      <td>Ja'Marr Chase</td>
-      <td>WR3</td>
-      <td>CIN</td>
-      <td>244.0</td>
-      <td>WR</td>
-      <td>3</td>
-      <td>115.087000</td>
-      <td>11</td>
-    </tr>
-    <tr>
-      <th>5</th>
+      <th>2</th>
       <td>1</td>
       <td>Josh Allen</td>
       <td>QB1</td>
@@ -705,35 +667,11 @@ While we can't play all of our QBs, we've properly seized on the opportunity to 
       <td>372.5</td>
       <td>QB</td>
       <td>1</td>
-      <td>114.706061</td>
-      <td>4</td>
+      <td>79.000000</td>
+      <td>8</td>
     </tr>
     <tr>
-      <th>6</th>
-      <td>23</td>
-      <td>Cooper Kupp</td>
-      <td>WR4</td>
-      <td>LAR</td>
-      <td>243.3</td>
-      <td>WR</td>
-      <td>4</td>
-      <td>114.387000</td>
-      <td>7</td>
-    </tr>
-    <tr>
-      <th>7</th>
-      <td>2</td>
-      <td>Jalen Hurts</td>
-      <td>QB2</td>
-      <td>PHI</td>
-      <td>369.0</td>
-      <td>QB</td>
-      <td>2</td>
-      <td>111.206061</td>
-      <td>2</td>
-    </tr>
-    <tr>
-      <th>8</th>
+      <th>3</th>
       <td>25</td>
       <td>Austin Ekeler</td>
       <td>RB2</td>
@@ -741,35 +679,23 @@ While we can't play all of our QBs, we've properly seized on the opportunity to 
       <td>238.3</td>
       <td>RB</td>
       <td>2</td>
-      <td>108.214706</td>
-      <td>3</td>
+      <td>73.500000</td>
+      <td>13</td>
     </tr>
     <tr>
-      <th>9</th>
-      <td>3</td>
-      <td>Patrick Mahomes</td>
-      <td>QB3</td>
-      <td>KC</td>
-      <td>361.0</td>
+      <th>4</th>
+      <td>2</td>
+      <td>Jalen Hurts</td>
+      <td>QB2</td>
+      <td>PHI</td>
+      <td>369.0</td>
       <td>QB</td>
-      <td>3</td>
-      <td>103.206061</td>
-      <td>1</td>
+      <td>2</td>
+      <td>66.866667</td>
+      <td>6</td>
     </tr>
     <tr>
-      <th>10</th>
-      <td>30</td>
-      <td>Stefon Diggs</td>
-      <td>WR5</td>
-      <td>BUF</td>
-      <td>229.6</td>
-      <td>WR</td>
-      <td>5</td>
-      <td>100.687000</td>
-      <td>19</td>
-    </tr>
-    <tr>
-      <th>11</th>
+      <th>5</th>
       <td>31</td>
       <td>Bijan Robinson</td>
       <td>RB3</td>
@@ -777,31 +703,103 @@ While we can't play all of our QBs, we've properly seized on the opportunity to 
       <td>227.9</td>
       <td>RB</td>
       <td>3</td>
-      <td>97.814706</td>
+      <td>55.133333</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>3</td>
+      <td>Patrick Mahomes</td>
+      <td>QB3</td>
+      <td>KC</td>
+      <td>361.0</td>
+      <td>QB</td>
+      <td>3</td>
+      <td>51.933333</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>61</td>
+      <td>Mark Andrews</td>
+      <td>TE2</td>
+      <td>BAL</td>
+      <td>171.6</td>
+      <td>TE</td>
+      <td>2</td>
+      <td>31.733333</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>4</td>
+      <td>Joe Burrow</td>
+      <td>QB4</td>
+      <td>CIN</td>
+      <td>345.7</td>
+      <td>QB</td>
+      <td>4</td>
+      <td>28.633333</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>5</td>
+      <td>Lamar Jackson</td>
+      <td>QB5</td>
+      <td>BAL</td>
+      <td>325.4</td>
+      <td>QB</td>
+      <td>5</td>
+      <td>8.333333</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>18</td>
+      <td>Justin Jefferson</td>
+      <td>WR1</td>
+      <td>MIN</td>
+      <td>252.7</td>
+      <td>WR</td>
+      <td>1</td>
+      <td>84.433333</td>
+      <td>19</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>20</td>
+      <td>Tyreek Hill</td>
+      <td>WR2</td>
+      <td>MIA</td>
+      <td>245.9</td>
+      <td>WR</td>
+      <td>2</td>
+      <td>76.233333</td>
       <td>17</td>
     </tr>
     <tr>
       <th>12</th>
-      <td>35</td>
-      <td>A.J. Brown</td>
-      <td>WR6</td>
-      <td>PHI</td>
-      <td>222.1</td>
+      <td>22</td>
+      <td>Ja'Marr Chase</td>
+      <td>WR3</td>
+      <td>CIN</td>
+      <td>244.0</td>
       <td>WR</td>
-      <td>6</td>
-      <td>93.187000</td>
+      <td>3</td>
+      <td>72.966667</td>
       <td>15</td>
     </tr>
     <tr>
       <th>13</th>
-      <td>37</td>
-      <td>Garrett Wilson</td>
-      <td>WR7</td>
-      <td>NYJ</td>
-      <td>221.2</td>
+      <td>23</td>
+      <td>Cooper Kupp</td>
+      <td>WR4</td>
+      <td>LAR</td>
+      <td>243.3</td>
       <td>WR</td>
-      <td>7</td>
-      <td>92.287000</td>
+      <td>4</td>
+      <td>68.200000</td>
       <td>13</td>
     </tr>
     <tr>
@@ -813,7 +811,7 @@ While we can't play all of our QBs, we've properly seized on the opportunity to 
       <td>221.0</td>
       <td>RB</td>
       <td>4</td>
-      <td>90.914706</td>
+      <td>56.200000</td>
       <td>11</td>
     </tr>
     <tr>
@@ -825,47 +823,11 @@ While we can't play all of our QBs, we've properly seized on the opportunity to 
       <td>219.9</td>
       <td>RB</td>
       <td>5</td>
-      <td>89.814706</td>
+      <td>53.133333</td>
       <td>9</td>
     </tr>
     <tr>
       <th>16</th>
-      <td>4</td>
-      <td>Joe Burrow</td>
-      <td>QB4</td>
-      <td>CIN</td>
-      <td>345.7</td>
-      <td>QB</td>
-      <td>4</td>
-      <td>87.906061</td>
-      <td>4</td>
-    </tr>
-    <tr>
-      <th>17</th>
-      <td>44</td>
-      <td>CeeDee Lamb</td>
-      <td>WR8</td>
-      <td>DAL</td>
-      <td>214.1</td>
-      <td>WR</td>
-      <td>8</td>
-      <td>85.187000</td>
-      <td>5</td>
-    </tr>
-    <tr>
-      <th>18</th>
-      <td>45</td>
-      <td>Amon-Ra St. Brown</td>
-      <td>WR9</td>
-      <td>DET</td>
-      <td>213.9</td>
-      <td>WR</td>
-      <td>9</td>
-      <td>84.987000</td>
-      <td>3</td>
-    </tr>
-    <tr>
-      <th>19</th>
       <td>43</td>
       <td>Derrick Henry</td>
       <td>RB6</td>
@@ -873,23 +835,11 @@ While we can't play all of our QBs, we've properly seized on the opportunity to 
       <td>214.2</td>
       <td>RB</td>
       <td>6</td>
-      <td>84.114706</td>
-      <td>1</td>
+      <td>45.200000</td>
+      <td>7</td>
     </tr>
     <tr>
-      <th>20</th>
-      <td>47</td>
-      <td>Davante Adams</td>
-      <td>WR10</td>
-      <td>LV</td>
-      <td>212.9</td>
-      <td>WR</td>
-      <td>10</td>
-      <td>83.987000</td>
-      <td>19</td>
-    </tr>
-    <tr>
-      <th>21</th>
+      <th>17</th>
       <td>46</td>
       <td>Saquon Barkley</td>
       <td>RB7</td>
@@ -897,11 +847,11 @@ While we can't play all of our QBs, we've properly seized on the opportunity to 
       <td>213.6</td>
       <td>RB</td>
       <td>7</td>
-      <td>83.514706</td>
-      <td>17</td>
+      <td>40.833333</td>
+      <td>5</td>
     </tr>
     <tr>
-      <th>22</th>
+      <th>18</th>
       <td>48</td>
       <td>Josh Jacobs</td>
       <td>RB8</td>
@@ -909,11 +859,83 @@ While we can't play all of our QBs, we've properly seized on the opportunity to 
       <td>207.5</td>
       <td>RB</td>
       <td>8</td>
-      <td>77.414706</td>
+      <td>31.700000</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>30</td>
+      <td>Stefon Diggs</td>
+      <td>WR5</td>
+      <td>BUF</td>
+      <td>229.6</td>
+      <td>WR</td>
+      <td>5</td>
+      <td>5.300000</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>35</td>
+      <td>A.J. Brown</td>
+      <td>WR6</td>
+      <td>PHI</td>
+      <td>222.1</td>
+      <td>WR</td>
+      <td>6</td>
+      <td>64.333333</td>
+      <td>19</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>37</td>
+      <td>Garrett Wilson</td>
+      <td>WR7</td>
+      <td>NYJ</td>
+      <td>221.2</td>
+      <td>WR</td>
+      <td>7</td>
+      <td>61.975000</td>
+      <td>17</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>44</td>
+      <td>CeeDee Lamb</td>
+      <td>WR8</td>
+      <td>DAL</td>
+      <td>214.1</td>
+      <td>WR</td>
+      <td>8</td>
+      <td>51.200000</td>
       <td>15</td>
     </tr>
     <tr>
       <th>23</th>
+      <td>45</td>
+      <td>Amon-Ra St. Brown</td>
+      <td>WR9</td>
+      <td>DET</td>
+      <td>213.9</td>
+      <td>WR</td>
+      <td>9</td>
+      <td>48.766667</td>
+      <td>13</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>47</td>
+      <td>Davante Adams</td>
+      <td>WR10</td>
+      <td>LV</td>
+      <td>212.9</td>
+      <td>WR</td>
+      <td>10</td>
+      <td>45.900000</td>
+      <td>11</td>
+    </tr>
+    <tr>
+      <th>25</th>
       <td>49</td>
       <td>Chris Olave</td>
       <td>WR11</td>
@@ -921,11 +943,11 @@ While we can't play all of our QBs, we've properly seized on the opportunity to 
       <td>202.2</td>
       <td>WR</td>
       <td>11</td>
-      <td>73.287000</td>
-      <td>13</td>
+      <td>33.933333</td>
+      <td>9</td>
     </tr>
     <tr>
-      <th>24</th>
+      <th>26</th>
       <td>51</td>
       <td>Tee Higgins</td>
       <td>WR12</td>
@@ -933,32 +955,8 @@ While we can't play all of our QBs, we've properly seized on the opportunity to 
       <td>199.5</td>
       <td>WR</td>
       <td>12</td>
-      <td>70.587000</td>
-      <td>11</td>
-    </tr>
-    <tr>
-      <th>25</th>
-      <td>61</td>
-      <td>Mark Andrews</td>
-      <td>TE2</td>
-      <td>BAL</td>
-      <td>171.6</td>
-      <td>TE</td>
-      <td>2</td>
-      <td>69.702857</td>
-      <td>4</td>
-    </tr>
-    <tr>
-      <th>26</th>
-      <td>5</td>
-      <td>Lamar Jackson</td>
-      <td>QB5</td>
-      <td>BAL</td>
-      <td>325.4</td>
-      <td>QB</td>
-      <td>5</td>
-      <td>67.606061</td>
-      <td>4</td>
+      <td>29.833333</td>
+      <td>7</td>
     </tr>
     <tr>
       <th>27</th>
@@ -969,7 +967,7 @@ While we can't play all of our QBs, we've properly seized on the opportunity to 
       <td>196.2</td>
       <td>WR</td>
       <td>13</td>
-      <td>67.287000</td>
+      <td>25.166667</td>
       <td>5</td>
     </tr>
     <tr>
@@ -981,7 +979,7 @@ While we can't play all of our QBs, we've properly seized on the opportunity to 
       <td>194.3</td>
       <td>WR</td>
       <td>14</td>
-      <td>65.387000</td>
+      <td>19.200000</td>
       <td>3</td>
     </tr>
     <tr>
@@ -993,35 +991,11 @@ While we can't play all of our QBs, we've properly seized on the opportunity to 
       <td>188.7</td>
       <td>WR</td>
       <td>15</td>
-      <td>59.787000</td>
+      <td>7.433333</td>
       <td>1</td>
     </tr>
     <tr>
       <th>30</th>
-      <td>6</td>
-      <td>Justin Herbert</td>
-      <td>QB6</td>
-      <td>LAC</td>
-      <td>314.0</td>
-      <td>QB</td>
-      <td>6</td>
-      <td>56.206061</td>
-      <td>10</td>
-    </tr>
-    <tr>
-      <th>31</th>
-      <td>7</td>
-      <td>Justin Fields</td>
-      <td>QB7</td>
-      <td>CHI</td>
-      <td>311.8</td>
-      <td>QB</td>
-      <td>7</td>
-      <td>54.006061</td>
-      <td>8</td>
-    </tr>
-    <tr>
-      <th>32</th>
       <td>55</td>
       <td>Rhamondre Stevenson</td>
       <td>RB9</td>
@@ -1029,23 +1003,35 @@ While we can't play all of our QBs, we've properly seized on the opportunity to 
       <td>183.9</td>
       <td>RB</td>
       <td>9</td>
-      <td>53.814706</td>
-      <td>15</td>
+      <td>49.133333</td>
+      <td>19</td>
+    </tr>
+    <tr>
+      <th>31</th>
+      <td>6</td>
+      <td>Justin Herbert</td>
+      <td>QB6</td>
+      <td>LAC</td>
+      <td>314.0</td>
+      <td>QB</td>
+      <td>6</td>
+      <td>42.100000</td>
+      <td>8</td>
+    </tr>
+    <tr>
+      <th>32</th>
+      <td>7</td>
+      <td>Justin Fields</td>
+      <td>QB7</td>
+      <td>CHI</td>
+      <td>311.8</td>
+      <td>QB</td>
+      <td>7</td>
+      <td>43.366667</td>
+      <td>8</td>
     </tr>
     <tr>
       <th>33</th>
-      <td>56</td>
-      <td>Calvin Ridley</td>
-      <td>WR16</td>
-      <td>JAC</td>
-      <td>181.8</td>
-      <td>WR</td>
-      <td>16</td>
-      <td>52.887000</td>
-      <td>13</td>
-    </tr>
-    <tr>
-      <th>34</th>
       <td>57</td>
       <td>Najee Harris</td>
       <td>RB10</td>
@@ -1053,11 +1039,11 @@ While we can't play all of our QBs, we've properly seized on the opportunity to 
       <td>178.0</td>
       <td>RB</td>
       <td>10</td>
-      <td>47.914706</td>
-      <td>11</td>
+      <td>32.966667</td>
+      <td>13</td>
     </tr>
     <tr>
-      <th>35</th>
+      <th>34</th>
       <td>58</td>
       <td>Jahmyr Gibbs</td>
       <td>RB11</td>
@@ -1065,23 +1051,23 @@ While we can't play all of our QBs, we've properly seized on the opportunity to 
       <td>177.2</td>
       <td>RB</td>
       <td>11</td>
-      <td>47.114706</td>
+      <td>30.533333</td>
+      <td>11</td>
+    </tr>
+    <tr>
+      <th>35</th>
+      <td>56</td>
+      <td>Calvin Ridley</td>
+      <td>WR16</td>
+      <td>JAC</td>
+      <td>181.8</td>
+      <td>WR</td>
+      <td>16</td>
+      <td>24.033333</td>
       <td>9</td>
     </tr>
     <tr>
       <th>36</th>
-      <td>59</td>
-      <td>Christian Watson</td>
-      <td>WR17</td>
-      <td>GB</td>
-      <td>173.3</td>
-      <td>WR</td>
-      <td>17</td>
-      <td>44.387000</td>
-      <td>7</td>
-    </tr>
-    <tr>
-      <th>37</th>
       <td>8</td>
       <td>Trevor Lawrence</td>
       <td>QB8</td>
@@ -1089,35 +1075,23 @@ While we can't play all of our QBs, we've properly seized on the opportunity to 
       <td>301.4</td>
       <td>QB</td>
       <td>8</td>
-      <td>43.606061</td>
+      <td>22.733333</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>37</th>
+      <td>9</td>
+      <td>Deshaun Watson</td>
+      <td>QB9</td>
+      <td>CLE</td>
+      <td>293.2</td>
+      <td>QB</td>
+      <td>9</td>
+      <td>10.733333</td>
       <td>2</td>
     </tr>
     <tr>
       <th>38</th>
-      <td>60</td>
-      <td>Breece Hall</td>
-      <td>RB12</td>
-      <td>NYJ</td>
-      <td>172.2</td>
-      <td>RB</td>
-      <td>12</td>
-      <td>42.114706</td>
-      <td>3</td>
-    </tr>
-    <tr>
-      <th>39</th>
-      <td>62</td>
-      <td>Deebo Samuel</td>
-      <td>WR18</td>
-      <td>SF</td>
-      <td>170.2</td>
-      <td>WR</td>
-      <td>18</td>
-      <td>41.287000</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>40</th>
       <td>99</td>
       <td>T.J. Hockenson</td>
       <td>TE3</td>
@@ -1125,47 +1099,11 @@ While we can't play all of our QBs, we've properly seized on the opportunity to 
       <td>142.6</td>
       <td>TE</td>
       <td>3</td>
-      <td>40.702857</td>
-      <td>10</td>
+      <td>7.666667</td>
+      <td>2</td>
     </tr>
     <tr>
-      <th>41</th>
-      <td>63</td>
-      <td>Amari Cooper</td>
-      <td>WR19</td>
-      <td>CLE</td>
-      <td>169.6</td>
-      <td>WR</td>
-      <td>19</td>
-      <td>40.687000</td>
-      <td>17</td>
-    </tr>
-    <tr>
-      <th>42</th>
-      <td>64</td>
-      <td>DJ Moore</td>
-      <td>WR20</td>
-      <td>CHI</td>
-      <td>169.2</td>
-      <td>WR</td>
-      <td>20</td>
-      <td>40.287000</td>
-      <td>15</td>
-    </tr>
-    <tr>
-      <th>43</th>
-      <td>65</td>
-      <td>Kenneth Walker III</td>
-      <td>RB13</td>
-      <td>SEA</td>
-      <td>168.9</td>
-      <td>RB</td>
-      <td>13</td>
-      <td>38.814706</td>
-      <td>13</td>
-    </tr>
-    <tr>
-      <th>44</th>
+      <th>39</th>
       <td>107</td>
       <td>Darren Waller</td>
       <td>TE4</td>
@@ -1173,35 +1111,107 @@ While we can't play all of our QBs, we've properly seized on the opportunity to 
       <td>139.2</td>
       <td>TE</td>
       <td>4</td>
-      <td>37.302857</td>
+      <td>4.266667</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>40</th>
+      <td>10</td>
+      <td>Geno Smith</td>
+      <td>QB10</td>
+      <td>SEA</td>
+      <td>285.9</td>
+      <td>QB</td>
+      <td>10</td>
+      <td>48.833333</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <th>41</th>
+      <td>11</td>
+      <td>Daniel Jones</td>
+      <td>QB11</td>
+      <td>NYG</td>
+      <td>284.1</td>
+      <td>QB</td>
+      <td>11</td>
+      <td>43.700000</td>
+      <td>8</td>
+    </tr>
+    <tr>
+      <th>42</th>
+      <td>12</td>
+      <td>Dak Prescott</td>
+      <td>QB12</td>
+      <td>DAL</td>
+      <td>277.4</td>
+      <td>QB</td>
+      <td>12</td>
+      <td>40.333333</td>
+      <td>8</td>
+    </tr>
+    <tr>
+      <th>43</th>
+      <td>13</td>
+      <td>Tua Tagovailoa</td>
+      <td>QB13</td>
+      <td>MIA</td>
+      <td>274.5</td>
+      <td>QB</td>
+      <td>13</td>
+      <td>34.100000</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <th>44</th>
+      <td>14</td>
+      <td>Kirk Cousins</td>
+      <td>QB14</td>
+      <td>MIN</td>
+      <td>271.8</td>
+      <td>QB</td>
+      <td>14</td>
+      <td>34.733333</td>
       <td>6</td>
     </tr>
     <tr>
       <th>45</th>
-      <td>67</td>
-      <td>Terry McLaurin</td>
-      <td>WR21</td>
-      <td>WAS</td>
-      <td>166.0</td>
-      <td>WR</td>
-      <td>21</td>
-      <td>37.087000</td>
-      <td>9</td>
+      <td>15</td>
+      <td>Anthony Richardson</td>
+      <td>QB15</td>
+      <td>IND</td>
+      <td>269.4</td>
+      <td>QB</td>
+      <td>15</td>
+      <td>29.000000</td>
+      <td>4</td>
     </tr>
     <tr>
       <th>46</th>
-      <td>69</td>
-      <td>Drake London</td>
-      <td>WR22</td>
-      <td>ATL</td>
-      <td>165.8</td>
-      <td>WR</td>
-      <td>22</td>
-      <td>36.887000</td>
-      <td>7</td>
+      <td>16</td>
+      <td>Jared Goff</td>
+      <td>QB16</td>
+      <td>DET</td>
+      <td>264.1</td>
+      <td>QB</td>
+      <td>16</td>
+      <td>27.033333</td>
+      <td>4</td>
     </tr>
     <tr>
       <th>47</th>
+      <td>17</td>
+      <td>Aaron Rodgers</td>
+      <td>QB17</td>
+      <td>NYJ</td>
+      <td>261.3</td>
+      <td>QB</td>
+      <td>17</td>
+      <td>20.900000</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>48</th>
       <td>110</td>
       <td>George Kittle</td>
       <td>TE5</td>
@@ -1209,31 +1219,19 @@ While we can't play all of our QBs, we've properly seized on the opportunity to 
       <td>137.8</td>
       <td>TE</td>
       <td>5</td>
-      <td>35.902857</td>
+      <td>14.300000</td>
       <td>2</td>
     </tr>
     <tr>
-      <th>48</th>
-      <td>68</td>
-      <td>Alexander Mattison</td>
-      <td>RB14</td>
-      <td>MIN</td>
-      <td>165.9</td>
-      <td>RB</td>
-      <td>14</td>
-      <td>35.814706</td>
-      <td>3</td>
-    </tr>
-    <tr>
       <th>49</th>
-      <td>70</td>
-      <td>Joe Mixon</td>
-      <td>RB15</td>
-      <td>CIN</td>
-      <td>165.5</td>
-      <td>RB</td>
-      <td>15</td>
-      <td>35.414706</td>
+      <td>142</td>
+      <td>Kyle Pitts</td>
+      <td>TE6</td>
+      <td>ATL</td>
+      <td>127.8</td>
+      <td>TE</td>
+      <td>6</td>
+      <td>4.300000</td>
       <td>1</td>
     </tr>
   </tbody>
@@ -1252,10 +1250,8 @@ While we can't play all of our QBs, we've properly seized on the opportunity to 
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The fixed lookahead of 10 positions yields a somewhat similar ranking with all the same 
-observations as the simulated draft.
-This shows at least some resilience in our VONPP approach that shows low sensitivity to how we determine
-the next possible player</p>
+<p>The fixed lookahead of 10 positions yields a somewhat different ranking -- bumping RBs up, QBs down, WRs slightly down.</p>
+<p>This highlights the sensitivty of our lookahead periods in our VONPP approach.</p>
 
 </div>
 </div>
@@ -1320,23 +1316,11 @@ the next possible player</p>
       <td>227.9</td>
       <td>TE</td>
       <td>1</td>
-      <td>126.002857</td>
+      <td>98.600000</td>
       <td>5</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>18</td>
-      <td>Justin Jefferson</td>
-      <td>WR1</td>
-      <td>MIN</td>
-      <td>252.7</td>
-      <td>WR</td>
-      <td>1</td>
-      <td>123.787000</td>
-      <td>10</td>
-    </tr>
-    <tr>
-      <th>2</th>
       <td>19</td>
       <td>Christian McCaffrey</td>
       <td>RB1</td>
@@ -1344,71 +1328,11 @@ the next possible player</p>
       <td>247.4</td>
       <td>RB</td>
       <td>1</td>
-      <td>117.314706</td>
+      <td>71.600000</td>
       <td>10</td>
     </tr>
     <tr>
-      <th>3</th>
-      <td>20</td>
-      <td>Tyreek Hill</td>
-      <td>WR2</td>
-      <td>MIA</td>
-      <td>245.9</td>
-      <td>WR</td>
-      <td>2</td>
-      <td>116.987000</td>
-      <td>10</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>22</td>
-      <td>Ja'Marr Chase</td>
-      <td>WR3</td>
-      <td>CIN</td>
-      <td>244.0</td>
-      <td>WR</td>
-      <td>3</td>
-      <td>115.087000</td>
-      <td>10</td>
-    </tr>
-    <tr>
-      <th>5</th>
-      <td>1</td>
-      <td>Josh Allen</td>
-      <td>QB1</td>
-      <td>BUF</td>
-      <td>372.5</td>
-      <td>QB</td>
-      <td>1</td>
-      <td>114.706061</td>
-      <td>5</td>
-    </tr>
-    <tr>
-      <th>6</th>
-      <td>23</td>
-      <td>Cooper Kupp</td>
-      <td>WR4</td>
-      <td>LAR</td>
-      <td>243.3</td>
-      <td>WR</td>
-      <td>4</td>
-      <td>114.387000</td>
-      <td>10</td>
-    </tr>
-    <tr>
-      <th>7</th>
-      <td>2</td>
-      <td>Jalen Hurts</td>
-      <td>QB2</td>
-      <td>PHI</td>
-      <td>369.0</td>
-      <td>QB</td>
-      <td>2</td>
-      <td>111.206061</td>
-      <td>5</td>
-    </tr>
-    <tr>
-      <th>8</th>
+      <th>2</th>
       <td>25</td>
       <td>Austin Ekeler</td>
       <td>RB2</td>
@@ -1416,35 +1340,11 @@ the next possible player</p>
       <td>238.3</td>
       <td>RB</td>
       <td>2</td>
-      <td>108.214706</td>
+      <td>65.533333</td>
       <td>10</td>
     </tr>
     <tr>
-      <th>9</th>
-      <td>3</td>
-      <td>Patrick Mahomes</td>
-      <td>QB3</td>
-      <td>KC</td>
-      <td>361.0</td>
-      <td>QB</td>
-      <td>3</td>
-      <td>103.206061</td>
-      <td>5</td>
-    </tr>
-    <tr>
-      <th>10</th>
-      <td>30</td>
-      <td>Stefon Diggs</td>
-      <td>WR5</td>
-      <td>BUF</td>
-      <td>229.6</td>
-      <td>WR</td>
-      <td>5</td>
-      <td>100.687000</td>
-      <td>10</td>
-    </tr>
-    <tr>
-      <th>11</th>
+      <th>3</th>
       <td>31</td>
       <td>Bijan Robinson</td>
       <td>RB3</td>
@@ -1452,35 +1352,47 @@ the next possible player</p>
       <td>227.9</td>
       <td>RB</td>
       <td>3</td>
-      <td>97.814706</td>
+      <td>58.900000</td>
       <td>10</td>
     </tr>
     <tr>
-      <th>12</th>
-      <td>35</td>
-      <td>A.J. Brown</td>
-      <td>WR6</td>
+      <th>4</th>
+      <td>1</td>
+      <td>Josh Allen</td>
+      <td>QB1</td>
+      <td>BUF</td>
+      <td>372.5</td>
+      <td>QB</td>
+      <td>1</td>
+      <td>55.433333</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>2</td>
+      <td>Jalen Hurts</td>
+      <td>QB2</td>
       <td>PHI</td>
-      <td>222.1</td>
-      <td>WR</td>
-      <td>6</td>
-      <td>93.187000</td>
-      <td>10</td>
+      <td>369.0</td>
+      <td>QB</td>
+      <td>2</td>
+      <td>59.933333</td>
+      <td>5</td>
     </tr>
     <tr>
-      <th>13</th>
-      <td>37</td>
-      <td>Garrett Wilson</td>
-      <td>WR7</td>
-      <td>NYJ</td>
-      <td>221.2</td>
-      <td>WR</td>
-      <td>7</td>
-      <td>92.287000</td>
-      <td>10</td>
+      <th>6</th>
+      <td>3</td>
+      <td>Patrick Mahomes</td>
+      <td>QB3</td>
+      <td>KC</td>
+      <td>361.0</td>
+      <td>QB</td>
+      <td>3</td>
+      <td>58.866667</td>
+      <td>5</td>
     </tr>
     <tr>
-      <th>14</th>
+      <th>7</th>
       <td>38</td>
       <td>Tony Pollard</td>
       <td>RB4</td>
@@ -1488,11 +1400,11 @@ the next possible player</p>
       <td>221.0</td>
       <td>RB</td>
       <td>4</td>
-      <td>90.914706</td>
+      <td>54.233333</td>
       <td>10</td>
     </tr>
     <tr>
-      <th>15</th>
+      <th>8</th>
       <td>39</td>
       <td>Nick Chubb</td>
       <td>RB5</td>
@@ -1500,11 +1412,11 @@ the next possible player</p>
       <td>219.9</td>
       <td>RB</td>
       <td>5</td>
-      <td>89.814706</td>
+      <td>55.100000</td>
       <td>10</td>
     </tr>
     <tr>
-      <th>16</th>
+      <th>9</th>
       <td>4</td>
       <td>Joe Burrow</td>
       <td>QB4</td>
@@ -1512,35 +1424,11 @@ the next possible player</p>
       <td>345.7</td>
       <td>QB</td>
       <td>4</td>
-      <td>87.906061</td>
+      <td>52.200000</td>
       <td>5</td>
     </tr>
     <tr>
-      <th>17</th>
-      <td>44</td>
-      <td>CeeDee Lamb</td>
-      <td>WR8</td>
-      <td>DAL</td>
-      <td>214.1</td>
-      <td>WR</td>
-      <td>8</td>
-      <td>85.187000</td>
-      <td>10</td>
-    </tr>
-    <tr>
-      <th>18</th>
-      <td>45</td>
-      <td>Amon-Ra St. Brown</td>
-      <td>WR9</td>
-      <td>DET</td>
-      <td>213.9</td>
-      <td>WR</td>
-      <td>9</td>
-      <td>84.987000</td>
-      <td>10</td>
-    </tr>
-    <tr>
-      <th>19</th>
+      <th>10</th>
       <td>43</td>
       <td>Derrick Henry</td>
       <td>RB6</td>
@@ -1548,23 +1436,11 @@ the next possible player</p>
       <td>214.2</td>
       <td>RB</td>
       <td>6</td>
-      <td>84.114706</td>
+      <td>50.733333</td>
       <td>10</td>
     </tr>
     <tr>
-      <th>20</th>
-      <td>47</td>
-      <td>Davante Adams</td>
-      <td>WR10</td>
-      <td>LV</td>
-      <td>212.9</td>
-      <td>WR</td>
-      <td>10</td>
-      <td>83.987000</td>
-      <td>10</td>
-    </tr>
-    <tr>
-      <th>21</th>
+      <th>11</th>
       <td>46</td>
       <td>Saquon Barkley</td>
       <td>RB7</td>
@@ -1572,11 +1448,11 @@ the next possible player</p>
       <td>213.6</td>
       <td>RB</td>
       <td>7</td>
-      <td>83.514706</td>
+      <td>51.700000</td>
       <td>10</td>
     </tr>
     <tr>
-      <th>22</th>
+      <th>12</th>
       <td>48</td>
       <td>Josh Jacobs</td>
       <td>RB8</td>
@@ -1584,35 +1460,11 @@ the next possible player</p>
       <td>207.5</td>
       <td>RB</td>
       <td>8</td>
-      <td>77.414706</td>
+      <td>48.100000</td>
       <td>10</td>
     </tr>
     <tr>
-      <th>23</th>
-      <td>49</td>
-      <td>Chris Olave</td>
-      <td>WR11</td>
-      <td>NO</td>
-      <td>202.2</td>
-      <td>WR</td>
-      <td>11</td>
-      <td>73.287000</td>
-      <td>10</td>
-    </tr>
-    <tr>
-      <th>24</th>
-      <td>51</td>
-      <td>Tee Higgins</td>
-      <td>WR12</td>
-      <td>CIN</td>
-      <td>199.5</td>
-      <td>WR</td>
-      <td>12</td>
-      <td>70.587000</td>
-      <td>10</td>
-    </tr>
-    <tr>
-      <th>25</th>
+      <th>13</th>
       <td>61</td>
       <td>Mark Andrews</td>
       <td>TE2</td>
@@ -1620,11 +1472,131 @@ the next possible player</p>
       <td>171.6</td>
       <td>TE</td>
       <td>2</td>
-      <td>69.702857</td>
+      <td>48.100000</td>
       <td>5</td>
     </tr>
     <tr>
-      <th>26</th>
+      <th>14</th>
+      <td>18</td>
+      <td>Justin Jefferson</td>
+      <td>WR1</td>
+      <td>MIN</td>
+      <td>252.7</td>
+      <td>WR</td>
+      <td>1</td>
+      <td>47.833333</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>20</td>
+      <td>Tyreek Hill</td>
+      <td>WR2</td>
+      <td>MIA</td>
+      <td>245.9</td>
+      <td>WR</td>
+      <td>2</td>
+      <td>46.600000</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>22</td>
+      <td>Ja'Marr Chase</td>
+      <td>WR3</td>
+      <td>CIN</td>
+      <td>244.0</td>
+      <td>WR</td>
+      <td>3</td>
+      <td>47.333333</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>23</td>
+      <td>Cooper Kupp</td>
+      <td>WR4</td>
+      <td>LAR</td>
+      <td>243.3</td>
+      <td>WR</td>
+      <td>4</td>
+      <td>50.233333</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>30</td>
+      <td>Stefon Diggs</td>
+      <td>WR5</td>
+      <td>BUF</td>
+      <td>229.6</td>
+      <td>WR</td>
+      <td>5</td>
+      <td>41.333333</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>35</td>
+      <td>A.J. Brown</td>
+      <td>WR6</td>
+      <td>PHI</td>
+      <td>222.1</td>
+      <td>WR</td>
+      <td>6</td>
+      <td>40.833333</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>37</td>
+      <td>Garrett Wilson</td>
+      <td>WR7</td>
+      <td>NYJ</td>
+      <td>221.2</td>
+      <td>WR</td>
+      <td>7</td>
+      <td>46.100000</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>44</td>
+      <td>CeeDee Lamb</td>
+      <td>WR8</td>
+      <td>DAL</td>
+      <td>214.1</td>
+      <td>WR</td>
+      <td>8</td>
+      <td>43.066667</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>45</td>
+      <td>Amon-Ra St. Brown</td>
+      <td>WR9</td>
+      <td>DET</td>
+      <td>213.9</td>
+      <td>WR</td>
+      <td>9</td>
+      <td>44.233333</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>47</td>
+      <td>Davante Adams</td>
+      <td>WR10</td>
+      <td>LV</td>
+      <td>212.9</td>
+      <td>WR</td>
+      <td>10</td>
+      <td>44.633333</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <th>24</th>
       <td>5</td>
       <td>Lamar Jackson</td>
       <td>QB5</td>
@@ -1632,8 +1604,32 @@ the next possible player</p>
       <td>325.4</td>
       <td>QB</td>
       <td>5</td>
-      <td>67.606061</td>
+      <td>37.666667</td>
       <td>5</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>49</td>
+      <td>Chris Olave</td>
+      <td>WR11</td>
+      <td>NO</td>
+      <td>202.2</td>
+      <td>WR</td>
+      <td>11</td>
+      <td>35.200000</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>51</td>
+      <td>Tee Higgins</td>
+      <td>WR12</td>
+      <td>CIN</td>
+      <td>199.5</td>
+      <td>WR</td>
+      <td>12</td>
+      <td>34.366667</td>
+      <td>10</td>
     </tr>
     <tr>
       <th>27</th>
@@ -1644,7 +1640,7 @@ the next possible player</p>
       <td>196.2</td>
       <td>WR</td>
       <td>13</td>
-      <td>67.287000</td>
+      <td>33.300000</td>
       <td>10</td>
     </tr>
     <tr>
@@ -1656,23 +1652,11 @@ the next possible player</p>
       <td>194.3</td>
       <td>WR</td>
       <td>14</td>
-      <td>65.387000</td>
+      <td>35.075000</td>
       <td>10</td>
     </tr>
     <tr>
       <th>29</th>
-      <td>54</td>
-      <td>DeVonta Smith</td>
-      <td>WR15</td>
-      <td>PHI</td>
-      <td>188.7</td>
-      <td>WR</td>
-      <td>15</td>
-      <td>59.787000</td>
-      <td>10</td>
-    </tr>
-    <tr>
-      <th>30</th>
       <td>6</td>
       <td>Justin Herbert</td>
       <td>QB6</td>
@@ -1680,11 +1664,11 @@ the next possible player</p>
       <td>314.0</td>
       <td>QB</td>
       <td>6</td>
-      <td>56.206061</td>
+      <td>31.533333</td>
       <td>5</td>
     </tr>
     <tr>
-      <th>31</th>
+      <th>30</th>
       <td>7</td>
       <td>Justin Fields</td>
       <td>QB7</td>
@@ -1692,8 +1676,20 @@ the next possible player</p>
       <td>311.8</td>
       <td>QB</td>
       <td>7</td>
-      <td>54.006061</td>
+      <td>33.133333</td>
       <td>5</td>
+    </tr>
+    <tr>
+      <th>31</th>
+      <td>54</td>
+      <td>DeVonta Smith</td>
+      <td>WR15</td>
+      <td>PHI</td>
+      <td>188.7</td>
+      <td>WR</td>
+      <td>15</td>
+      <td>30.933333</td>
+      <td>10</td>
     </tr>
     <tr>
       <th>32</th>
@@ -1704,20 +1700,20 @@ the next possible player</p>
       <td>183.9</td>
       <td>RB</td>
       <td>9</td>
-      <td>53.814706</td>
+      <td>28.100000</td>
       <td>10</td>
     </tr>
     <tr>
       <th>33</th>
-      <td>56</td>
-      <td>Calvin Ridley</td>
-      <td>WR16</td>
+      <td>8</td>
+      <td>Trevor Lawrence</td>
+      <td>QB8</td>
       <td>JAC</td>
-      <td>181.8</td>
-      <td>WR</td>
-      <td>16</td>
-      <td>52.887000</td>
-      <td>10</td>
+      <td>301.4</td>
+      <td>QB</td>
+      <td>8</td>
+      <td>26.833333</td>
+      <td>5</td>
     </tr>
     <tr>
       <th>34</th>
@@ -1728,7 +1724,7 @@ the next possible player</p>
       <td>178.0</td>
       <td>RB</td>
       <td>10</td>
-      <td>47.914706</td>
+      <td>26.433333</td>
       <td>10</td>
     </tr>
     <tr>
@@ -1740,35 +1736,11 @@ the next possible player</p>
       <td>177.2</td>
       <td>RB</td>
       <td>11</td>
-      <td>47.114706</td>
+      <td>28.300000</td>
       <td>10</td>
     </tr>
     <tr>
       <th>36</th>
-      <td>59</td>
-      <td>Christian Watson</td>
-      <td>WR17</td>
-      <td>GB</td>
-      <td>173.3</td>
-      <td>WR</td>
-      <td>17</td>
-      <td>44.387000</td>
-      <td>10</td>
-    </tr>
-    <tr>
-      <th>37</th>
-      <td>8</td>
-      <td>Trevor Lawrence</td>
-      <td>QB8</td>
-      <td>JAC</td>
-      <td>301.4</td>
-      <td>QB</td>
-      <td>8</td>
-      <td>43.606061</td>
-      <td>5</td>
-    </tr>
-    <tr>
-      <th>38</th>
       <td>60</td>
       <td>Breece Hall</td>
       <td>RB12</td>
@@ -1776,59 +1748,23 @@ the next possible player</p>
       <td>172.2</td>
       <td>RB</td>
       <td>12</td>
-      <td>42.114706</td>
+      <td>25.533333</td>
       <td>10</td>
     </tr>
     <tr>
-      <th>39</th>
-      <td>62</td>
-      <td>Deebo Samuel</td>
-      <td>WR18</td>
-      <td>SF</td>
-      <td>170.2</td>
+      <th>37</th>
+      <td>56</td>
+      <td>Calvin Ridley</td>
+      <td>WR16</td>
+      <td>JAC</td>
+      <td>181.8</td>
       <td>WR</td>
-      <td>18</td>
-      <td>41.287000</td>
+      <td>16</td>
+      <td>24.833333</td>
       <td>10</td>
     </tr>
     <tr>
-      <th>40</th>
-      <td>99</td>
-      <td>T.J. Hockenson</td>
-      <td>TE3</td>
-      <td>MIN</td>
-      <td>142.6</td>
-      <td>TE</td>
-      <td>3</td>
-      <td>40.702857</td>
-      <td>5</td>
-    </tr>
-    <tr>
-      <th>41</th>
-      <td>63</td>
-      <td>Amari Cooper</td>
-      <td>WR19</td>
-      <td>CLE</td>
-      <td>169.6</td>
-      <td>WR</td>
-      <td>19</td>
-      <td>40.687000</td>
-      <td>10</td>
-    </tr>
-    <tr>
-      <th>42</th>
-      <td>64</td>
-      <td>DJ Moore</td>
-      <td>WR20</td>
-      <td>CHI</td>
-      <td>169.2</td>
-      <td>WR</td>
-      <td>20</td>
-      <td>40.287000</td>
-      <td>10</td>
-    </tr>
-    <tr>
-      <th>43</th>
+      <th>38</th>
       <td>65</td>
       <td>Kenneth Walker III</td>
       <td>RB13</td>
@@ -1836,11 +1772,23 @@ the next possible player</p>
       <td>168.9</td>
       <td>RB</td>
       <td>13</td>
-      <td>38.814706</td>
+      <td>23.866667</td>
       <td>10</td>
     </tr>
     <tr>
-      <th>44</th>
+      <th>39</th>
+      <td>99</td>
+      <td>T.J. Hockenson</td>
+      <td>TE3</td>
+      <td>MIN</td>
+      <td>142.6</td>
+      <td>TE</td>
+      <td>3</td>
+      <td>23.733333</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>40</th>
       <td>107</td>
       <td>Darren Waller</td>
       <td>TE4</td>
@@ -1848,35 +1796,11 @@ the next possible player</p>
       <td>139.2</td>
       <td>TE</td>
       <td>4</td>
-      <td>37.302857</td>
+      <td>24.300000</td>
       <td>5</td>
     </tr>
     <tr>
-      <th>45</th>
-      <td>67</td>
-      <td>Terry McLaurin</td>
-      <td>WR21</td>
-      <td>WAS</td>
-      <td>166.0</td>
-      <td>WR</td>
-      <td>21</td>
-      <td>37.087000</td>
-      <td>10</td>
-    </tr>
-    <tr>
-      <th>46</th>
-      <td>69</td>
-      <td>Drake London</td>
-      <td>WR22</td>
-      <td>ATL</td>
-      <td>165.8</td>
-      <td>WR</td>
-      <td>22</td>
-      <td>36.887000</td>
-      <td>10</td>
-    </tr>
-    <tr>
-      <th>47</th>
+      <th>41</th>
       <td>110</td>
       <td>George Kittle</td>
       <td>TE5</td>
@@ -1884,11 +1808,11 @@ the next possible player</p>
       <td>137.8</td>
       <td>TE</td>
       <td>5</td>
-      <td>35.902857</td>
+      <td>28.533333</td>
       <td>5</td>
     </tr>
     <tr>
-      <th>48</th>
+      <th>42</th>
       <td>68</td>
       <td>Alexander Mattison</td>
       <td>RB14</td>
@@ -1896,11 +1820,11 @@ the next possible player</p>
       <td>165.9</td>
       <td>RB</td>
       <td>14</td>
-      <td>35.814706</td>
+      <td>23.100000</td>
       <td>10</td>
     </tr>
     <tr>
-      <th>49</th>
+      <th>43</th>
       <td>70</td>
       <td>Joe Mixon</td>
       <td>RB15</td>
@@ -1908,8 +1832,80 @@ the next possible player</p>
       <td>165.5</td>
       <td>RB</td>
       <td>15</td>
-      <td>35.414706</td>
+      <td>24.100000</td>
       <td>10</td>
+    </tr>
+    <tr>
+      <th>44</th>
+      <td>72</td>
+      <td>Aaron Jones</td>
+      <td>RB16</td>
+      <td>GB</td>
+      <td>163.0</td>
+      <td>RB</td>
+      <td>16</td>
+      <td>23.600000</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <th>45</th>
+      <td>73</td>
+      <td>Travis Etienne Jr.</td>
+      <td>RB17</td>
+      <td>JAC</td>
+      <td>161.9</td>
+      <td>RB</td>
+      <td>17</td>
+      <td>24.900000</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <th>46</th>
+      <td>74</td>
+      <td>Dameon Pierce</td>
+      <td>RB18</td>
+      <td>HOU</td>
+      <td>160.8</td>
+      <td>RB</td>
+      <td>18</td>
+      <td>26.033333</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <th>47</th>
+      <td>142</td>
+      <td>Kyle Pitts</td>
+      <td>TE6</td>
+      <td>ATL</td>
+      <td>127.8</td>
+      <td>TE</td>
+      <td>6</td>
+      <td>22.766667</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>48</th>
+      <td>79</td>
+      <td>Miles Sanders</td>
+      <td>RB19</td>
+      <td>CAR</td>
+      <td>155.5</td>
+      <td>RB</td>
+      <td>19</td>
+      <td>22.333333</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <th>49</th>
+      <td>9</td>
+      <td>Deshaun Watson</td>
+      <td>QB9</td>
+      <td>CLE</td>
+      <td>293.2</td>
+      <td>QB</td>
+      <td>9</td>
+      <td>21.300000</td>
+      <td>5</td>
     </tr>
   </tbody>
 </table>
